@@ -21,6 +21,7 @@ import { PredictionComponent } from './pages/prediction/prediction.component';
 import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TitlecasePipe } from './pipes/titlecase.pipe';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { TitlecasePipe } from './pipes/titlecase.pipe';
     PredictionComponent,
     JumbotronComponent,
     NavbarComponent,
-    TitlecasePipe
+    TitlecasePipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -57,6 +59,7 @@ import { TitlecasePipe } from './pipes/titlecase.pipe';
       { path: 'foreigncurrency', component: ForeignCurrencyComponent },
       { path: 'prediction', component: PredictionComponent },
       { path: 'blockchain', component: BlockchainComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '**', component: MainComponent },
     ])
   ],
