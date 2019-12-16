@@ -22,6 +22,7 @@ import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TitlecasePipe } from './pipes/titlecase.pipe';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AuthGuard } from './components/auth.guard';
 
 @NgModule({
   declarations: [
@@ -53,13 +54,13 @@ import { ProfileComponent } from './components/profile/profile.component';
       //{ path: 'counter', component: CounterComponent },
       //{ path: 'fetch-data', component: FetchDataComponent },
       { path: 'home', component: MainComponent },
-      { path: 'accounts', component: AccountComponent },
-      { path: 'income', component: IncomeComponent },
-      { path: 'expense', component: ExpenseComponent },
-      { path: 'foreigncurrency', component: ForeignCurrencyComponent },
-      { path: 'prediction', component: PredictionComponent },
-      { path: 'blockchain', component: BlockchainComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
+      { path: 'income', component: IncomeComponent, canActivate: [AuthGuard] },
+      { path: 'expense', component: ExpenseComponent, canActivate: [AuthGuard] },
+      { path: 'foreigncurrency', component: ForeignCurrencyComponent, canActivate: [AuthGuard] },
+      { path: 'prediction', component: PredictionComponent, canActivate: [AuthGuard] },
+      { path: 'blockchain', component: BlockchainComponent, canActivate: [AuthGuard] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
       { path: '**', component: MainComponent },
     ])
   ],
