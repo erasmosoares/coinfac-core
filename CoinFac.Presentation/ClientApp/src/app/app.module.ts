@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { OrderModule } from 'ngx-order-pipe';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -54,6 +55,7 @@ import { AuthGuard } from './components/auth.guard';
     AngularFontAwesomeModule,
     FormsModule,
     OrderModule,
+    NgxChartsModule,
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
