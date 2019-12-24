@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { OrderModule } from 'ngx-order-pipe';
@@ -57,6 +58,7 @@ import { AuthGuard } from './components/auth.guard';
     FormsModule,
     OrderModule,
     NgxChartsModule,
+    BrowserAnimationsModule,
     NgxSmartModalModule.forChild(), 
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
