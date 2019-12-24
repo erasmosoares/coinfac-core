@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { OrderModule } from 'ngx-order-pipe';
 
@@ -50,6 +51,7 @@ import { AuthGuard } from './components/auth.guard';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    AngularFontAwesomeModule,
     FormsModule,
     OrderModule,
     RouterModule.forRoot([
