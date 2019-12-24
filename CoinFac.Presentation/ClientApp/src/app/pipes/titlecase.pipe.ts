@@ -1,12 +1,18 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe,PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'titlecase'
+    name:'titleCase'
 })
-export class TitlecasePipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    return null;
-  }
+export class TitleCasePipe implements PipeTransform{
+    
+    transform(value: string) {
+        
+        if(!value)
+         return null;
 
+        let  convertedText = value.replace(/\w\S*/g, (txt => txt[0].toUpperCase() + txt.substr(1).toLowerCase() )); 
+   
+        return convertedText;
+    }
 }

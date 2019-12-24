@@ -1,19 +1,17 @@
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
 }
 
-.box:hover {
-  transform: rotate(360deg);
-  background: #9351A6;
-  border-radius: 50%;
-}
-
-.rotate {
-  transition: all 0.5s ease-in-out;
-}
-
+  .box:hover {
+    transform: rotate(360deg);
+    background: #9351A6;
+    border-radius: 50%;
+  }
+  .rotate {
+    transition: all 0.5s ease-in-out;
+  }
   .rotate:hover {
     transition: all 1s ease-in-out;
   }

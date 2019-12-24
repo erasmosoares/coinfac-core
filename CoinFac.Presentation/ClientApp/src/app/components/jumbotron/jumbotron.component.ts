@@ -9,7 +9,7 @@ export class JumbotronComponent implements OnInit {
 
   @Input('title') title: string;
   @Input('subtitle') subtitle: string;
-
+  
   constructor() { }
 
   ngOnInit() {

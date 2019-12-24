@@ -1,3 +1,267 @@
-<p>
-  account works!
-</p>
+<div *ngIf="showTitle; then jumbotronfull else jumbotronsimple"></div>
+
+<ng-template #jumbotronfull>
+  <app-jumbotron title="Accounts" subtitle="Create and track accounts.">
+  </app-jumbotron>
+</ng-template>
+<ng-template #jumbotronsimple>
+  <nav class="navbar" [ngClass]="{
+    'navbar-dark bg-dark': theme === 'dark-mode',
+    'navbar-light bg-light': theme != 'dark-mode'}"
+    >
+    <a class="navbar-brand">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
+              alt="">
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+            Accounts
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+            <i class="fa fa-angle-right fa-lg"></i>
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+              <div class="total">Total</div>
+            </div>
+            <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+              {{accountsSum | currency:'BRL'}}
+            </div>
+            <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+                <i class="fa fa-angle-right fa-lg"></i>
+            </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+            <div class="total">{{maxAccountName}}</div>
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+              {{maxAccountValue | currency:'BRL'}}
+          </div>
+          <div class="col-sm">
+            <i class="fa fa-caret-up fa-lg"></i>
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+            <div class="total">{{minAccountName}}</div>
+          </div>
+          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+              {{minAccountValue | currency:'BRL'}}
+          </div>
+          <div class="col-sm">
+            <i class="fa fa-caret-down fa-lg"></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </nav>
+  
+</ng-template>
+
+<div>
+
+  <div class="marginTop">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="px-2">
+          <div class="col-xs-6">
+            <button class="btn btn-outline-success my-2 my-sm-0" (click)="ngxSmartModalService.getModal('popupOne').open()" type="submit">Accounts Manager</button>
+          </div>
+        </div>
+        <div class="px-2">
+          <div class="col-xs-6">
+            <button class="btn btn-outline-success my-2 my-sm-0" (click)="ngxSmartModalService.getModal('popupTwo').open()" type="submit">Records Manager</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-account-modal></app-account-modal>
+
+  <mat-tab-group dynamicHeight="true" animationDuration="0ms">
+    
+    <mat-tab label="Insights">
+        <p></p>
+        <div class="title" [ngClass]="{'text-dark': theme === 'dark-mode'}">Accounts Insights</div>
+        <p></p>
+        <div class="container-fluid ">
+          <div class="row">
+            <div class="col-5">
+              <div class="text" [ngClass]="{'text-dark': theme === 'dark-mode'}">
+                The accounts in CoinFac are all accounts in which you receive money or receive investment, for example
+                the bank account
+                in which you receive your salary. You can registry daily, weekly, monthly or how you think better.
+                <p></p>
+                CoinFac is programmed to best provide the insights for weekly or biweekly registrations. Go up the ranking of the most economic, win experience and achieve your goals.
+                <p></p>
+                <p></p>
+                <div class="bold"> This is your current report. </div>
+              </div>
+             <!-- <img class="mr-3" src="https://tclxi2iwj8i303owt1pk0ub1-wpengine.netdna-ssl.com/wp-content/uploads/2017/01/17222446/giphy-17.gif"
+                alt="Generic placeholder image"> -->
+                <p></p>
+                <p></p>
+                <div class="container">
+                  <div class="row">
+                    <div class="col">You have:</div>
+                    <div class="col"><i class="fa fa-check-square-o fa-lg"></i> 300 xp</div>
+                    <div class="w-100"></div>
+                    <div class="col">Current Ranking:</div>
+                     <div class="col"><i class="fa fa-check-square-o fa-lg"></i> Silver</div>
+                    <div class="w-100"></div>
+                    <div class="col">Goals achieved:</div>
+                    <div class="col"><i class="fa fa-check-square-o fa-lg"></i> 0</div>
+                    <div class="w-100"></div>
+                    <div class="col">Account you spent more:</div>
+                    <div class="col"><i class="fa fa-check-square-o fa-lg"></i> Bradesco</div>
+                    <div class="w-100"></div>
+                    <div class="col">You should put some money:</div>
+                    <div class="col"><i class="fa fa-check-square-o fa-lg"></i> Poupança</div>
+                  </div>
+                </div>
+                
+            </div>
+            <div class="col-5">
+              <div class="card-columns">
+                <div class="card border-light mb-3">
+                  <blockquote cite="Aristotle">Money is a guarantee that we may have what we want in the future. Though
+                    we need nothing at the moment it insures the possibility of satisfying a new desire when it arises.</blockquote>
+                </div>
+                <div class="card border-light mb-3">
+                  <blockquote cite="Ally Mbululo">Love is like money... hard to find easy to lose.</blockquote>
+                </div>
+                <div class="card border-light mb-3">
+                  <blockquote cite="Robert Kiyosaki">It’s not how much money you make, but how much money you keep, how
+                    hard it works for you, and how many generations you keep it for.</blockquote>
+                </div>
+                <div class="card border-light mb-3">
+                  <blockquote cite="Will Rogers">The quickest way to double your money is to fold it in half and put it
+                    in your back pocket.</blockquote>
+                </div>
+                <div class="card border-light mb-3">
+                  <blockquote cite="Benjamin Franklin">If you would be wealthy, think of saving as well as getting.</blockquote>
+                </div>
+                <div class="card border-light mb-3">
+                  <blockquote cite="Thomas Jefferson">Never spend your money before you have earned it.</blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Accounts">
+      <div class="row">
+        <div class="col">
+          <div class="table-responsive-sm">
+            <table class="table table table-hover table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Account Name</th>
+                  <th scope="col">Account Type</th>
+                  <th scope="col">Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of accounts; index as i">
+                  <div class="btn-group">
+                    <a class="btn btn-outline-success my-2 my-sm-0 disabled" href="#">
+                      <i class="fa fa-pencil-square-o fa-lg"></i>
+                    </a>
+                    <a class="btn btn-outline-success my-2 my-sm-0 disabled" href="#">
+                      <i class="fa fa-trash-o fa-lg"></i>
+                    </a>
+                  </div>
+                  <th scope="row">
+                    {{i}}
+                  </th>
+                  <td scope="row">
+                    {{account.name}}
+                  </td>
+                  <td scope="row">
+                    {{account.type}}
+                  </td>
+                  <td scope="row">
+                    {{account.comments}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col">
+          <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="false"
+            [explodeSlices]="false" [labels]="true" [doughnut]="false" gradient="gradient" (select)="onSelect($event)">
+          </ngx-charts-pie-chart>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Records">
+      
+        <table class="table table-borderless table-responsive">
+          <thead>
+            <tr>
+                <ng-container *ngFor="let account of accounts; index as i">
+                    <th scope="col" >
+                        {{account.name}}
+                    </th>
+                </ng-container>
+            </tr>
+          </thead>
+          <tbody id="tab-cards-body">
+              <ng-container *ngFor="let account of accounts; index as i">
+                  <th id="tab-cards-th" >
+                      <ng-container *ngFor="let serie of account.series | orderBy: reverse ; index as i">
+                          <tr id="tab-cards-tr" >
+                              <td id="tab-cards-td" >
+              
+                                <div id="tab-cards-card" class="card" [ngClass]="{'border-light mb-3 bg-light': i > 0}" [ngClass]="{'bg-light': i > 0}">
+                                  <div class="card-body">
+                                    <h5 class="card-title">
+                                      <div *ngIf="i === account.series.length-1 ; then novalidate else validate"></div>
+                                      <ng-template #validate>
+                                        {{serie.value | currency:'BRL' }}
+                                        <i class="fa" [ngClass]="{
+                                                                          'fa-caret-up fa-lg':  serie.value > account.series[(account.series.length - i) - 2].value,
+                                                                          'fa-caret-down fa-lg':  serie.value < account.series[(account.series.length - i) - 2].value 
+                                                                      }"></i>
+                                      </ng-template>
+                                      <ng-template #novalidate>
+                                        {{serie.value | currency:'BRL'}} <i class="fa fa-smile-o fa-"></i>
+                                      </ng-template>
+              
+                                    </h5>
+                                    <p class="card-text ">
+                                      Date: {{serie.name}}
+                                    </p>
+                                    <p class="card-text ">
+                                      Notes: This is a sample note
+                                    </p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                  </div>
+                                </div>
+              
+                              </td>
+                            </tr>
+                      </ng-container>
+                  </th>
+              </ng-container>  
+          </tbody>
+        </table>
+ 
+    </mat-tab>
+
+  </mat-tab-group>
+
+</div>
+
+<nav class="navbar fixed-bottom navbar-light bg-light">
+  <a>
+    <div class="total">
+      CoinFac V1.0.0 - Made with <i class="fa fa-coffee fa-"></i> by esaj
+    </div>
+  </a>
+</nav>
+

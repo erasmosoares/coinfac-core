@@ -1,5 +1,5 @@
 <app-jumbotron title="Welcome to CoinFac"
-               subtitle="Organizing your savings upside down.">
+              subtitle="Organizing your savings upside down.">
 </app-jumbotron>
 <div class="card-deck">
   <div class="card">
@@ -7,20 +7,21 @@
       <h5 class="card-title">Accounts</h5>
       <p class="card-text">
         This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-        <ngx-charts-line-chart [view]="view"
-                               [scheme]="colorScheme"
-                               [results]="accounts"
-                               gradient="gradient"
-                               xAxis="true"
-                               yAxis="true"
-                               legend="true"
-                               showXAxisLabel="true"
-                               showYAxisLabel="true"
-                               xAxisLabel="true"
-                               yAxisLabel="true"
-                               autoScale="autoScale"
-                               timeline="true"
-                               (select)="onSelect($event)">
+        <ngx-charts-line-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="accounts"
+          gradient="gradient"
+          xAxis="true"
+          yAxis="true"
+          legend="true"
+          showXAxisLabel="true"
+          showYAxisLabel="true"
+          xAxisLabel="true"
+          yAxisLabel="true"
+          autoScale="autoScale"
+          timeline="true"
+          (select)="onSelect($event)">
         </ngx-charts-line-chart>
       </p>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -33,17 +34,18 @@
         This card has supporting text below as a natural lead-in to additional content.
       </p>
       <div>
-        <ngx-charts-bar-vertical [view]="view"
-                                 [results]="single"
-                                 [scheme]="colorScheme"
-                                 xAxis="true"
-                                 yAxis="true"
-                                 legend="true"
-                                 legendTitle="Countries"
-                                 showXAxisLabel="true"
-                                 showYAxisLabel="true"
-                                 xAxisLabel="Country"
-                                 yAxisLabel="GDP Per Capita">
+          <ngx-charts-bar-vertical
+          [view]="view"
+          [results]="single"
+          [scheme]="colorScheme"
+          xAxis="true"
+          yAxis="true"
+          legend="true"
+          legendTitle="Countries"
+          showXAxisLabel="true"
+          showYAxisLabel="true"
+          xAxisLabel="Country"
+          yAxisLabel="GDP Per Capita">
         </ngx-charts-bar-vertical>
       </div>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -56,10 +58,11 @@
         This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
       </p>
       <div>
-        <ngx-charts-number-card [view]="view"
-                                [scheme]="colorScheme"
-                                [results]="single"
-                                (select)="onSelect($event)">
+          <ngx-charts-number-card
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          (select)="onSelect($event)">
         </ngx-charts-number-card>
       </div>
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -67,85 +70,90 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-sm-9">
-    <h3 class="display-4">Keep tracking your money</h3>
-    <div class="row">
-      <div class="col-8 col-sm-6">
-        <ngx-charts-advanced-pie-chart [view]="view"
-                                       [scheme]="colorScheme"
-                                       [results]="single"
-                                       gradient="gradient"
-                                       (select)="onSelect($event)">
-        </ngx-charts-advanced-pie-chart>
-      </div>
-      <div class="col-4 col-sm-6">
-        <ngx-charts-pie-grid [view]="view"
-                             [scheme]="colorScheme"
-                             [results]="single"
-                             (select)="onSelect($event)">
-        </ngx-charts-pie-grid>
+    <div class="col-sm-9">
+      <h3 class="display-4">Keep tracking your money</h3>
+      <div class="row">
+        <div class="col-8 col-sm-6">
+          <ngx-charts-advanced-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="single"
+            gradient="gradient"
+            (select)="onSelect($event)">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+        <div class="col-4 col-sm-6">
+            <ngx-charts-pie-grid
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="single"
+              (select)="onSelect($event)">
+            </ngx-charts-pie-grid>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 <div class="card-deck">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Accounts</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-        <ngx-charts-pie-chart [view]="view"
-                              [scheme]="colorScheme"
-                              [results]="single"
-                              [legend]="false"
-                              [explodeSlices]="false"
-                              [labels]="true"
-                              [doughnut]="true"
-                              gradient="gradient"
-                              (select)="onSelect($event)">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Accounts</h5>
+        <p class="card-text">
+          This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+          <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="single"
+          [legend]="false"
+          [explodeSlices]="false"
+          [labels]="true"
+          [doughnut]="true"
+          gradient="gradient"
+          (select)="onSelect($event)">
         </ngx-charts-pie-chart>
-      </p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Patrimony</h5>
-      <p class="card-text">
-        This card has supporting text below as a natural lead-in to additional content.
-      </p>
-      <div>
-        <ngx-charts-advanced-pie-chart [view]="view"
-                                       [scheme]="colorScheme"
-                                       [results]="single"
-                                       cleargradient="gradient"
-                                       (select)="onSelect($event)">
-        </ngx-charts-advanced-pie-chart>
+        </p>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Foreign Currency</h5>
-      <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
-      </p>
-      <div>
-        <ngx-charts-pie-grid [view]="view"
-                             [scheme]="colorScheme"
-                             [results]="single"
-                             (select)="onSelect($event)">
-        </ngx-charts-pie-grid>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Patrimony</h5>
+        <p class="card-text">
+          This card has supporting text below as a natural lead-in to additional content.
+        </p>
+        <div>
+            <ngx-charts-advanced-pie-chart
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="single"
+            cleargradient="gradient"
+            (select)="onSelect($event)">
+          </ngx-charts-advanced-pie-chart>
+        </div>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
-  </div>
-</div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <a>
-    <div class="total">
-      CoinFac V1.0.0 - Made with <i class="fa fa-coffee fa-"></i> by esaj
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Foreign Currency</h5>
+        <p class="card-text">
+          This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+        </p>
+        <div>
+            <ngx-charts-pie-grid
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="single"
+              (select)="onSelect($event)">
+            </ngx-charts-pie-grid>
+        </div>
+        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+      </div>
     </div>
-  </a>
-</nav>
+  </div> 
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+      <a>
+        <div class="total">
+            CoinFac V1.0.0 - Made with <i class="fa fa-coffee fa-"></i> by esaj
+        </div>
+      </a>
+  </nav>

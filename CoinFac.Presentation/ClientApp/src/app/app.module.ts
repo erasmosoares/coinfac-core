@@ -1,65 +1,64 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { OrderModule } from 'ngx-order-pipe';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { MainComponent } from './pages/main/main.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AccountComponent } from './pages/account/account.component';
-import { AccountModalComponent } from './pages/account-modal/account-modal.component';
-import { BlockchainComponent } from './pages/blockchain/blockchain.component';
+import { IncomeComponent } from './pages/income/income.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
 import { ForeignCurrencyComponent } from './pages/foreign-currency/foreign-currency.component';
-import { IncomeComponent } from './pages/income/income.component';
-import { MainComponent } from './pages/main/main.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PredictionComponent } from './pages/prediction/prediction.component';
+import { BlockchainComponent } from './pages/blockchain/blockchain.component';
+import { RouterModule } from '@angular/router';
 import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { TitlecasePipe } from './pipes/titlecase.pipe';
-import { ProfileComponent } from './components/profile/profile.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { AccountModalComponent } from './pages/account-modal/account-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TitleCasePipe } from './pipes/titlecase.pipe';
 import { AuthGuard } from './components/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
+    MainComponent,
+    NavbarComponent,
+    NotFoundComponent,
     AccountComponent,
-    AccountModalComponent,
-    BlockchainComponent,
+    IncomeComponent,
     ExpenseComponent,
     ForeignCurrencyComponent,
-    IncomeComponent,
-    MainComponent,
-    NotFoundComponent,
     PredictionComponent,
+    BlockchainComponent,
     JumbotronComponent,
-    NavbarComponent,
-    TitlecasePipe,
-    ProfileComponent
+    AccountModalComponent,
+    ProfileComponent,
+    TitleCasePipe
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    AngularFontAwesomeModule,
+    BrowserModule,
     FormsModule,
-    OrderModule,
-    NgxChartsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgxSmartModalModule.forChild(), 
+    NgxChartsModule,
+    HttpModule,
+    HttpClientModule, 
+    AngularFontAwesomeModule,
+    OrderModule,
+    MatToolbarModule,
+    MatTabsModule,
+    NgxSmartModalModule.forChild(),
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
@@ -76,6 +75,7 @@ import { AuthGuard } from './components/auth.guard';
     ])
   ],
   providers: [NgxSmartModalService],
+  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

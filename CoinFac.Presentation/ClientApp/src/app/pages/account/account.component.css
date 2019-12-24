@@ -1,0 +1,94 @@
+tbody { 
+  font-weight:normal; 
+}
+.table thead th {
+  text-align: center;
+}
+.table tbody td {
+  text-align: center;
+}
+.ac-tabel tr:first-child td{
+  background:red
+}
+.card card-title ac-h5{
+  color: rebeccapurple
+}
+div .total {
+  font-size: 15px;
+  vertical-align: bottom;
+}
+div .text {
+  text-align: justify;
+}
+div .col-sm-dark {
+  color: white;
+}
+div .bold {
+  font-weight: bold;
+}
+div .text-dark {
+  color: #8C989C !important;
+}
+div .title {
+  font-size: 20px;
+  text-align:left;
+}
+div .marginTop{
+ padding-top: 10px;
+}
+.fa-caret-up{
+  color: green
+}
+.fa-caret-down{
+  color: red
+}
+.fa-thumbs-up{
+  color: green
+}
+.fa-thumbs-down{
+  color: red
+}
+.px-2 {
+  padding-left: (1 * .5) !important;
+  padding-right: (1 * .5) !important;
+}
+.mat-ink-bar {
+  background-color: green !important;
+}
+
+blockquote {
+  display: block;
+  border-width: 2px 0;
+  border-style: solid;
+  border-color: #eee;
+  padding: 1.5em 0 0.5em;
+  margin: 1.5em 0;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+}
+blockquote:before {
+  content: '\201C';
+  position: absolute;
+  top: 0em;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  width: 3rem;
+  height: 2rem;
+  font: 6em/1.08em 'PT Sans', sans-serif;
+  color: #666;
+  text-align: center;
+}
+blockquote:after {
+  content: "\2013 \2003" attr(cite);
+  display: block;
+  text-align: right;
+  font-size: 0.875em;
+  color: #666 
+}
+
+md-tabs md-ink-bar { background: transparent; }
+
+body-dark {
+  background-color: #171717;
+}

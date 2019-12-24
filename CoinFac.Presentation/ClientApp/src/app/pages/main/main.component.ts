@@ -9,7 +9,7 @@ import { accounts, single } from './../main/main-data';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-
+  
   single: any[];
   multi: any[];
   accounts: any[];
@@ -20,8 +20,8 @@ export class MainComponent implements OnInit {
   };
 
   constructor() {
-    Object.assign(this, { single, multi, accounts })
-  }
+    Object.assign(this, {single,multi,accounts}) 
+   }
 
   ngOnInit() {
   }
