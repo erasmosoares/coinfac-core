@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -56,6 +57,7 @@ import { AuthGuard } from './components/auth.guard';
     FormsModule,
     OrderModule,
     NgxChartsModule,
+    NgxSmartModalModule.forChild(), 
     RouterModule.forRoot([
       //{ path: '', component: HomeComponent, pathMatch: 'full' },
       //{ path: 'counter', component: CounterComponent },
@@ -71,7 +73,7 @@ import { AuthGuard } from './components/auth.guard';
       { path: '**', component: MainComponent },
     ])
   ],
-  providers: [],
+  providers: [NgxSmartModalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
