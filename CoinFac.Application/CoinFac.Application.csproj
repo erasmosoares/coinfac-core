@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\CoinFac.Common.csproj" />
-    <ProjectReference Include="..\Domain\CoinFac.Domain.csproj" />
+    <ProjectReference Include="..\CoinFac.Common\CoinFac.Common.csproj" />
+    <ProjectReference Include="..\CoinFac.Domain\CoinFac.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

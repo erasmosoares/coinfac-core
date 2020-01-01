@@ -4,8 +4,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:58715",
-      "sslPort": 44302
+      "applicationUrl": "http://localhost:4190",
+      "sslPort": 44372
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CoinFac.Service": {
+    "Service": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

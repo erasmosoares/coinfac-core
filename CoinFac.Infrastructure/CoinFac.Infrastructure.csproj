@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\CoinFac.Application.csproj" />
+    <ProjectReference Include="..\CoinFac.Application\CoinFac.Application.csproj" />
   </ItemGroup>
 
 </Project>

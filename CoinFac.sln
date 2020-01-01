@@ -5,19 +5,19 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Presentation", "CoinFac.Presentation\CoinFac.Presentation.csproj", "{CE0538CA-05E8-4E4E-BE41-45B1CBA43EF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Application", "Application\CoinFac.Application.csproj", "{BC2F2ADF-A732-4D61-BB64-3559073D2E1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Application", "CoinFac.Application\CoinFac.Application.csproj", "{BC2F2ADF-A732-4D61-BB64-3559073D2E1E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Common", "Common\CoinFac.Common.csproj", "{04B50DBD-F2A2-4DBB-B30F-D5EB3CA290AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Common", "CoinFac.Common\CoinFac.Common.csproj", "{04B50DBD-F2A2-4DBB-B30F-D5EB3CA290AF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Domain", "Domain\CoinFac.Domain.csproj", "{D140C602-2DE0-465D-AEA5-62CAC7C2FE8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Domain", "CoinFac.Domain\CoinFac.Domain.csproj", "{D140C602-2DE0-465D-AEA5-62CAC7C2FE8D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Infrastructure", "Infrastructure\CoinFac.Infrastructure.csproj", "{E07ADEF9-F0D8-4C66-A209-402D3CB58E31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Infrastructure", "CoinFac.Infrastructure\CoinFac.Infrastructure.csproj", "{E07ADEF9-F0D8-4C66-A209-402D3CB58E31}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Persistence", "Persistence\CoinFac.Persistence.csproj", "{82C0C1B8-E16A-429A-B549-701871755FFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Persistence", "CoinFac.Persistence\CoinFac.Persistence.csproj", "{82C0C1B8-E16A-429A-B549-701871755FFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Service", "Service\CoinFac.Service.csproj", "{B9FF525D-6493-4563-AA44-AE6589C89B21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Service", "CoinFac.Service\CoinFac.Service.csproj", "{B9FF525D-6493-4563-AA44-AE6589C89B21}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Specification", "Specification\CoinFac.Specification.csproj", "{B643274D-7E0E-4647-BF06-2CC0F51A9EA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoinFac.Specification", "CoinFac.Specification\CoinFac.Specification.csproj", "{B643274D-7E0E-4647-BF06-2CC0F51A9EA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F219171-EFBB-45E2-A628-96C0582B01E7}"
 	ProjectSection(SolutionItems) = preProject
