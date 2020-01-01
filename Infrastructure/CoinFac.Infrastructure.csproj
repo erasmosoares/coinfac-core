@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Message\MessageServiceTests.cs~RF38382807.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreEvents" Version="1.0.0" />
+    <PackageReference Include="Moq" Version="4.12.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Application\CoinFac.Application.csproj" />
+  </ItemGroup>
+
+</Project>
