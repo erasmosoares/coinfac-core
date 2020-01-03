@@ -46,7 +46,8 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount
             await UnitOfWork.AccountRepository.AddAsync(account).ConfigureAwait(false);
             await UnitOfWork.CompleteAsync().ConfigureAwait(false);
 
-            MessageService.NotifyService(account.Id);
+            if(account != null)
+               MessageService.NotifyService(account.Id);
 
             Messaging.Publish(new MessageA());
 

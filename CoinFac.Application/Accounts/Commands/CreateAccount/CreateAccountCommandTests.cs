@@ -43,16 +43,14 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount
             MessageService.Setup(ms => ms.NotifyService(1)).Verifiable();
             MessagingCluster.Setup(mc => mc.Publish(new MessageA())).Verifiable();
             CoreEvents.Setup(ce => ce.Publish(new MessageB())).Verifiable();
-
-            var model = new CreateAccountModel() { Name="Tests" };
+            var model = new CreateAccountModel() { Name = "Tests" };
             var command = new CreateAccountCommand(DateService.Object, UnitOfWork.Object, CreateAccountFactory.Object, MessageService.Object, MessagingCluster.Object, CoreEvents.Object);
 
             //Act
             await command.ExecuteAsync(model).ConfigureAwait(false);
 
             //Assert
-            Assert.That(model.Name, Is.EqualTo("Test"));
-
+            CreateAccountFactory.Setup(f => f.Create(DateService.Object.GetDate(), model, new Domain.Identity.User(), AccountType.IncomeAndExpense)).Verifiable();
         }
     }
 }

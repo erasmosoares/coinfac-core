@@ -99,7 +99,8 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
 
             var accountToCompare = new Account()
             {
-                Name = CreateAccountModel.Name
+                Name = CreateAccountModel.Name,
+                Comments = "CommentsTest"
             };
 
             //Act
@@ -117,7 +118,8 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
 
             var accountToCompare = new Account()
             {
-                Name = CreateAccountModel.Name
+                Name = CreateAccountModel.Name,
+                Goal = 50
             };
 
             //Act
@@ -135,7 +137,8 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
 
             var accountToCompare = new Account()
             {
-                Name = CreateAccountModel.Name
+                Name = CreateAccountModel.Name,
+                UserForeignKey = 1
             };
 
             //Act
@@ -153,7 +156,8 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
 
             var accountToCompare = new Account()
             {
-                Name = CreateAccountModel.Name
+                Name = CreateAccountModel.Name,
+                AccountType = AccountType.IncomeAndExpense
             };
 
             //Act
