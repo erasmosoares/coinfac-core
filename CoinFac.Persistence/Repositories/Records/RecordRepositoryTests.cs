@@ -16,6 +16,7 @@ namespace CoinFac.Persistence.Repositories.Records
         }
 
         [Test]
+        [Ignore("NotImplemented")]
         public void GetRecordByValueAsync_AccountIsProcessed_ThrowNotImplementedExeption()
         {
             Assert.Throws<NotImplementedException>(() => _repository.Object.GetRecordByValueAsync("2"));
