@@ -11,6 +11,7 @@ namespace CoinFac.Persistence
     /// To add migration
     /// cd .\Persistence
     /// dotnet ef --startup-project ../Presentation/ migrations add InitialDbMigration
+    /// dotnet ef database update -s ../CoinFac.Presentation
     /// </summary>
     public class DatabaseService : DbContext
     {
@@ -20,9 +21,14 @@ namespace CoinFac.Persistence
         public DbSet<Record> Records { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public DatabaseService(DbContextOptions options, IConfiguration config) : base(options)
+        public DatabaseService(DbContextOptions options, IConfiguration config) : base(options) //base("CleanArchitecture")
         {
             _config = config;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("CoinFacDb"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
