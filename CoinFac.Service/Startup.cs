@@ -3,6 +3,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CoinFac.Persistence.Repositories.Accounts;
+using CoinFac.Application.Interfaces.Repositories;
+using CoinFac.Persistence;
+using Microsoft.EntityFrameworkCore;
+using CoinFac.Application.Interfaces;
+using AutoMapper;
 
 namespace CoinFac.Service
 {
@@ -17,6 +23,11 @@ namespace CoinFac.Service
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddDbContext<DatabaseService>(options => options.UseSqlServer(Configuration.GetConnectionString("CoinFacDb")));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
