@@ -63,7 +63,7 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
                 Goal = CreateAccountModel.Goal,
                 Records = new System.Collections.Generic.List<Record>(),
                 User = User,
-                UserForeignKey = User.Id
+                UserId = User.Id
             };
 
             //Act
@@ -138,14 +138,14 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
             var accountToCompare = new Account()
             {
                 Name = CreateAccountModel.Name,
-                UserForeignKey = 1
+                UserId = 1
             };
 
             //Act
             var account = factory.Create(DateTime.Now, CreateAccountModel, User, AccountType.IncomeAndExpense);
 
             //Assert
-            Assert.That(account.UserForeignKey, Is.EqualTo(accountToCompare.UserForeignKey));
+            Assert.That(account.UserId, Is.EqualTo(accountToCompare.UserId));
         }
 
         [Test]

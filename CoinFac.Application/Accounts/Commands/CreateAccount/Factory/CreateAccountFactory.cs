@@ -27,7 +27,7 @@ namespace CoinFac.Application.Accounts.Commands.CreateAccount.Factory
                 Goal = model.Goal,
                 Records = new System.Collections.Generic.List<Record>(),
                 User = user,
-                UserForeignKey = user.Id
+                UserId = user.Id
             };
 
             return account;

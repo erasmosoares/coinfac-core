@@ -5,8 +5,8 @@ using CoinFac.Domain.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using CoinFac.Application.Interfaces.Repositories;
 using CoinFac.Application.Interfaces;
+using CoinFac.Service.Models;
 
 namespace CoinFac.Service.Controllers
 {
@@ -16,7 +16,6 @@ namespace CoinFac.Service.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IUnitOfWork UnitOfWork;
-
         private readonly IMapper Mapper;
 
         public AccountsController(IUnitOfWork unitOfWork,
@@ -32,12 +31,12 @@ namespace CoinFac.Service.Controllers
         /// <returns>An ActionResult of type IEnumerable of Accounts</returns>
         /// http://localhost:44372/api/accounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
+        public async Task<ActionResult<IEnumerable<Account>>> Get()
         {
             try
             {
-                var accountsFromRepo = await UnitOfWork.AccountRepository.GetAllAsync();
-                return Ok(Mapper.Map<IEnumerable<Account>>(accountsFromRepo));
+                var accounts = await UnitOfWork.AccountRepository.GetAllAsync();
+                return Ok(Mapper.Map<IEnumerable<AccountDto>>(accounts));
             }
             catch (Exception)
             {
@@ -52,46 +51,51 @@ namespace CoinFac.Service.Controllers
         /// <returns>An ActionResult of type Account</returns>
         /// http://localhost:44372/api/accounts/1
         [HttpGet("{accountId}")]
-        public async Task<ActionResult<Account>> GetAccount(int accountId)
+        public async Task<ActionResult<Account>> Get(int accountId)
         {
-            var authorFromRepo = await UnitOfWork.AccountRepository.GetAsync(accountId);
-            if (authorFromRepo == null)
+            try
             {
-                return NotFound();
-            }
+                var account = await UnitOfWork.AccountRepository.GetAsync(accountId);
+                if (account == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(Mapper.Map<Account>(authorFromRepo));
+                return Ok(Mapper.Map<Account, AccountDto>(account));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
 
-        ///// <summary>
-        ///// Create an account
-        ///// </summary>
-        ///// <param name="bookForCreation">The book to create</param>
-        ///// <returns>An ActionResult of type Account</returns>
-        ///// <response code="422">Validation error</response>
-        //[HttpPost()]
-        //[Consumes("application/json", "application/vnd.marvin.bookforcreation+json")]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[ProducesResponseType(StatusCodes.Status422UnprocessableEntity,
-        //    Type = typeof(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary))]
-        //public async Task<ActionResult<Account>> CreateAccount(
-        //    int accountId,
-        //    [FromBody] AccountForCreation accountForCreation)
-        //{
-        //    if (!await AccountRepository.AccountExistsAsync(authorId))
-        //    {
-        //        return NotFound();
-        //    }
+        //TODO Create an account API
 
-        //    var accountToAdd = Mapper.Map<Account>(accountForCreation);
-        //    await AccountRepository.AddAsync(accountToAdd);
-        //    await AccountRepository.SaveChangesAsync();
+        /// <summary>
+        /// Create an account
+        /// </summary>
+        /// <param name="accountDto">The account to create</param>
+        /// <returns>An ActionResult of type Account</returns>
+        [HttpPost()]
+        public async Task<ActionResult<Account>> Post(AccountDto accountDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
 
-        //    return CreatedAtRoute(
-        //        "GetAccount",
-        //        new { accountId },
-        //        Mapper.Map<Account>(accountToAdd));
-        //}
+                var account = Mapper.Map<Account>(accountDto);
+                await UnitOfWork.AccountRepository.AddAsync(account);
+                await UnitOfWork.CompleteAsync();
+
+                accountDto.Id = account.Id;
+                return Created($"/api/accounts/{account.Id}", accountDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+        }
     }
 }

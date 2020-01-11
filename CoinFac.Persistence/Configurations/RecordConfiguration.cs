@@ -17,7 +17,7 @@ namespace CoinFac.Persistence.Configurations
             builder.Property(p => p.Notes);
             builder.HasOne(m => m.Account)
                    .WithMany(m => m.Records)
-                   .HasForeignKey(c => c.AccountForeignKey);
+                   .HasForeignKey(c => c.AccountId);
         }
     }
 }

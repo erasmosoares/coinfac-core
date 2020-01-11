@@ -13,7 +13,7 @@ namespace CoinFac.Domain.Accounts
 
         public string Notes { get; set; }
 
-        public int AccountForeignKey { get; set; }
+        public int AccountId { get; set; }
         public Account Account { get; set; }
     }
 }

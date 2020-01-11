@@ -53,9 +53,9 @@ namespace CoinFac.Domain.Accounts
         [Test]
         public void TestSetAndGetAccountForeignKey()
         {
-            Record.AccountForeignKey = AccountForeignKey;
+            Record.AccountId = AccountForeignKey;
 
-            Assert.That(Record.AccountForeignKey, Is.EqualTo(AccountForeignKey));
+            Assert.That(Record.AccountId, Is.EqualTo(AccountForeignKey));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CoinFac.Persistence.Configurations
                    .HasMaxLength(100);
             builder.HasOne(m => m.User)
                    .WithMany(m => m.Accounts)
-                   .HasForeignKey(c => c.UserForeignKey);
+                   .HasForeignKey(c => c.UserId);
 
         }
     }

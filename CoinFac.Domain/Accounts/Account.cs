@@ -12,7 +12,7 @@ namespace CoinFac.Domain.Accounts
         public AccountType AccountType { get; set; }
         public string Comments { get; set; }
         public List<Record> Records { get; set; }
-        public int UserForeignKey { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 
