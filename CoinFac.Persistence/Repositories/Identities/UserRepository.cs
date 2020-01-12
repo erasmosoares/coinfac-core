@@ -3,6 +3,7 @@ using CoinFac.Domain.Identity;
 using CoinFac.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces.Repositories;
+using System.Linq;
 
 namespace CoinFac.Persistence.Repositories.Identities
 {
@@ -10,10 +11,19 @@ namespace CoinFac.Persistence.Repositories.Identities
     {
         public UserRepository(DbContext context) : base(context) { }
 
-        public string GetUserNameById(int professionalId)
+        public User GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userInDb = DatabaseService.Users.Where(u => u.Email == email).FirstOrDefault();
+                return userInDb;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+
         public DatabaseService DatabaseService
         {
             get { return Context as DatabaseService; }

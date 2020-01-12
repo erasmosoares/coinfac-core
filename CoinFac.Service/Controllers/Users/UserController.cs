@@ -95,5 +95,41 @@ namespace CoinFac.Service.Controllers.Users
             }
 
         }
+
+        /// <summary>
+        /// Validate if exists and create an user
+        /// </summary>
+        /// <param name="userDto">The user to create</param>
+        /// <returns>An ActionResult of type User</returns>
+        [HttpPost()]
+        [Route("create")]
+        public async Task<ActionResult<User>> create(UserDto userDto)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+
+                User userInDb = UnitOfWork.UserRepository.GetUserByEmail(userDto.Email);
+                if (userInDb != null && userInDb.EmailVerified == "True")
+                {
+                    return StatusCode(StatusCodes.Status302Found, "User already in Db");
+                }
+                else
+                {
+                    var user = Mapper.Map<User>(userDto);
+                    await UnitOfWork.UserRepository.AddAsync(user);
+                    await UnitOfWork.CompleteAsync();
+
+                    userDto.Id = user.Id;
+                    return Created($"/api/user/{user.Id}", userDto);
+                }
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+        }
     }
 }
