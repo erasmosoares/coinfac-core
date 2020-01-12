@@ -4,6 +4,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class AuthService {
   // Create a local property for login status
   loggedIn: boolean = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: Http) {
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
@@ -63,6 +64,7 @@ export class AuthService {
         if (loggedIn) {
           // If authenticated, get user and set in app
           // NOTE: you could pass options here if needed
+         
           return this.getUser$();
         }
         // If not authenticated, return stream that emits 'false'
@@ -85,6 +87,12 @@ export class AuthService {
     });
   }
 
+  //private addUser(user: any): Observable<any> {
+    
+  //  return this.http.post("https://localhost:44372/api/user", JSON.stringify(user))
+  //    .pipe(catchError(err => throwError(err)));
+  //}
+
   private handleAuthCallback() {
     // Call when app reloads after user logs in with Auth0
     const params = window.location.search;
@@ -100,7 +108,9 @@ export class AuthService {
           // Redirect callback complete; get user and login status
           return combineLatest([
             this.getUser$(),
-            this.isAuthenticated$
+            this.isAuthenticated$,
+            alert("Post/User")
+            //this.addUser(this.getUser$())
           ]);
         })
       );
@@ -113,7 +123,10 @@ export class AuthService {
     }
   }
 
+
   logout() {
+
+
     // Ensure Auth0 client instance exists
     this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out

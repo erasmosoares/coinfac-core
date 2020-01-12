@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using CoinFac.Application.Interfaces;
 using CoinFac.Service.Models;
 
-namespace CoinFac.Service.Controllers
+namespace CoinFac.Service.Controllers.Accounts
 {
     [Produces("application/json", "application/xml")]
     [Route("api/[controller]")]
@@ -35,8 +35,8 @@ namespace CoinFac.Service.Controllers
         {
             try
             {
-                var accounts = await UnitOfWork.AccountRepository.GetAllAsync();
-                return Ok(Mapper.Map<IEnumerable<AccountDto>>(accounts));
+                var accountsInDb = await UnitOfWork.AccountRepository.GetAllAsync();
+                return Ok(Mapper.Map<IEnumerable<AccountDto>>(accountsInDb));
             }
             catch (Exception)
             {
@@ -55,21 +55,19 @@ namespace CoinFac.Service.Controllers
         {
             try
             {
-                var account = await UnitOfWork.AccountRepository.GetAsync(accountId);
-                if (account == null)
+                var accountInDb = await UnitOfWork.AccountRepository.GetAsync(accountId);
+                if (accountInDb == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(Mapper.Map<Account, AccountDto>(account));
+                return Ok(Mapper.Map<Account, AccountDto>(accountInDb));
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
         }
-
-        //TODO Create an account API
 
         /// <summary>
         /// Create an account
