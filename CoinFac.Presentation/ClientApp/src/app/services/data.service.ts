@@ -4,12 +4,12 @@ import { AppError } from './../common/app-error';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { BadInput } from '../common/bad-input';
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 
 
 export class DataService {
 
-    constructor(private url: string, private http: HttpClient) { }
+    constructor(private url: string, private http: Http) { }
 
   getAll(){
     return this.http.get(this.url)

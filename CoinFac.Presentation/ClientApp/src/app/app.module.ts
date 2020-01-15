@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TitleCasePipe } from './pipes/titlecase.pipe';
 import { AuthGuard } from './components/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -58,11 +59,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     OrderModule,
     MatToolbarModule,
     MatTabsModule,
+    ToastrModule.forRoot(), 
     NgxSmartModalModule.forChild(),
     RouterModule.forRoot([
-      //{ path: '', component: HomeComponent, pathMatch: 'full' },
-      //{ path: 'counter', component: CounterComponent },
-      //{ path: 'fetch-data', component: FetchDataComponent },
       { path: 'home', component: MainComponent },
       { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
       { path: 'income', component: IncomeComponent, canActivate: [AuthGuard] },
