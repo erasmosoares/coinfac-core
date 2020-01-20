@@ -70,40 +70,12 @@ namespace CoinFac.Service.Controllers.Users
         }
 
         /// <summary>
-        /// Create an user
-        /// </summary>
-        /// <param name="userDto">The user to create</param>
-        /// <returns>An ActionResult of type User</returns>
-        [HttpPost()]
-        public async Task<ActionResult<User>> Post(UserDto userDto)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest();
-
-                var user = Mapper.Map<User>(userDto);
-                await UnitOfWork.UserRepository.AddAsync(user);
-                await UnitOfWork.CompleteAsync();
-
-                userDto.Id = user.Id;
-                return Created($"/api/user/{user.Id}", userDto);
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-
-        }
-
-        /// <summary>
         /// Validate if exists and create an user
         /// </summary>
         /// <param name="userDto">The user to create</param>
         /// <returns>An ActionResult of type User</returns>
         [HttpPost()]
-        [Route("create")]
-        public async Task<ActionResult<User>> create(UserDto userDto)
+        public async Task<ActionResult<User>> Post(UserDto userDto)
         {
             try
             {

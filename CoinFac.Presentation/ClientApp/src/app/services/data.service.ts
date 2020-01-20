@@ -4,6 +4,7 @@ import { AppError } from './../common/app-error';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { BadInput } from '../common/bad-input';
+import { Headers, RequestOptions } from '@angular/http';
 import { Http } from '@angular/http';
 
 
@@ -16,8 +17,14 @@ export class DataService {
     .pipe(catchError(this.handleError));
   }
 
-  create(resource){
-    return this.http.post(this.url,JSON.stringify(resource))
+  create(resource) {
+    let _requestOptions: RequestOptions = new RequestOptions(
+      {
+        headers: new Headers({
+          'Content-Type': 'application/json',
+        })
+      });
+    return this.http.post(this.url, JSON.stringify(resource), _requestOptions)
     .pipe(catchError(this.handleError));
   }
 

@@ -3,7 +3,7 @@ import { multi } from './main-data';
 import { accounts, single } from './../main/main-data';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from '../../services/UserService';
+import { UserService } from '../../services/user.service';
 //import { accounts, single, } from './../main/fac-data';
 
 @Component({
@@ -13,7 +13,6 @@ import { UserService } from '../../services/UserService';
 })
 export class MainComponent implements OnInit {
 
-  profileStorage: any;
   single: any[];
   multi: any[];
   accounts: any[];
@@ -34,7 +33,6 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     
-    //alert("main" + JSON.stringify(this.profileStorage));
   }
 
   onSelect(event) {
@@ -42,21 +40,22 @@ export class MainComponent implements OnInit {
   }
 
   configureUser(user){
-    
-    //this.profileStorage = JSON.parse(user)
-    var result = this.userService.create(JSON.parse(user))
-    result.subscribe(userObs => {
-      this.showSuccess("Success", "The user was sucessfully updated.")
-    }, err => { 
-      if (err.status == 404)
-        this.showInfo("Woops", "User not found");
+   
+    if (user) {
+      var result = this.userService.create(user)
+      result.subscribe(() => {
+        this.showSuccess("Success", "Server is online.")
+      }, err => {
+        if (err.status == 404)
+          this.showInfo("Oh no!", "Server Not Found");
         else
-        this.showFailure("dammit", "User not found");
-    });
+          this.showFailure("Oh no!", "Internal Error");
+      });
+    }
   }
 
   showSuccess(title, message) {
-    this.toastr.success(title, message, {
+    this.toastr.success(message, title, {
       timeOut: 3000,
     });
   }

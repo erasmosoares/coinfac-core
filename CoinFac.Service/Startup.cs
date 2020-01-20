@@ -27,7 +27,7 @@ namespace CoinFac.Service
 
             services.AddDbContext<DatabaseService>(options => options.UseSqlServer(Configuration.GetConnectionString("CoinFacDb")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddCors(); 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -43,6 +43,16 @@ namespace CoinFac.Service
             }
 
             app.UseHttpsRedirection();
+
+            string[] origins = new string[] 
+            { 
+                "https://localhost:44372", 
+                "https://localhost:44342",
+                "https://localhost:44372/api/user"
+            }; 
+
+            app.UseCors(b => b.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins));
+
             app.UseMvc();
         }
     }

@@ -121,6 +121,7 @@ namespace CoinFac.Presentation
 
                 if (env.IsDevelopment())
                 {
+                    spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
