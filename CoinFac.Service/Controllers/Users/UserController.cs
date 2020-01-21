@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 
 namespace CoinFac.Service.Controllers.Users
 {
+    //https://localhost:44372/swagger/index.html
+
     [Produces("application/json", "application/xml")]
     [Route("api/[controller]")]
     [ApiController]

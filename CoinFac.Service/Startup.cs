@@ -9,6 +9,7 @@ using CoinFac.Persistence;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces;
 using AutoMapper;
+using Microsoft.OpenApi.Models;
 
 namespace CoinFac.Service
 {
@@ -29,6 +30,17 @@ namespace CoinFac.Service
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddCors(); 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+           
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "CoinFac API",
+                    Description = "This is the first CoinFac API specification",
+                    Version = "v1" 
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -53,7 +65,15 @@ namespace CoinFac.Service
 
             app.UseCors(b => b.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins));
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoinFac API V1");
+            });
+
             app.UseMvc();
+
+            
         }
     }
 }
