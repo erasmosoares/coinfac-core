@@ -29,6 +29,8 @@ import { TitleCasePipe } from './pipes/titlecase.pipe';
 import { AuthGuard } from './components/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
