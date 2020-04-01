@@ -7,9 +7,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
-  constructor(private http: Http) {}
+export class AccountService extends DataService{
   public accounts;
+  /*
+  constructor(http: Http) {
+    super('https://localhost:44372/api/accounts', http);
+  }
+
   getAccounts() : Observable<boolean> {
     return this.http.get('https://localhost:44372/api/accounts')
       .pipe(
@@ -17,5 +21,5 @@ export class AccountService {
           this.accounts = response.json();
           return true;
         }));
-  }
+  }*/
 }

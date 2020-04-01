@@ -1,11 +1,10 @@
 <ngx-smart-modal #accountsModal
-                 identifier="accountsModal"
-                 customClass="medium-modal msg-modal msg-lg modal-lg"
-                 closable="true"
-                 dismissable="false"
-                 escapable="false"
-                 [identifier]="'popupOne'">
-
+    identifier="accountsModal"
+    customClass="medium-modal msg-modal msg-lg modal-lg"
+    closable="true"
+    dismissable="false"
+    escapable="false"
+    [identifier]="'popupOne'">
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="#">
             <div class="container-fluid">
@@ -24,7 +23,7 @@
             
     <div *ngIf="accountsModal.hasData()">
         <!-- Account Name, Account Type [Income, Expense, Income and Expense], Comments-->
-        <form [formGroup]="form" (ngSubmit)="login()">
+        <form [formGroup]="form" (ngSubmit)="submit()">
             <div formGroupName="account">
                 <div class="form-group">
                     <label for="username">Name</label>
@@ -65,90 +64,12 @@
                 <div class="form-group">
                     <label for="comments">Comments</label>
                     <textarea class="form-control" id="comments" rows="3"></textarea>
-                    <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
-                  </div>
+                    <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> </div>
             </div>
             <button class="btn btn-primary disabled" type="submit">Create</button>
         </form>
-        <!-- {{ accountsModal.getData() | json }} -->    
+        <!-- {{ accountsModal.getData() | json }}   -->  
     </div>
-
 </ngx-smart-modal>
-
-<ngx-smart-modal #accountsModal2
-                 identifier="accountsModal2"
-                 customClass="medium-modal msg-modal msg-lg modal-lg "
-                 closable="true"
-                 dismissable="false"
-                 escapable="false"
-                 [identifier]="'popupTwo'">
-
-                 <nav class="navbar navbar-light bg-light">
-                    <a class="navbar-brand" href="#">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-">
-                                    <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
-                                    alt="">
-                                </div>
-                                <div class="col-sm">
-                                    Records Manager
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </nav>
-
-                <div class="card-deck">
-                    <div class="card">
-                      <div class="card-body">
-                        <label for="value">Account</label>
-                        <select class="form-control" formControlName="value" id="value">
-                            <option>Renda Fixa</option>
-                            <option>Poupança</option>
-                            <option>Corrente Bradesco</option>
-                            <option>Corrente Brasil</option>
-                            <option>NuConta</option>
-                            <option>Bitcoin (Real)</option>
-                            <option>Neon</option>
-                        </select>
-                        <p class="card-text">
-                            
-                        </p>
-
-                        <form [formGroup]="form2" (ngSubmit)="login()">
-                            <div formGroupName="record">
-                                <div class="form-group">
-                                    <label for="value">value</label>
-                                    <input 
-                                        formControlName="value"
-                                        id="value" 
-                                        type="text" 
-                                        class="form-control">      
-                                </div>
-                                <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input 
-                                        formControlName="date" 
-                                        id="date" 
-                                        type="text" 
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="notes">Notes</label>
-                                <textarea class="form-control" id="notes" rows="3"></textarea>
-                              </div>
-     
-                        <button class="btn btn-primary disabled" type="submit">Submit</button>
-                        </form>
-
-                      </div>
-                    </div>
-
-                </div>
-
-</ngx-smart-modal>
-
-
+        
 

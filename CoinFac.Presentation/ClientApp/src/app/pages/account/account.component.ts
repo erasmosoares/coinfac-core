@@ -31,14 +31,14 @@ export class AccountComponent implements OnInit {
               private accountService: AccountService,
               private toastr: ToastrService,
               private cdref: ChangeDetectorRef) {}
-  ngOnInit() {
+  ngOnInit() {/*
     this.accountService.getAccounts().subscribe(success => {
       if (success) { 
         this.accounts = this.accountService.accounts;
         this.assemblyAccountsBar(this.accounts);
       }
     })
-    
+    */
     Object.assign(this, {single, accounts})
   }
   
