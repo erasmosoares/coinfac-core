@@ -84,7 +84,7 @@ namespace CoinFac.Service.Controllers.Users
                 if (!ModelState.IsValid)
                     return BadRequest();
 
-                User userInDb = UnitOfWork.UserRepository.GetUserByEmail(userDto.Email);
+                User userInDb = await UnitOfWork.UserRepository.GetUserByEmailAsync(userDto.Email);
                 if (userInDb != null && userInDb.EmailVerified == "True")
                 {
                     return StatusCode(StatusCodes.Status302Found, "User already in Db");
@@ -104,6 +104,31 @@ namespace CoinFac.Service.Controllers.Users
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
+        }
+
+        /// <summary>
+        /// Get an user by email
+        /// </summary>
+        /// <param name="userId">The email of the user you want to get</param>
+        /// <returns>An ActionResult of type User</returns>
+        /// http://localhost:44372/api/user/email/erasmosaraujo@gmail.com
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<User>> Get(string email)
+        {
+            try
+            {
+                var userInDb = await UnitOfWork.UserRepository.GetUserByEmailAsync(email);
+                if (userInDb == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(Mapper.Map<User, UserDto>(userInDb));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
     }
 }

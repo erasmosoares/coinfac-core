@@ -38,6 +38,12 @@ export class UserService extends DataService{
     return this.http.delete<User>(url,{headers:headers})
     .pipe(catchError(this.handleError));
   }
+  getUserByEmail(email: string): Observable<User>{
+    //https://localhost:44372/api/user?email=erasmosaraujo@gmail.com
+    const url = `${this.userUrl}/email/${email}`
+    return this.http.get<User>(url)
+    .pipe(catchError(this.handleError))
+  }
 }
 
 

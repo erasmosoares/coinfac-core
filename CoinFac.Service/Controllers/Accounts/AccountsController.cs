@@ -75,7 +75,7 @@ namespace CoinFac.Service.Controllers.Accounts
         /// <param name="accountDto">The account to create</param>
         /// <returns>An ActionResult of type Account</returns>
         [HttpPost()]
-        public async Task<ActionResult<Account>> Post(AccountDto accountDto)
+        public async Task<ActionResult<Account>> Post([FromBody]AccountDto accountDto)
         {
             try
             {

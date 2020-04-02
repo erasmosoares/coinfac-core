@@ -4,6 +4,7 @@ using CoinFac.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces.Repositories;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoinFac.Persistence.Repositories.Identities
 {
@@ -11,11 +12,11 @@ namespace CoinFac.Persistence.Repositories.Identities
     {
         public UserRepository(DbContext context) : base(context) { }
 
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
             try
             {
-                var userInDb = DatabaseService.Users.Where(u => u.Email == email).FirstOrDefault();
+                User userInDb = await DatabaseService.Users.FirstOrDefaultAsync(u => u.Email == email);
                 return userInDb;
             }
             catch (Exception)

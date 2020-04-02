@@ -20,7 +20,7 @@ namespace CoinFac.Persistence.Repositories.Identities
         [Ignore("NotImplemented")]
         public void GetAccountNameById_AccountIsProcessed_ThrowNotImplementedExeption()
         {
-            Assert.Throws<NotImplementedException>(() => _repository.Object.GetUserByEmail(String.Empty));
+            Assert.Throws<NotImplementedException>(() => _repository.Object.GetUserByEmailAsync(String.Empty));
         }
     }
 }
