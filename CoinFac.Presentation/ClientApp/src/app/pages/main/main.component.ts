@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { multi } from './main-data';
 import { accounts, single } from './../main/main-data';
 import { AuthService } from '../../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
+import { ToastrService } from 'ngx-toastr';
 //import { accounts, single, } from './../main/fac-data';
 
 @Component({
@@ -31,6 +31,7 @@ export class MainComponent {
               private userService: UserService,
               private toastr: ToastrService) {
 
+     
     /*
      * Auth0 subscriber
      */
@@ -84,6 +85,10 @@ export class MainComponent {
       this.showMessageByCode(err.originalError.status);
     })
   }
+
+  /*
+  * Messages
+  */
 
   showMessageByCode(code){
     if (code == 404){

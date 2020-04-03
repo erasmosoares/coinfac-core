@@ -30,6 +30,7 @@ import { AuthGuard } from './components/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { ToasterHelper } from './common/toaster-helper';
 
 
 @NgModule({

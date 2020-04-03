@@ -20,13 +20,17 @@ export class AccountComponent implements OnInit {
   maxAccountValue = 0;
   minAccountName;
   minAccountValue = 0;
-  //Charts
+   
+   /*
+   * Used for charts
+   */
   view: any[] = [500, 400];
   colorScheme = {
     domain: ['#808782', '#a6d3a0', '#b3ffb3', '#d1ffd7']
   };
   private theme = GlobalVariable.COINFAC_THEME_MODE_;
   public accounts = [];
+  
   constructor(public ngxSmartModalService: NgxSmartModalService,
               private accountService: AccountService,
               private toastr: ToastrService,

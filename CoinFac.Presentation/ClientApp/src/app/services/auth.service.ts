@@ -11,6 +11,11 @@ import { Http } from '@angular/http';
 })
 export class AuthService {
   
+  private userProfileSubject$ = new BehaviorSubject<any>(null);
+  userProfile$ = this.userProfileSubject$.asObservable();
+
+  loggedIn: boolean = null;
+  
   auth0Client$ = (from(
     createAuth0Client({
       domain: "coinfac.auth0.com",
@@ -29,11 +34,6 @@ export class AuthService {
   handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
-
-  private userProfileSubject$ = new BehaviorSubject<any>(null);
-  userProfile$ = this.userProfileSubject$.asObservable();
-
-  loggedIn: boolean = null;
 
   constructor(private router: Router, private http: Http) {
    
