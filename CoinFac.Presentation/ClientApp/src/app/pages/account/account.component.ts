@@ -1,3 +1,4 @@
+import { accountsForTest } from './account-data';
 import { accounts, single } from './../main/main-data';
 //import { accounts, single } from './../main/fac-data';
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./account.component.css'],  
   encapsulation: ViewEncapsulation.None
 })
+
 export class AccountComponent implements OnInit {
   //Jumbontrom
   showTitle = false;
@@ -35,7 +37,16 @@ export class AccountComponent implements OnInit {
               private accountService: AccountService,
               private toastr: ToastrService,
               private cdref: ChangeDetectorRef) {}
-  ngOnInit() {/*
+  
+   ngOnInit() {
+     
+    var observable = this.accountService.getAccount(1);
+    observable.subscribe({
+      next:(accounts:any) => alert(accounts),
+      error: err => this.showMessageByCode(err.originalError.status)
+    })
+
+    /*
     this.accountService.getAccounts().subscribe(success => {
       if (success) { 
         this.accounts = this.accountService.accounts;
@@ -43,15 +54,15 @@ export class AccountComponent implements OnInit {
       }
     })
     */
-    Object.assign(this, {single, accounts})
+    Object.assign(this, {single, accounts: accountsForTest})
   }
   
   onAdd(){
     //accounts.push({ id: 1, name: 'Next', type: 'Income', comments: 'Mais um banco digital', goal:'0', series: []});
   }
   onRemove(account){
-    let index = accounts.indexOf(account);
-    accounts.splice(index, 1);
+    let index = accountsForTest.indexOf(account);
+    accountsForTest.splice(index, 1);
   }
   onSelect(event) {
     console.log(event);
@@ -85,6 +96,20 @@ export class AccountComponent implements OnInit {
   getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
+  
+    /*
+    * Messages
+    */
+
+  showMessageByCode(code){
+    if (code == 404){
+      this.showFailure("Oh no!", "Something was not found");
+    }
+    else{
+      this.showFailure("Oh no!", "Internal Error");
+    }
+  }
+
   showSuccess(title, message) {
     this.toastr.success(message, title, {
       timeOut: 3000,

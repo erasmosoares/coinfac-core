@@ -44,21 +44,6 @@ export class MainComponent {
 
   }
 
-   /*
-    ? Just for clarification on how to used it
-   */
-  getUser(id: number): void {
-    this.userService.getUser(id)
-    .subscribe({
-      next:(user:User) => this.displayUser(user),
-      error: err => alert(err) 
-    })
-  }
-
-  displayUser(user: User): void {
-    alert("User -> "+JSON.stringify(user));
-  }
-
   configureUser(loggedUser){
   
     if (loggedUser) {
@@ -66,23 +51,23 @@ export class MainComponent {
       var profile = JSON.parse(JSON.stringify(loggedUser));
 
       var observable = this.userService.getUserByEmail(profile.email);
-      observable.subscribe(user => {
-        this.showInfo("Hey, how are you doing?", user.name);
-      }, err => {
-        if(err.originalError.status == 404){
-          this.createNewUser(profile);
+      observable.subscribe({
+        next:(user:User) => this.showInfo("Hey, how are you doing?", user.name),
+        error: err => {
+          if(err.originalError.status == 404){
+            this.createNewUser(profile);
+          }
         }
-      });
+      })
     }
   }
 
   createNewUser(user){
 
     var observable = this.userService.createUser(user);
-    observable.subscribe(user=> {
-      this.showSuccess("Wellcome "+ user.name, "New user!");
-    }, err =>{
-      this.showMessageByCode(err.originalError.status);
+    observable.subscribe({
+      next:(user:User) => this.showSuccess("Wellcome "+ user.name, "New user!"),
+      error: err => this.showMessageByCode(err.originalError.status)
     })
   }
 
@@ -92,7 +77,7 @@ export class MainComponent {
 
   showMessageByCode(code){
     if (code == 404){
-      this.showInfo("Oh no!", "Something was not found");
+      this.showFailure("Oh no!", "Something was not found");
     }
     else{
       this.showFailure("Oh no!", "Internal Error");
