@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { multi } from './main-data';
-import { accounts, single } from './../main/main-data';
+import { completeAccountsForTest, single } from './../main/main-data';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user';
@@ -40,7 +40,7 @@ export class MainComponent {
     /*
     TODO Will be removed
    */
-    Object.assign(this, { single, multi, accounts })
+    Object.assign(this, { single, multi, accounts: completeAccountsForTest })
 
   }
 

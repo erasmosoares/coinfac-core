@@ -3,41 +3,51 @@ import { DataService } from './data.service';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { CapitalAccount } from '../models/accounts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService extends DataService{
-  private serviceUrl = `${this.baseUrl}/account`;
+  private serviceUrl = `${this.baseUrl}/accounts`;
   
   constructor(private http: HttpClient){
     super();
   }
 
-  getAccount(id: number): Observable<Account>{
+  getAccounts(): Observable<CapitalAccount[]>{
 
-    if(id===0){ 
-      return new Observable<Account>();
-    }
+    const url = `${this.serviceUrl}`
 
-    const url = `${this.serviceUrl}/${id}`
-
-    return this.http.get<Account>(url)
+    return this.http.get<CapitalAccount[]>(url)
     .pipe(catchError(this.handleError))
 
   }
 
-  createAccount(account: Account):  Observable<Account>{
+  getAccount(id: number): Observable<CapitalAccount>{
 
-    return this.http.post<Account>(this.serviceUrl, account, {headers:this.headers})
+    if(id===0){ 
+      return new Observable<CapitalAccount>();
+    }
+
+    const url = `${this.serviceUrl}/${id}`
+
+    return this.http.get<CapitalAccount>(url)
+    .pipe(catchError(this.handleError))
+
+  }
+
+  createAccount(account: CapitalAccount):  Observable<CapitalAccount>{
+
+    return this.http.post<CapitalAccount>(this.serviceUrl, account, {headers:this.headers})
     .pipe(catchError(this.handleError));
   }
 
-  updateAccount(account: Account):  Observable<Account>{
+  updateAccount(account: CapitalAccount):  Observable<CapitalAccount>{
 
     const url = `${this.serviceUrl}/${account.id}`
 
-    return this.http.put<Account>(url, account, {headers:this.headers})
+    return this.http.put<CapitalAccount>(url, account, {headers:this.headers})
     .pipe(catchError(this.handleError));
   }
 
@@ -45,7 +55,7 @@ export class AccountService extends DataService{
     
     const url = `${this.serviceUrl}/${id}`
     
-    return this.http.delete<Account>(url,{headers:this.headers})
+    return this.http.delete<CapitalAccount>(url,{headers:this.headers})
     .pipe(catchError(this.handleError));
   }
 }

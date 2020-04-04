@@ -1,4 +1,4 @@
-export class Accounts implements IAccount{
+export class CapitalAccount implements IAccount{
     id: string;
     name: string;
     goal: string;

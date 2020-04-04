@@ -1,4 +1,4 @@
-export var accounts = [
+export var completeAccountsForTest = [
   {
     id: 1,
     name: 'Renda Fixa',

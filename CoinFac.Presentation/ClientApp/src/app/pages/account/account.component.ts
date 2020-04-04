@@ -1,11 +1,12 @@
-import { accountsForTest } from './account-data';
-import { accounts, single } from './../main/main-data';
+// import { accountsForTest } from './account-data';
+import { completeAccountsForTest, single } from './../main/main-data';
 //import { accounts, single } from './../main/fac-data';
 import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { GlobalVariable } from 'src/app/common/globals';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { CapitalAccount } from 'src/app/models/accounts';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -14,24 +15,36 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class AccountComponent implements OnInit {
-  //Jumbontrom
+  /*
+  * Jumbontrom
+  */
   showTitle = false;
-  //Accounts bar info
+
+  /*
+  * Accounts bar info
+  */
   accountsSum = 0;
   maxAccountName;
   maxAccountValue = 0;
   minAccountName;
   minAccountValue = 0;
    
-   /*
-   * Used for charts
-   */
+  /*
+  * Used for charts
+  */
   view: any[] = [500, 400];
   colorScheme = {
     domain: ['#808782', '#a6d3a0', '#b3ffb3', '#d1ffd7']
   };
-  private theme = GlobalVariable.COINFAC_THEME_MODE_;
-  public accounts = [];
+
+
+  //TODO: Dark mode
+  public theme = GlobalVariable.COINFAC_THEME_MODE_;
+
+  single: any[];
+  accounts: any[];
+
+  accountsCollection: CapitalAccount[]; 
   
   constructor(public ngxSmartModalService: NgxSmartModalService,
               private accountService: AccountService,
@@ -40,10 +53,14 @@ export class AccountComponent implements OnInit {
   
    ngOnInit() {
      
-    var observable = this.accountService.getAccount(1);
+    this.accounts = completeAccountsForTest;
+    
+    var observable = this.accountService.getAccounts();
     observable.subscribe({
-      next:(accounts:any) => alert(accounts),
+
+      next:(accounts:any) => this.loadAccount(accounts),
       error: err => this.showMessageByCode(err.originalError.status)
+      
     })
 
     /*
@@ -54,19 +71,34 @@ export class AccountComponent implements OnInit {
       }
     })
     */
-    Object.assign(this, {single, accounts: accountsForTest})
+    
+  }
+
+  loadAccount(accounts){
+  
+    if (accounts) {
+      this.accountsCollection = JSON.parse(JSON.stringify(accounts));
+
+      //Object.assign(this, {single, accounts: this.accountsCollection});
+      Object.assign(this, {single, completeAccountsForTest});
+
+      this.assemblyAccountsBar(completeAccountsForTest);
+      //alert(this.accountsCollection[0].name);
+    }
   }
   
-  onAdd(){
+  /* onAdd(){
     //accounts.push({ id: 1, name: 'Next', type: 'Income', comments: 'Mais um banco digital', goal:'0', series: []});
   }
   onRemove(account){
     let index = accountsForTest.indexOf(account);
     accountsForTest.splice(index, 1);
   }
+ */
   onSelect(event) {
     console.log(event);
-  }
+  } 
+
   assemblyAccountsBar(accounts){
     // See series area from accounts placeholder
     let comparableAccounts: { [id: string] : number; } = {};
@@ -76,9 +108,9 @@ export class AccountComponent implements OnInit {
       if(value.series.length > 0){
         this.accountsSum += newestRegistry;
         comparableAccounts[value.name] = value.series[value.series.length - 1].value;   
-        
       } 
     }.bind(this));
+
     var maxValue = Math.max.apply(this,Object.values(comparableAccounts))
     var minValue = Math.min.apply(this,Object.values(comparableAccounts))
     this.maxAccountName = this.getKeyByValue(comparableAccounts,maxValue);
@@ -86,6 +118,7 @@ export class AccountComponent implements OnInit {
     this.minAccountName = this.getKeyByValue(comparableAccounts,minValue);
     this.minAccountValue = minValue;
   }
+
   ngAfterViewInit() {
     const obj: Object = {
       data: this.accounts,
@@ -93,14 +126,14 @@ export class AccountComponent implements OnInit {
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.cdref.detectChanges();
   }
+
   getKeyByValue(object, value) {
     return Object.keys(object).find(key => object[key] === value);
   }
   
-    /*
-    * Messages
-    */
-
+  /*
+  * Messages
+  */
   showMessageByCode(code){
     if (code == 404){
       this.showFailure("Oh no!", "Something was not found");
