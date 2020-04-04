@@ -60,7 +60,8 @@ namespace CoinFac.Service
             { 
                 "https://localhost:44372", 
                 "https://localhost:44342",
-                "https://localhost:44372/api/user"
+                "https://localhost:44372/api/user",
+                "https://localhost:44372/api/accounts"
             }; 
 
             app.UseCors(b => b.AllowAnyMethod().AllowAnyHeader().WithOrigins(origins));
