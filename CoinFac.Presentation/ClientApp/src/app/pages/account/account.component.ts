@@ -78,7 +78,7 @@ export class AccountComponent implements OnInit {
   
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
-
+      console.log(this.accountsCollection);
       //Object.assign(this, {single, accounts: this.accountsCollection});
       Object.assign(this, {single, completeAccountsForTest});
 
