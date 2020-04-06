@@ -61,68 +61,77 @@ export class AccountComponent implements OnInit {
       next:(accounts:any) => this.loadAccount(accounts),
       error: err => this.showMessageByCode(err.originalError.status)
       
-    })
-
-    /*
-    this.accountService.getAccounts().subscribe(success => {
-      if (success) { 
-        this.accounts = this.accountService.accounts;
-        this.assemblyAccountsBar(this.accounts);
-      }
-    })
-    */
-    
+    })    
   }
 
   loadAccount(accounts){
   
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
-      console.log(this.accountsCollection);
-      //Object.assign(this, {single, accounts: this.accountsCollection});
-      Object.assign(this, {single, completeAccountsForTest});
 
-      this.assemblyAccountsBar(completeAccountsForTest);
-      //alert(this.accountsCollection[0].name);
+      Object.assign(this, {single, accounts: this.accountsCollection});
+
+      this.assemblyAccountsBar(this.accountsCollection); 
+
+       /*
+        ? Use it for demo purpose
+
+        Object.assign(this, {single, completeAccountsForTest});
+        this.assemblyAccountsBar(this.accountsCollection); 
+      */      
     }
   }
   
-  /* onAdd(){
-    //accounts.push({ id: 1, name: 'Next', type: 'Income', comments: 'Mais um banco digital', goal:'0', series: []});
+  /*
+  TODO: Remove it when complete
+
+  onAdd(){
+    accounts.push({ id: 1, name: 'Next', type: 'Income', comments: 'Mais um banco digital', goal:'0', series: []});
   }
   onRemove(account){
     let index = accountsForTest.indexOf(account);
     accountsForTest.splice(index, 1);
   }
  */
+
   onSelect(event) {
     console.log(event);
   } 
 
   assemblyAccountsBar(accounts){
-    // See series area from accounts placeholder
+    
     let comparableAccounts: { [id: string] : number; } = {};
     
-    accounts.forEach(function (value) {
-      let newestRegistry = value.series[value.series.length - 1].value;
-      if(value.series.length > 0){
-        this.accountsSum += newestRegistry;
-        comparableAccounts[value.name] = value.series[value.series.length - 1].value;   
-      } 
-    }.bind(this));
+    try {
+      
+      accounts.forEach(function (value) {
+        let newestRegistry = value.series[value.series.length - 1].value;
+        if(value.series.length > 0){
+          this.accountsSum += newestRegistry;
+          comparableAccounts[value.name] = value.series[value.series.length - 1].value;   
+        } 
+      }.bind(this));
+  
+      var maxValue = Math.max.apply(this,Object.values(comparableAccounts))
+      var minValue = Math.min.apply(this,Object.values(comparableAccounts))
+  
+      this.maxAccountName = this.getKeyByValue(comparableAccounts,maxValue);
+      this.maxAccountValue = maxValue;
+      this.minAccountName = this.getKeyByValue(comparableAccounts,minValue);
+      this.minAccountValue = minValue;
 
-    var maxValue = Math.max.apply(this,Object.values(comparableAccounts))
-    var minValue = Math.min.apply(this,Object.values(comparableAccounts))
-    this.maxAccountName = this.getKeyByValue(comparableAccounts,maxValue);
-    this.maxAccountValue = maxValue;
-    this.minAccountName = this.getKeyByValue(comparableAccounts,minValue);
-    this.minAccountValue = minValue;
+    } catch (error) {
+      
+      //? invalid series or undefined
+    }
+    
   }
 
   ngAfterViewInit() {
     const obj: Object = {
       data: this.accounts,
     };
+
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.cdref.detectChanges();
   }
