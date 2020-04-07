@@ -1,3 +1,4 @@
+import { CapitalAccount } from './../../models/accounts';
 import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FormBuilder, Validators, FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -11,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./account-modal.component.css'],
 })
 export class AccountModalComponent implements OnInit {
+
   form = new FormGroup({
     account: new FormGroup({
         name: new FormControl('',[
@@ -22,10 +24,13 @@ export class AccountModalComponent implements OnInit {
           comments: new FormControl('',Validators.required),
       })
     });
+
     goalInput = "0.00";
+
     constructor(public ngxSmartModalService: NgxSmartModalService,
                 private accountService: AccountService,
                 private toastr: ToastrService) { }
+  
   ngOnInit() {
     let data = this.ngxSmartModalService;
     console.log(data);
@@ -34,15 +39,28 @@ export class AccountModalComponent implements OnInit {
     return this.form.get('account.name');
   }
   submit(){
-    let resource = JSON.stringify(this.form.value);
-    alert(resource);
-    /*
-    this.accountService.create(this.form.value)
-            .subscribe(
-                data => this.showSuccess("success!", data),
-                error => this.showFailure("couldn't post because", error)
-            );   */
+
+    //TODO This work
+    let account = new CapitalAccount();
+    account.name = 'account.type';
+    account.accountType = '1';
+    account.comments = 'account.type';
+    account.goal = '10';
+    account.records = [];
+    account.userId = '1';
+
+
+    this.accountService.createAccount(account)
+    .subscribe(
+        data => this.showSuccess("success!", data),
+        error => this.showFailure("couldn't post because", error)
+    );  
+
   }
+
+  /*
+  * Messages
+  */
   showSuccess(title, message) {
     this.toastr.success(message, title, {
       timeOut: 3000,
