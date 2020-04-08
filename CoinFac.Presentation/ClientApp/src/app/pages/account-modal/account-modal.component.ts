@@ -1,7 +1,7 @@
 import { CapitalAccount } from './../../models/accounts';
 import { Component, OnInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { FormBuilder, Validators, FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsernameValidators } from './username.validators';
 import { AccountService } from 'src/app/services/account.service';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AccountModalComponent implements OnInit {
 
-  form = new FormGroup({
+  customerForm: FormGroup;
+  customer = new CapitalAccount();
+
+  /* form = new FormGroup({
     account: new FormGroup({
         name: new FormControl('',[
           Validators.required,
@@ -23,39 +26,51 @@ export class AccountModalComponent implements OnInit {
           type: new FormControl('',Validators.required),
           comments: new FormControl('',Validators.required),
       })
-    });
+    }); */
 
     goalInput = "0.00";
 
     constructor(public ngxSmartModalService: NgxSmartModalService,
                 private accountService: AccountService,
-                private toastr: ToastrService) { }
+                private toastr: ToastrService,
+                private fb: FormBuilder) { }
   
   ngOnInit() {
+
     let data = this.ngxSmartModalService;
-    console.log(data);
+
+    console.log('ngxdata: '+data);
+
+    this.customerForm = this.fb.group({
+      name: ['', [Validators.required, 
+                  Validators.minLength(3),
+                  UsernameValidators.cannotContainSpace,
+                  UsernameValidators.shouldBeUnique]],
+      goal: ['', Validators.required],
+      type: ['', Validators.required],
+      comments: ['']
+    });
+
   }
-  get name(){
-    return this.form.get('account.name');
-  }
+
   submit(){
 
-    //TODO This work
-    let account = new CapitalAccount();
-    account.name = 'account.type';
-    account.accountType = '1';
-    account.comments = 'account.type';
-    account.goal = '10';
-    account.records = [];
-    account.userId = '1';
+    //TODO This work    
+    let jsonObj = JSON.stringify(this.customerForm.value);
+    let stringify = JSON.parse(jsonObj);
 
+    this.customer = stringify;
+    this.customer.records = [];
+    this.customer.userId = "1";
 
-    this.accountService.createAccount(account)
+    console.log(this.customer); //TODO: Associate user
+    
+    this.accountService.createAccount(this.customer)
     .subscribe(
-        data => this.showSuccess("success!", data),
+        data => this.showSuccess("success!", data), //TODO: Close dialog
         error => this.showFailure("couldn't post because", error)
     );  
-
+    
   }
 
   /*

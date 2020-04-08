@@ -22,51 +22,70 @@
     </nav>
             
     <div *ngIf="accountsModal.hasData()">
-        <!-- Account Name, Account Type [Income, Expense, Income and Expense], Comments-->
-        <form [formGroup]="form" (ngSubmit)="submit()">
-            <div formGroupName="account">
-                <div class="form-group">
-                    <label for="username">Name</label>
-                    <input 
-                        formControlName="name"
-                        id="name" 
-                        type="text" 
-                        class="form-control">
-                    <div *ngIf="name.pending">Checking for uniquess...</div>    
-                    <div *ngIf="name.touched && name.invalid" class="alert alert-danger">
-                        <div *ngIf="name.errors.required">Account name is required</div>
-                        <div *ngIf="name.errors.minlength">Account name should be minimum {{name.errors.minlength.requiredLength}} characters</div>  
-                        <div *ngIf="name.errors.cannotContainSpace">Account name cannot contain space.</div>   
-                        <div *ngIf="name.errors.shouldBeUnique">Account name already taken.</div>         
-                    </div>   
-                    <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
-                </div>
-                <div class="form-group">
-                    <label for="goal">Goal</label>
-                    <input 
-                        formControlName="goal" 
-                        id="goal" 
-                        type="text" 
-                        class="form-control"
-                        [ngModel]="goalInput | currency:'BRL'" 
-                        >
-                    <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this account.</small>    
-                </div>
-                <div class="form-group">
-                    <label for="type">Type</label>
-                        <select class="form-control" formControlName="type" id="type">
-                            <option>Income</option>
-                            <option>Expense</option>
-                            <option>Income and Expense</option>
-                        </select>
-                        <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
-                </div>
-                <div class="form-group">
-                    <label for="comments">Comments</label>
-                    <textarea class="form-control" id="comments" rows="3"></textarea>
-                    <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> </div>
+        <!-- Account Name, 
+            Account Type [Income, Expense, Income and Expense], 
+            Goal
+            Comments
+        -->
+        <form [formGroup]="customerForm" 
+              (ngSubmit)="submit()">
+
+            <div class="form-group"> <!-- Name -->
+                <label for="username">Name</label>
+                <input 
+                    class="form-control"
+                    id="name"
+                    type="text"
+                    formControlName="name"
+                    novalidate/>
+
+                <div *ngIf="customerForm.get('name').pending">Checking for uniquess...</div>    
+                <div *ngIf="customerForm.get('name').touched && customerForm.get('name').invalid"> <!-- TODO: Review validators: class="alert alert-danger" --> 
+                    <div *ngIf="customerForm.get('name').errors.required">Account name is required</div>
+                    <div *ngIf="customerForm.get('name').errors.minlength">Account name should be minimum {{customerForm.get('name').errors.minlength.requiredLength}} characters</div>  
+                    <div *ngIf="customerForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
+                    <div *ngIf="customerForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
+                </div>   
+                <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
             </div>
+
+            <div class="form-group"> <!-- Goal -->
+                <label for="goal">Goal</label>
+                <input 
+                    formControlName="goal" 
+                    id="goal" 
+                    type="number" 
+                    class="form-control"
+                    [ngModel]="goalInput | currency:'BRL'" 
+                    >
+                <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this account.</small>    
+            </div>
+
+            <div class="form-group"> <!-- Type -->
+                <label for="type">Type</label>
+                    <select 
+                        class="form-control" 
+                        formControlName="type" 
+                        id="type">
+                        <option>Income</option>
+                        <option>Expense</option>
+                        <option>Income and Expense</option>
+                    </select>
+                    <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
+            </div>
+
+            <div class="form-group"> <!-- Comments -->
+                <label for="comments">Comments</label>
+                <textarea 
+                class="form-control" 
+                formControlName="comments" 
+                id="comments" 
+                rows="3"></textarea>
+                <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
+            </div>
+
             <button class="btn btn-primary disabled" type="submit">Create</button>
+            
         </form>
         <!-- {{ accountsModal.getData() | json }}   -->  
     </div>
