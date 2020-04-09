@@ -89,7 +89,7 @@ namespace CoinFac.Service.Controllers.Accounts
                 accountDto.Id = account.Id;
                 return Created($"/api/accounts/{account.Id}", accountDto);
             }
-            catch (Exception) //TODO Validate database failure
+            catch (Exception ex) //TODO Validate database failure
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }

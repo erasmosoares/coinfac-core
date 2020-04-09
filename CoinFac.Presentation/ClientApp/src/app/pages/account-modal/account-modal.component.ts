@@ -16,21 +16,9 @@ export class AccountModalComponent implements OnInit {
   customerForm: FormGroup;
   customer = new CapitalAccount();
 
-  /* form = new FormGroup({
-    account: new FormGroup({
-        name: new FormControl('',[
-          Validators.required,
-          Validators.minLength(3),
-          UsernameValidators.cannotContainSpace],UsernameValidators.shouldBeUnique),
-          goal: new FormControl('',Validators.required),
-          type: new FormControl('',Validators.required),
-          comments: new FormControl('',Validators.required),
-      })
-    }); */
+  goalInput = "0.00";
 
-    goalInput = "0.00";
-
-    constructor(public ngxSmartModalService: NgxSmartModalService,
+  constructor(public ngxSmartModalService: NgxSmartModalService,
                 private accountService: AccountService,
                 private toastr: ToastrService,
                 private fb: FormBuilder) { }
@@ -61,16 +49,15 @@ export class AccountModalComponent implements OnInit {
 
     this.customer = stringify;
     this.customer.records = [];
-    this.customer.userId = "1";
+    this.customer.userId = "73";
 
     console.log(this.customer); //TODO: Associate user
     
     this.accountService.createAccount(this.customer)
     .subscribe(
-        data => this.showSuccess("success!", data), //TODO: Close dialog
+        data => this.showSuccess("success!", "Account created"), //TODO: Close dialog
         error => this.showFailure("couldn't post because", error)
     );  
-    
   }
 
   /*
