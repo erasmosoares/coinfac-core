@@ -89,11 +89,31 @@ namespace CoinFac.Service.Controllers.Accounts
                 accountDto.Id = account.Id;
                 return Created($"/api/accounts/{account.Id}", accountDto);
             }
-            catch (Exception ex) //TODO Validate database failure
+            catch (Exception) //TODO Validate database failure
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
+        }
+
+        /// <summary>
+        /// Delete an account
+        /// </summary>
+        /// <param id="id">The account number</param>
+        /// <returns>An ActionResult</returns>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                //await UnitOfWork.AccountRepository.Remove();
+                //await UnitOfWork.CompleteAsync();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
         }
     }
 }

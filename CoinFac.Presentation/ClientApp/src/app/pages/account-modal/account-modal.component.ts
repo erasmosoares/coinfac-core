@@ -68,6 +68,21 @@ export class AccountModalComponent implements OnInit {
     }
   }
 
+  deleteAccount(){
+    
+    var account:CapitalAccount = this.ngxSmartModalService.getModal('popupTwo').getData();
+    
+    this.accountService.deleteAccount(+account.id) 
+      .subscribe(
+          data => {
+            this.showInfo("success!", "Account deleted"), 
+            this.notify(account),
+            this.ngxSmartModalService.getModal('popupTwo').close();
+          }, 
+          error => this.showFailure("Could not delete this account","Server error.")
+      ); 
+  }
+
   //TODO Calling twice
   notify(value){
     if(this.createAccountFlag){

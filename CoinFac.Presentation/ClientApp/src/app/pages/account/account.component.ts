@@ -1,3 +1,4 @@
+import { CapitalAccount } from './../../models/accounts';
 import { AccountComponentService } from './account.component.service';
 // import { accountsForTest } from './account-data';
 import { completeAccountsForTest, single } from './../main/main-data';
@@ -7,7 +8,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { GlobalVariable } from 'src/app/common/globals';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { CapitalAccount } from 'src/app/models/accounts';
+
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -144,6 +145,11 @@ export class AccountComponent implements OnInit {
 
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.ngxSmartModalService.getModal('popupOne').open();
+  }
+
+  openDeleteModal(account:CapitalAccount){
+    this.ngxSmartModalService.setModalData(account, 'popupTwo');
+    this.ngxSmartModalService.getModal('popupTwo').open()
   }
 
   getKeyByValue(object, value) {

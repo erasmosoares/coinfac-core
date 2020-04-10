@@ -10,10 +10,16 @@ namespace CoinFac.Persistence.Repositories.Accounts
     {
         public AccountRepository(DbContext context) : base(context) { }
 
-        public string GetAccountNameById(int medicamentId)
+        public string GetAccountNameById(int accountId)
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteAccountById(int accountId)
+        {
+            //TODO do it...
+        }
+
         public DatabaseService DatabaseService
         {
             get { return Context as DatabaseService; }

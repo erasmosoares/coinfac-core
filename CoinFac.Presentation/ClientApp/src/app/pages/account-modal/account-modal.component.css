@@ -4,14 +4,14 @@
   }
 
   
-    .modal-adaptive .modal-lg {
-        width: 80% !important;
-        max-width: calc(80%);
-    }
+.modal-adaptive .modal-lg {
+    width: 80% !important;
+    max-width: calc(80%);
+}
 
-    .msg-modal { width: 75% !important; ; max-width: 520px !important; ; border-radius: 10px !important; ; padding: 12px 0 0 0 ; }
+.msg-modal { width: 75% !important; ; max-width: 520px !important; ; border-radius: 10px !important; ; padding: 12px 0 0 0 ; }
 
-    .nsm-dialog.modal {
-      width: 50vw;
-      height: 50vh;
-    }
+.nsm-dialog.modal {
+  width: 50vw;
+  height: 50vh;
+}

@@ -84,7 +84,7 @@
                 <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
             </div>
 
-            <button class="btn btn-primary disabled" type="submit">Create</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create</button>
             
         </form>
         <!-- {{ accountsModal.getData() | json }}   -->  
@@ -92,9 +92,9 @@
 </ngx-smart-modal>
         
 
-<!-- <ngx-smart-modal #accountsModal2
+<ngx-smart-modal #accountsModal2
                  identifier="accountsModal2"
-                 customClass="medium-modal msg-modal msg-lg modal-lg "
+                 customClass="nsm-dialog-animation-ttb nsm-centered"
                  closable="true"
                  dismissable="false"
                  escapable="false"
@@ -109,62 +109,23 @@
                                     alt="">
                                 </div>
                                 <div class="col-sm">
-                                    Records Manager
+                                    Remove Account
                                 </div>
                             </div>
                         </div>
                     </a>
                 </nav>
+                <img class="img-fluid rounded"
+                    src="https://placeimg.com/1000/400/tech"
+                    alt="Lorem picsum"
+                    position="relative">
 
-                <div class="card-deck">
-                    <div class="card">
-                      <div class="card-body">
-                        <label for="value">Account</label>
-                        <select class="form-control" formControlName="value" id="value">
-                            <option>Renda Fixa</option>
-                            <option>Poupança</option>
-                            <option>Corrente Bradesco</option>
-                            <option>Corrente Brasil</option>
-                            <option>NuConta</option>
-                            <option>Bitcoin (Real)</option>
-                            <option>Neon</option>
-                        </select>
-                        <p class="card-text">
-                            
-                        </p>
-
-                        <form [formGroup]="form2" (ngSubmit)="login()">
-                            <div formGroupName="record">
-                                <div class="form-group">
-                                    <label for="value">value</label>
-                                    <input 
-                                        formControlName="value"
-                                        id="value" 
-                                        type="text" 
-                                        class="form-control">      
-                                </div>
-                                <div class="form-group">
-                                    <label for="date">Date</label>
-                                    <input 
-                                        formControlName="date" 
-                                        id="date" 
-                                        type="text" 
-                                        class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="notes">Notes</label>
-                                <textarea class="form-control" id="notes" rows="3"></textarea>
-                              </div>
-     
-                        <button class="btn btn-primary disabled" type="submit">Submit</button>
-                        </form>
-
-                      </div>
-                    </div>
-
-                </div>
-
+                <p></p>
+                <p>Are you sure you want to remove this account? </p> 
+                <p></p>
+                <small id="accountDelete" class="form-text text-muted">Removing an account will remove any associated data.</small> 
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button class="btn btn-outline-success my-2 my-sm-0" (click)="deleteAccount()" >Ok</button>   
+                </div>                      
 </ngx-smart-modal>
- -->
 
