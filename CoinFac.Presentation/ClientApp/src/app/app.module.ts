@@ -1,3 +1,4 @@
+import { AccountComponentService } from './pages/account/account.component.service';
 import { OrderModule } from 'ngx-order-pipe';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserModule } from '@angular/platform-browser';
@@ -74,7 +75,7 @@ import { DatePipe } from '@angular/common';
       { path: '**', component: MainComponent },
     ])
   ],
-  providers: [NgxSmartModalService],
+  providers: [NgxSmartModalService,AccountComponentService],
   exports: [],
   bootstrap: [AppComponent]
 })

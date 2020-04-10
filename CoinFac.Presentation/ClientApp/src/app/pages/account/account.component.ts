@@ -1,3 +1,4 @@
+import { AccountComponentService } from './account.component.service';
 // import { accountsForTest } from './account-data';
 import { completeAccountsForTest, single } from './../main/main-data';
 //import { accounts, single } from './../main/fac-data';
@@ -49,7 +50,8 @@ export class AccountComponent implements OnInit {
   constructor(public ngxSmartModalService: NgxSmartModalService,
               private accountService: AccountService,
               private toastr: ToastrService,
-              private cdref: ChangeDetectorRef) {}
+              private cdref: ChangeDetectorRef,
+              private accountComponentService: AccountComponentService) {}
   
    ngOnInit() {
      
@@ -62,6 +64,11 @@ export class AccountComponent implements OnInit {
       error: err => this.showMessageByCode(err.originalError.status)
       
     })    
+
+    this.accountComponentService.change.subscribe(account => {
+      alert('this is a notification from another component: '+account.name);
+    });
+
   }
 
   loadAccount(accounts){
@@ -81,7 +88,7 @@ export class AccountComponent implements OnInit {
       */      
     }
   }
-  
+ 
   /*
   TODO: Remove it when complete
 
