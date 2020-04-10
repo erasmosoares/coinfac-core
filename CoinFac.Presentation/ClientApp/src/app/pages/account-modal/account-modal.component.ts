@@ -14,8 +14,9 @@ import { AccountComponentService } from '../account/account.component.service';
 })
 export class AccountModalComponent implements OnInit {
 
-  customerForm: FormGroup;
-  customer = new CapitalAccount();
+  createAccountFlag: boolean = false;
+  accountForm: FormGroup;
+  capitalAccount = new CapitalAccount();
 
   goalInput = "0.00";
 
@@ -29,11 +30,7 @@ export class AccountModalComponent implements OnInit {
   
   ngOnInit() {
 
-    let data = this.ngxSmartModalService;
-
-    console.log('ngxdata: '+data);
-
-    this.customerForm = this.fb.group({
+    this.accountForm = this.fb.group({
       name: ['', [Validators.required, 
                   Validators.minLength(3),
                   UsernameValidators.cannotContainSpace,
@@ -42,33 +39,42 @@ export class AccountModalComponent implements OnInit {
       type: ['', Validators.required],
       comments: ['']
     });
-
   }
 
-  submit(){
+  saveAccount(){
+    
+    var pid = sessionStorage.getItem('pid');
+    
+    if(!pid){
+      this.showFailure("couldn't indentify user", "Please renew your session.")
+    }
+    else{
+         
+      let jsonObj = JSON.stringify(this.accountForm.value);
+      let stringify = JSON.parse(jsonObj);
 
-    //TODO This work    
-    let jsonObj = JSON.stringify(this.customerForm.value);
-    let stringify = JSON.parse(jsonObj);
+      this.capitalAccount = stringify;
+      this.capitalAccount.records = [];
+      this.capitalAccount.userId = pid; 
 
-    this.customer = stringify;
-    this.customer.records = [];
-    this.customer.userId = "73";
+      console.log(this.capitalAccount); 
+      this.notify(this.capitalAccount);
 
-    console.log(this.customer); //TODO: Associate user
-    this.notify(this.customer);
-/*
-    this.accountService.createAccount(this.customer)
-    .subscribe(
-        data => this.notify(this.customer), //TODO: Close dialog and notify account.component
-        error => this.showFailure("couldn't post because", error)
-    );  
-    */
+      this.accountService.createAccount(this.capitalAccount)
+      .subscribe(
+          data => {this.createAccountFlag = true, this.notify(data)}, 
+          error => this.showFailure("couldn't post because", error)
+      );  
+    }
   }
 
+  //TODO Calling twice
   notify(value){
-    this.showSuccess("success!", "Account created");
-    this.accountComponentService.notify(value);
+    if(this.createAccountFlag){
+      this.showSuccess("success!", "Account created");
+      this.accountComponentService.notify(value);
+      this.createAccountFlag = false;
+    }   
   }
 
   /*

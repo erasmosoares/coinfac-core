@@ -52,7 +52,7 @@ export class MainComponent {
 
       var observable = this.userService.getUserByEmail(profile.email);
       observable.subscribe({
-        next:(user:User) => this.showInfo("Hey, how are you doing?", user.name),
+        next:(user:User) => this.greetings(user),
         error: err => {
           if(err.originalError.status == 404){
             this.createNewUser(profile);
@@ -60,6 +60,13 @@ export class MainComponent {
         }
       })
     }
+  }
+
+  greetings(user:User){
+    
+    sessionStorage.setItem('pid', user.id);
+    this.showInfo("Hey, how are you doing?", user.name);
+    
   }
 
   createNewUser(user){

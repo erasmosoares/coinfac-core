@@ -57,21 +57,26 @@ export class AccountComponent implements OnInit {
      
     this.accounts = completeAccountsForTest;
     
-    var observable = this.accountService.getAccounts();
-    observable.subscribe({
+    this.loadAccounts();   
 
-      next:(accounts:any) => this.loadAccount(accounts),
-      error: err => this.showMessageByCode(err.originalError.status)
-      
-    })    
-
+     //* event fired when a new account is created
     this.accountComponentService.change.subscribe(account => {
-      alert('this is a notification from another component: '+account.name);
+      this.loadAccounts();
     });
 
   }
 
-  loadAccount(accounts){
+  loadAccounts(){
+    var observable = this.accountService.getAccounts();
+    observable.subscribe({
+
+      next:(accounts:any) => this.refreshAccount(accounts),
+      error: err => this.showMessageByCode(err.originalError.status)
+      
+    }) 
+  }
+
+  refreshAccount(accounts){
   
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
@@ -89,18 +94,6 @@ export class AccountComponent implements OnInit {
     }
   }
  
-  /*
-  TODO: Remove it when complete
-
-  onAdd(){
-    accounts.push({ id: 1, name: 'Next', type: 'Income', comments: 'Mais um banco digital', goal:'0', series: []});
-  }
-  onRemove(account){
-    let index = accountsForTest.indexOf(account);
-    accountsForTest.splice(index, 1);
-  }
- */
-
   onSelect(event) {
     console.log(event);
   } 
@@ -141,6 +134,16 @@ export class AccountComponent implements OnInit {
 
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.cdref.detectChanges();
+  }
+
+
+  openAccountModal(){ //TODO Will be used to edit
+    const obj: Object = {
+      data: this.accounts,
+    };
+
+    this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
+    this.ngxSmartModalService.getModal('popupOne').open();
   }
 
   getKeyByValue(object, value) {

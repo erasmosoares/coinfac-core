@@ -27,8 +27,8 @@
             Goal
             Comments
         -->
-        <form [formGroup]="customerForm" 
-              (ngSubmit)="submit()">
+        <form [formGroup]="accountForm" 
+              (ngSubmit)="saveAccount()">
 
             <div class="form-group"> <!-- Name -->
                 <label for="username">Name</label>
@@ -39,12 +39,12 @@
                     formControlName="name"
                     novalidate/>
 
-                <div *ngIf="customerForm.get('name').pending">Checking for uniquess...</div>    
-                <div *ngIf="customerForm.get('name').touched && customerForm.get('name').invalid"> <!-- TODO: Review validators: class="alert alert-danger" --> 
-                    <div *ngIf="customerForm.get('name').errors.required">Account name is required</div>
-                    <div *ngIf="customerForm.get('name').errors.minlength">Account name should be minimum {{customerForm.get('name').errors.minlength.requiredLength}} characters</div>  
-                    <div *ngIf="customerForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
-                    <div *ngIf="customerForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
+                <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>    
+                <div *ngIf="accountForm.get('name').touched && accountForm.get('name').invalid"> <!-- TODO: Review validators: class="alert alert-danger" --> 
+                    <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
+                    <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>  
+                    <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
+                    <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
                 </div>   
                 <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
             </div>
