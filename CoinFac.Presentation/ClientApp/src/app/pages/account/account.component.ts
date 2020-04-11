@@ -78,7 +78,7 @@ export class AccountComponent implements OnInit {
   }
 
   refreshAccount(accounts){
-  
+    
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
 
@@ -99,7 +99,7 @@ export class AccountComponent implements OnInit {
     console.log(event);
   } 
 
-  assemblyAccountsBar(accounts){
+  assemblyAccountsBar(accounts){ //TODO Fix when has no account
     
     let comparableAccounts: { [id: string] : number; } = {};
     

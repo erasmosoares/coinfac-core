@@ -106,9 +106,14 @@ namespace CoinFac.Service.Controllers.Accounts
         {
             try
             {
-                //await UnitOfWork.AccountRepository.Remove();
-                //await UnitOfWork.CompleteAsync();
-                return Ok();
+                string removedAccount = await UnitOfWork.AccountRepository.DeleteAccountByIdAsync(id);
+                await UnitOfWork.CompleteAsync();
+
+                if (string.IsNullOrWhiteSpace(removedAccount)) {
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+                }
+             
+                return Ok(removedAccount);
             }
             catch (Exception)
             {

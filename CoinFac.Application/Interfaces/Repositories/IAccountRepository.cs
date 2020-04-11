@@ -1,4 +1,5 @@
 ﻿using CoinFac.Domain.Accounts;
+using System.Threading.Tasks;
 
 namespace CoinFac.Application.Interfaces.Repositories
 {
@@ -6,6 +7,6 @@ namespace CoinFac.Application.Interfaces.Repositories
     {
         string GetAccountNameById(int accountId);
 
-        void DeleteAccountById(int accountId);
+        Task<string> DeleteAccountByIdAsync(int accountId);
     }
 }

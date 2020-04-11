@@ -3,6 +3,7 @@ using CoinFac.Domain.Accounts;
 using CoinFac.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces.Repositories;
+using System.Threading.Tasks;
 
 namespace CoinFac.Persistence.Repositories.Accounts
 {
@@ -15,9 +16,16 @@ namespace CoinFac.Persistence.Repositories.Accounts
             throw new NotImplementedException();
         }
 
-        public void DeleteAccountById(int accountId)
+        public async Task<string> DeleteAccountByIdAsync(int accountId)
         {
-            //TODO do it...
+            Account accountInDb = await DatabaseService.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
+            
+            if (accountInDb != null) {
+                DatabaseService.Accounts.Remove(accountInDb);
+                return accountInDb.Name;
+            }
+
+            return string.Empty;
         }
 
         public DatabaseService DatabaseService

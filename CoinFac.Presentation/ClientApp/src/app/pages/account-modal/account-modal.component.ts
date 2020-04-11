@@ -59,12 +59,16 @@ export class AccountModalComponent implements OnInit {
 
       console.log(this.capitalAccount); 
       this.notify(this.capitalAccount);
+      this.ngxSmartModalService.getModal('popupOne').close();
 
       this.accountService.createAccount(this.capitalAccount)
       .subscribe(
           data => {this.createAccountFlag = true, this.notify(data)}, 
           error => this.showFailure("couldn't post because", error)
       );  
+
+      this.ngxSmartModalService.getModal('popupOne').removeData();
+
     }
   }
 
@@ -75,12 +79,17 @@ export class AccountModalComponent implements OnInit {
     this.accountService.deleteAccount(+account.id) 
       .subscribe(
           data => {
-            this.showInfo("success!", "Account deleted"), 
-            this.notify(account),
+            this.showInfo("success!", "Account "+data+" deleted"), 
+            this.accountComponentService.notify(account),
             this.ngxSmartModalService.getModal('popupTwo').close();
           }, 
-          error => this.showFailure("Could not delete this account","Server error.")
+          error => {
+            this.showFailure("Could not delete this account","Server error."),
+            this.accountComponentService.notify(account),
+            this.ngxSmartModalService.getModal('popupTwo').close()}
       ); 
+
+      this.ngxSmartModalService.getModal('popupTwo').removeData();
   }
 
   //TODO Calling twice
