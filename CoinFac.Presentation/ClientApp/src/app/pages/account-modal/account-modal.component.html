@@ -36,11 +36,10 @@
                     class="form-control"
                     id="name"
                     type="text"
-                    formControlName="name"
-                    novalidate/>
+                    formControlName="name"/>
 
                 <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>    
-                <div *ngIf="accountForm.get('name').touched && accountForm.get('name').invalid"> <!-- TODO: Review validators: class="alert alert-danger" --> 
+                <div *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid" class="alert alert-danger"> 
                     <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
                     <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>  
                     <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
@@ -84,7 +83,7 @@
                 <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
             </div>
 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
             
         </form>
         <!-- {{ accountsModal.getData() | json }}   -->  

@@ -33,8 +33,8 @@ export class AccountModalComponent implements OnInit {
     this.accountForm = this.fb.group({
       name: ['', [Validators.required, 
                   Validators.minLength(3),
-                  UsernameValidators.cannotContainSpace,
-                  UsernameValidators.shouldBeUnique]],
+                  UsernameValidators.cannotContainSpace/* ,
+                  UsernameValidators.shouldBeUnique */]], //TODO There is a bug in this validator
       goal: ['', Validators.required],
       type: ['', Validators.required],
       comments: ['']
