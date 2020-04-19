@@ -40,7 +40,7 @@ namespace CoinFac.Service.Controllers.Users
                 var usersInDb = await UnitOfWork.UserRepository.GetAllAsync();
                 return Ok(Mapper.Map<IEnumerable<UserDto>>(usersInDb));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }

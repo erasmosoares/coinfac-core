@@ -1,11 +1,12 @@
 import { CapitalAccount } from './../../models/accounts';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { UsernameValidators } from './username.validators';
 import { AccountService } from 'src/app/services/account.service';
 import { ToastrService } from 'ngx-toastr';
 import { AccountComponentService } from '../account/account.component.service';
+import { AccountModalService } from './account.modal.service';
 
 @Component({
   selector: 'app-account-modal',
@@ -14,10 +15,9 @@ import { AccountComponentService } from '../account/account.component.service';
 })
 export class AccountModalComponent implements OnInit {
 
-  createAccountFlag: boolean = false;
   accountForm: FormGroup;
   capitalAccount = new CapitalAccount();
-
+  dataForEdition:CapitalAccount;
   goalInput = "0.00";
 
   @Output() refreshAccounts: EventEmitter<CapitalAccount> = new EventEmitter<CapitalAccount>();
@@ -26,7 +26,8 @@ export class AccountModalComponent implements OnInit {
                 private accountService: AccountService,
                 private toastr: ToastrService,
                 private fb: FormBuilder,
-                private accountComponentService: AccountComponentService) { }
+                private accountComponentService: AccountComponentService,
+                private accountModalService: AccountModalService) { }
   
   ngOnInit() {
 
@@ -38,7 +39,35 @@ export class AccountModalComponent implements OnInit {
       goal: ['', Validators.required],
       type: ['', Validators.required],
       comments: ['']
+    });    
+
+    this.accountModalService.editForm.subscribe(account => {
+      this.loadEditForm(account);
     });
+  }
+
+  loadEditForm(account:CapitalAccount){
+    alert('loadForm '+account.name);
+
+    //TODO Initialize Forms
+    //? popupThree is the editForm, if its open, initialize the form with current data
+    /*
+    alert('after ngOnInit');
+    var editModal = this.ngxSmartModalService. getModalData('popupThree');
+    alert('editModal '+editModal);
+    if(editModal !== undefined){
+      this.dataForEdition = this.ngxSmartModalService.getModal('popupThree').getData();
+      alert('dataForEdition '+this.dataForEdition);
+      alert('dataForEdition '+this.dataForEdition.name);
+
+      this.accountForm.patchValue({
+        name: 'qwe',
+        goal: 'qweqwe',
+        type: '0',
+        comments:'adasd'
+      });
+    }
+    */
   }
 
   saveAccount(){
@@ -57,13 +86,12 @@ export class AccountModalComponent implements OnInit {
       this.capitalAccount.records = [];
       this.capitalAccount.userId = pid; 
 
-      console.log(this.capitalAccount); 
-      this.notify(this.capitalAccount);
+      //this.notify(this.capitalAccount);
       this.ngxSmartModalService.getModal('popupOne').close();
 
       this.accountService.createAccount(this.capitalAccount)
       .subscribe(
-          data => {this.createAccountFlag = true, this.notify(data)}, 
+          data => {this.notify(data,"Account created")}, 
           error => this.showFailure("couldn't post because", error)
       );  
 
@@ -92,13 +120,39 @@ export class AccountModalComponent implements OnInit {
       this.ngxSmartModalService.getModal('popupTwo').removeData();
   }
 
+  editAccount(){
+    var pid = sessionStorage.getItem('pid');
+    
+    if(!pid){
+      this.showFailure("couldn't indentify user", "Please renew your session.")
+    }
+    else{
+         
+      let jsonObj = JSON.stringify(this.accountForm.value);
+      let stringify = JSON.parse(jsonObj);
+
+      this.capitalAccount = stringify;
+      this.capitalAccount.records = [];
+      this.capitalAccount.userId = pid; 
+
+      //this.notify(this.capitalAccount);
+      //this.ngxSmartModalService.getModal('popupOne').close();
+
+      this.accountService.updateAccount(this.capitalAccount)
+      .subscribe(
+          data => {this.notify(data,"Account updated")}, 
+          error => this.showFailure("couldn't post because", error)
+      );  
+
+      this.ngxSmartModalService.getModal('popupThree').removeData();
+
+    }
+  }
+
   //TODO Calling twice
-  notify(value){
-    if(this.createAccountFlag){
-      this.showSuccess("success!", "Account created");
-      this.accountComponentService.notify(value);
-      this.createAccountFlag = false;
-    }   
+  notify(value, text){
+    this.showSuccess("success!", text);
+    this.accountComponentService.notify(value);  
   }
 
   /*

@@ -31,6 +31,7 @@ import { AuthGuard } from './components/auth.guard';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { AccountModalService } from './pages/account-modal/account.modal.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { DatePipe } from '@angular/common';
     MatTabsModule,
     ToastrModule.forRoot(), 
     NgxSmartModalModule.forChild(),
+    NgxSmartModalModule.forRoot(),
     RouterModule.forRoot([
       { path: 'home', component: MainComponent },
       { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
@@ -75,7 +77,7 @@ import { DatePipe } from '@angular/common';
       { path: '**', component: MainComponent },
     ])
   ],
-  providers: [NgxSmartModalService,AccountComponentService],
+  providers: [NgxSmartModalService,AccountComponentService,AccountModalService],
   exports: [],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,8 @@
+<!-- 
+
+    Create
+
+-->
 <ngx-smart-modal #accountsModal
     identifier="accountsModal"
     customClass="medium-modal msg-modal msg-lg modal-lg"
@@ -90,7 +95,11 @@
     </div>
 </ngx-smart-modal>
         
+<!-- 
 
+    Delete
+
+-->
 <ngx-smart-modal #accountsModal2
                  identifier="accountsModal2"
                  customClass="nsm-dialog-animation-ttb nsm-centered"
@@ -128,3 +137,99 @@
                 </div>                      
 </ngx-smart-modal>
 
+<!-- 
+
+    Update
+
+-->
+<ngx-smart-modal #accountsModal3
+    identifier="accountsModal3"
+    customClass="medium-modal msg-modal msg-lg modal-lg"
+    closable="true"
+    dismissable="false"
+    escapable="false"
+    [identifier]="'popupThree'">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-">
+                        <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
+                        alt="">
+                    </div>
+                    <div class="col-sm">
+                        Accounts Manager
+                    </div>
+                </div>
+            </div>
+        </a>
+    </nav>
+            
+    <div *ngIf="accountsModal.hasData()">
+        <!-- Account Name, 
+            Account Type [Income, Expense, Income and Expense], 
+            Goal
+            Comments
+        -->
+        <form [formGroup]="accountForm" 
+              (ngSubmit)="editAccount()">
+
+            <div class="form-group"> <!-- Name -->
+                <label for="username">Name</label>
+                <input 
+                    class="form-control"
+                    id="name"
+                    type="text"
+                    formControlName="name"/>
+
+                <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>    
+                <div *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid" class="alert alert-danger"> 
+                    <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
+                    <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>  
+                    <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
+                    <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
+                </div>   
+                <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
+            </div>
+
+            <div class="form-group"> <!-- Goal -->
+                <label for="goal">Goal</label>
+                <input 
+                    formControlName="goal" 
+                    id="goal" 
+                    type="number" 
+                    class="form-control"
+                    [ngModel]="goalInput | currency:'BRL'" 
+                    >
+                <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this account.</small>    
+            </div>
+
+            <div class="form-group"> <!-- Type -->
+                <label for="type">Type</label>
+                    <select 
+                        class="form-control" 
+                        formControlName="type" 
+                        id="type">
+                        <option>Income</option>
+                        <option>Expense</option>
+                        <option>Income and Expense</option>
+                    </select>
+                    <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
+            </div>
+
+            <div class="form-group"> <!-- Comments -->
+                <label for="comments">Comments</label>
+                <textarea 
+                class="form-control" 
+                formControlName="comments" 
+                id="comments" 
+                rows="3"></textarea>
+                <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
+            </div>
+
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
+            
+        </form>
+        <!-- {{ accountsModal.getData() | json }}   -->  
+    </div>
+</ngx-smart-modal>

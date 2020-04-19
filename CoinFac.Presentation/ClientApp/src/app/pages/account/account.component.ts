@@ -8,6 +8,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { GlobalVariable } from 'src/app/common/globals';
 import { AccountService } from '../../services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { AccountModalService } from '../account-modal/account.modal.service';
 
 @Component({
   selector: 'app-account',
@@ -52,7 +53,8 @@ export class AccountComponent implements OnInit {
               private accountService: AccountService,
               private toastr: ToastrService,
               private cdref: ChangeDetectorRef,
-              private accountComponentService: AccountComponentService) {}
+              private accountComponentService: AccountComponentService,
+              private accountModalService: AccountModalService) {}
   
    ngOnInit() {
      
@@ -150,6 +152,12 @@ export class AccountComponent implements OnInit {
   openDeleteModal(account:CapitalAccount){
     this.ngxSmartModalService.setModalData(account, 'popupTwo');
     this.ngxSmartModalService.getModal('popupTwo').open()
+  }
+
+  openEditModal(account:CapitalAccount){ //Notify
+    this.accountModalService.notifyForEdition(account);
+    this.ngxSmartModalService.setModalData(account, 'popupThree');
+    this.ngxSmartModalService.getModal('popupThree').open();
   }
 
   getKeyByValue(object, value) {
