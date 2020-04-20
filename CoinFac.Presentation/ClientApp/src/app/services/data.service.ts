@@ -18,7 +18,7 @@ export class DataService {
     }
     
     if(error.status === 400){
-      return throwError(new BadInput(error.json()))
+      return throwError(new BadInput(error))
     }
     
     return throwError(new AppError(error));

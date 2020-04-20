@@ -37,7 +37,7 @@ export class AccountModalComponent implements OnInit {
                   UsernameValidators.cannotContainSpace/* ,
                   UsernameValidators.shouldBeUnique */]], //TODO There is a bug in this validator
       goal: ['', Validators.required],
-      type: ['', Validators.required],
+      accountType: ['', Validators.required],
       comments: ['']
     });    
 
@@ -47,27 +47,34 @@ export class AccountModalComponent implements OnInit {
   }
 
   loadEditForm(account:CapitalAccount){
-    alert('loadForm '+account.name);
-
-    //TODO Initialize Forms
     //? popupThree is the editForm, if its open, initialize the form with current data
-    /*
-    alert('after ngOnInit');
-    var editModal = this.ngxSmartModalService. getModalData('popupThree');
-    alert('editModal '+editModal);
-    if(editModal !== undefined){
-      this.dataForEdition = this.ngxSmartModalService.getModal('popupThree').getData();
-      alert('dataForEdition '+this.dataForEdition);
-      alert('dataForEdition '+this.dataForEdition.name);
-
+     
+    if(account !== undefined){
+      
       this.accountForm.patchValue({
-        name: 'qwe',
-        goal: 'qweqwe',
-        type: '0',
-        comments:'adasd'
+        name: account.name,
+        goal: account.goal,
+        accountType: this.loadAccountType(account.accountType),
+        comments:account.comments
       });
-    }
-    */
+    } 
+  }
+
+  loadAccountType(type){
+    switch(type) { 
+      case 0: { 
+         return 'Income' 
+      } 
+      case 1: { 
+        return 'Expense' 
+      } 
+      case 2: { 
+        return 'IncomeAndExpense' 
+     }
+      default: { 
+        return 'IncomeAndExpense'  
+      } 
+   } 
   }
 
   saveAccount(){
@@ -80,9 +87,12 @@ export class AccountModalComponent implements OnInit {
     else{
          
       let jsonObj = JSON.stringify(this.accountForm.value);
-      let stringify = JSON.parse(jsonObj);
-
-      this.capitalAccount = stringify;
+      let obj: CapitalAccount = JSON.parse(jsonObj);
+      
+      this.capitalAccount.name = obj.name;
+      this.capitalAccount.goal = obj.goal;
+      this.capitalAccount.accountType = obj.accountType;
+      this.capitalAccount.comments = obj.comments;
       this.capitalAccount.records = [];
       this.capitalAccount.userId = pid; 
 
@@ -92,7 +102,7 @@ export class AccountModalComponent implements OnInit {
       this.accountService.createAccount(this.capitalAccount)
       .subscribe(
           data => {this.notify(data,"Account created")}, 
-          error => this.showFailure("couldn't post because", error)
+          error => {console.log(error), this.showFailure("couldn't post because", error.originalError)}
       );  
 
       this.ngxSmartModalService.getModal('popupOne').removeData();
@@ -141,7 +151,7 @@ export class AccountModalComponent implements OnInit {
       this.accountService.updateAccount(this.capitalAccount)
       .subscribe(
           data => {this.notify(data,"Account updated")}, 
-          error => this.showFailure("couldn't post because", error)
+          error => {console.log(error), this.showFailure("couldn't post because", error.originalError)}
       );  
 
       this.ngxSmartModalService.getModal('popupThree').removeData();

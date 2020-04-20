@@ -66,14 +66,14 @@
             </div>
 
             <div class="form-group"> <!-- Type -->
-                <label for="type">Type</label>
+                <label for="accountType">Type</label>
                     <select 
                         class="form-control" 
-                        formControlName="type" 
-                        id="type">
-                        <option>Income</option>
-                        <option>Expense</option>
-                        <option>Income and Expense</option>
+                        formControlName="accountType" 
+                        id="accountType">
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                        <option value="IncomeAndExpense">Income and Expense</option>
                     </select>
                     <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
             </div>
@@ -91,7 +91,7 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
             
         </form>
-        <!-- {{ accountsModal.getData() | json }}   -->  
+       <!-- {{ accountsModal.getData() | json }}   -->   
     </div>
 </ngx-smart-modal>
         
@@ -205,14 +205,14 @@
             </div>
 
             <div class="form-group"> <!-- Type -->
-                <label for="type">Type</label>
+                <label for="accountType">Type</label>
                     <select 
                         class="form-control" 
-                        formControlName="type" 
-                        id="type">
-                        <option>Income</option>
-                        <option>Expense</option>
-                        <option>Income and Expense</option>
+                        formControlName="accountType" 
+                        id="accountType">
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                        <option value="IncomeAndExpense">Income and Expense</option>
                     </select>
                     <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
             </div>
@@ -227,7 +227,7 @@
                 <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
             </div>
 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Save</button>
             
         </form>
         <!-- {{ accountsModal.getData() | json }}   -->  
