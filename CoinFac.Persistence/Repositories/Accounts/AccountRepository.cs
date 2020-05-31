@@ -11,9 +11,17 @@ namespace CoinFac.Persistence.Repositories.Accounts
     {
         public AccountRepository(DbContext context) : base(context) { }
 
-        public string GetAccountNameById(int accountId)
+        public async Task<Account> GetAccountByNameAndUserId(string accountName, int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Account accountInDb = await DatabaseService.Accounts.FirstOrDefaultAsync(a => a.Name == accountName && a.UserId == userId);
+                return accountInDb;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<string> DeleteAccountByIdAsync(int accountId)

@@ -42,8 +42,13 @@ export class AccountService extends DataService{
     .pipe(catchError(this.handleError));
   }
 
-  updateAccount(account: CapitalAccount):  Observable<CapitalAccount>{
+  //TODO getAccountByNameAndUserID
+  /*getAccountByNameAndUserID(accountName:string, accountUserId: string): Observable<CapitalAccount>{
 
+  }*/
+
+  updateAccount(account: CapitalAccount):  Observable<CapitalAccount>{
+    alert(account.id);
     const url = `${this.serviceUrl}/${account.id}`
 
     return this.http.put<CapitalAccount>(url, account, {headers:this.headers})

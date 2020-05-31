@@ -1,3 +1,4 @@
+import { Record } from './../../models/record';
 import { CapitalAccount } from './../../models/accounts';
 import { AccountComponentService } from './account.component.service';
 // import { accountsForTest } from './account-data';
@@ -140,11 +141,13 @@ export class AccountComponent implements OnInit {
   }
 
 
-  openAccountModal(){ //TODO Will be used to edit
+  openAccountModal(){ 
+
     const obj: Object = {
-      data: this.accounts,
+      data: new CapitalAccount(),
     };
 
+    this.ngxSmartModalService.getModal('popupOne').removeData()
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.ngxSmartModalService.getModal('popupOne').open();
   }

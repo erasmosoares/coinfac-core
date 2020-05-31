@@ -69,6 +69,34 @@ namespace CoinFac.Service.Controllers.Accounts
             }
         }
 
+
+        /// <summary>
+        /// Get an account by accountName and Users
+        /// </summary>
+        /// <param name="accountName">The account name</param>
+        /// <returns>An ActionResult of type Account</returns>
+        /// https://localhost:44372/api/accounts/fullaccount?accountName=NuBank&accountUserId=73
+        [HttpGet()]
+        [Route("fullaccount")]
+        public async Task<ActionResult<Account>> Get(string accountName, int accountUserId)
+        {
+            try
+            {
+                var accountInDb = await UnitOfWork.AccountRepository.GetAccountByNameAndUserId(accountName, accountUserId);
+                if (accountInDb == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(Mapper.Map<Account, AccountDto>(accountInDb));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+
         /// <summary>
         /// Create an account
         /// </summary>
@@ -94,6 +122,32 @@ namespace CoinFac.Service.Controllers.Accounts
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }
 
+        }
+
+        /// <summary>
+        /// Update an account
+        /// </summary>
+        /// <param name="accountDto">The account to create</param>
+        /// <returns>An ActionResult of type Account</returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody]AccountDto accountDto)
+        {
+            try
+            {
+                var oldAccount = await UnitOfWork.AccountRepository.GetAsync(id);
+                if (oldAccount == null)
+                    return NotFound($"Could not find account with id {id}");
+
+                var account = Mapper.Map(accountDto, oldAccount);
+                await UnitOfWork.CompleteAsync();
+
+                return Ok(account);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }      
         }
 
         /// <summary>

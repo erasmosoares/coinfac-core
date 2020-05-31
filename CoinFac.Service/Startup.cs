@@ -56,8 +56,7 @@ namespace CoinFac.Service
 
             app.UseHttpsRedirection();
 
-            string[] origins = new string[] 
-            { 
+            string[] origins = new string[]             { 
                 "https://localhost:44372", 
                 "https://localhost:44342",
                 "https://localhost:44372/api/user",

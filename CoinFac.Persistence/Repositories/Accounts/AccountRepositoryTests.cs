@@ -22,8 +22,8 @@ namespace CoinFac.Persistence.Repositories.Accounts
         [Ignore("NotImplemented")]
         public void GetAccountNameById_AccountIsProcessed_ThrowNotImplementedExeption()
         {
-            
-            Assert.Throws<NotImplementedException>(() => _repository.Object.GetAccountNameById(1));
+            //TODO Todo
+            //Assert.Throws<NotImplementedException>(() => _repository.Object.GetAccountByNameAndUserId(1));
         }
     }
 }

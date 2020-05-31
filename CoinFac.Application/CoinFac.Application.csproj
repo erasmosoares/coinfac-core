@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Records\**" />
+    <EmbeddedResource Remove="Records\**" />
+    <None Remove="Records\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Interfaces\Repositories\IRepository.cs~RF1455218c.TMP" />
   </ItemGroup>
 
@@ -29,11 +35,6 @@
     <Reference Include="Microsoft.EntityFrameworkCore">
       <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Records\Commands\" />
-    <Folder Include="Records\Queries\" />
   </ItemGroup>
 
 </Project>

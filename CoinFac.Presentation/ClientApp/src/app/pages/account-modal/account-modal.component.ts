@@ -145,6 +145,8 @@ export class AccountModalComponent implements OnInit {
       this.capitalAccount.records = [];
       this.capitalAccount.userId = pid; 
 
+      alert(jsonObj); //TODO GetAccountByName - This will return the ID, with this account, I can call updateAccount
+    
       //this.notify(this.capitalAccount);
       //this.ngxSmartModalService.getModal('popupOne').close();
 

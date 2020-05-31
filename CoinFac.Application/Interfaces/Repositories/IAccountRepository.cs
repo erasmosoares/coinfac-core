@@ -5,7 +5,7 @@ namespace CoinFac.Application.Interfaces.Repositories
 {
     public interface IAccountRepository :  IRepository<Account>
     {
-        string GetAccountNameById(int accountId);
+        Task<Account> GetAccountByNameAndUserId(string accountName, int userId);
 
         Task<string> DeleteAccountByIdAsync(int accountId);
     }
