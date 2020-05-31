@@ -42,7 +42,7 @@ export class AccountService extends DataService{
     .pipe(catchError(this.handleError));
   }
 
-  //TODO getAccountByNameAndUserID
+  //TODO getAccountByNameAndUserID - eg. https://localhost:44372/api/accounts/fullaccount?accountName=NuBank&accountUserId=73
   /*getAccountByNameAndUserID(accountName:string, accountUserId: string): Observable<CapitalAccount>{
 
   }*/
