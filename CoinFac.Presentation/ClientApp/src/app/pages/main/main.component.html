@@ -9,31 +9,25 @@
     <div class="card-body">
       <h5 class="card-title">Accounts</h5>
       <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+        The most important thing in saving money is knowing exactly how much you have in your pocket. Your accounts need to be transparent to you.
         <ngx-charts-line-chart [view]="view"
                                [scheme]="colorScheme"
                                [results]="accounts"
                                gradient="gradient"
                                xAxis="true"
                                yAxis="true"
-                               legend="true"
                                showXAxisLabel="true"
                                showYAxisLabel="true"
-                               xAxisLabel="true"
-                               yAxisLabel="true"
-                               autoScale="autoScale"
-                               timeline="true"
-                               (select)="onSelect($event)">
+                               autoScale="autoScale">
         </ngx-charts-line-chart>
       </p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Patrimony</h5>
+      <h5 class="card-title">Incomes</h5>
       <p class="card-text">
-        This card has supporting text below as a natural lead-in to additional content.
+        You cannot contest those less cents in your salary if you have not simply grouped how much salary you have earned in the past few months.
       </p>
       <div>
         <ngx-charts-bar-vertical [view]="view"
@@ -41,31 +35,25 @@
                                  [scheme]="colorScheme"
                                  xAxis="true"
                                  yAxis="true"
-                                 legend="true"
                                  legendTitle="Countries"
                                  showXAxisLabel="true"
-                                 showYAxisLabel="true"
-                                 xAxisLabel="Country"
-                                 yAxisLabel="GDP Per Capita">
+                                 showYAxisLabel="true">
         </ngx-charts-bar-vertical>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Foreign Currency</h5>
+      <h5 class="card-title">Expenses</h5>
       <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+        Our goal is to be simple "kiss" keep-it-simple-stupid. We know that you do not have the patience to manage all expenses, so we focus on the most important expenses.
       </p>
       <div>
         <ngx-charts-number-card [view]="view"
                                 [scheme]="colorScheme"
-                                [results]="single"
-                                (select)="onSelect($event)">
+                                [results]="single">
         </ngx-charts-number-card>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
 </div>
@@ -77,15 +65,13 @@
         <ngx-charts-advanced-pie-chart [view]="view"
                                        [scheme]="colorScheme"
                                        [results]="single"
-                                       gradient="gradient"
-                                       (select)="onSelect($event)">
+                                       gradient="gradient">
         </ngx-charts-advanced-pie-chart>
       </div>
       <div class="col-4 col-sm-6">
         <ngx-charts-pie-grid [view]="view"
                              [scheme]="colorScheme"
-                             [results]="single"
-                             (select)="onSelect($event)">
+                             [results]="single">
         </ngx-charts-pie-grid>
       </div>
     </div>
@@ -94,9 +80,9 @@
 <div class="card-deck">
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Accounts</h5>
+      <h5 class="card-title">Foreign Currency</h5>
       <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+        Sometimes the dream of international travel is close, we know how important it is to be attentive to the foreign market. Manage your income in foreign currencies.
         <ngx-charts-pie-chart [view]="view"
                               [scheme]="colorScheme"
                               [results]="single"
@@ -104,44 +90,38 @@
                               [explodeSlices]="false"
                               [labels]="true"
                               [doughnut]="true"
-                              gradient="gradient"
-                              (select)="onSelect($event)">
+                              gradient="gradient">
         </ngx-charts-pie-chart>
       </p>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Patrimony</h5>
+      <h5 class="card-title">Predictions</h5>
       <p class="card-text">
-        This card has supporting text below as a natural lead-in to additional content.
+        Manage your stock portfolio here, observe the market in a simple way, without complications. We are also looking at cryptocurrencies.
       </p>
       <div>
         <ngx-charts-advanced-pie-chart [view]="view"
                                        [scheme]="colorScheme"
                                        [results]="single"
-                                       cleargradient="gradient"
-                                       (select)="onSelect($event)">
+                                       cleargradient="gradient">
         </ngx-charts-advanced-pie-chart>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Foreign Currency</h5>
+      <h5 class="card-title">Blockchain</h5>
       <p class="card-text">
-        This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.
+        They are everywhere, cryptocurrencies keep coming, and we think they deserve a place at CoinFac. We will help manage them for you.
       </p>
       <div>
         <ngx-charts-pie-grid [view]="view"
                              [scheme]="colorScheme"
-                             [results]="single"
-                             (select)="onSelect($event)">
+                             [results]="single">
         </ngx-charts-pie-grid>
       </div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
   </div>
 </div>
