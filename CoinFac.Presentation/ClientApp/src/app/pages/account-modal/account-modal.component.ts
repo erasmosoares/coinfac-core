@@ -85,7 +85,7 @@ export class AccountModalComponent implements OnInit {
       this.showFailure("couldn't indentify user", "Please renew your session.")
     }
     else{
-         
+
       let jsonObj = JSON.stringify(this.accountForm.value);
       let obj: CapitalAccount = JSON.parse(jsonObj);
       
@@ -96,17 +96,14 @@ export class AccountModalComponent implements OnInit {
       this.capitalAccount.records = [];
       this.capitalAccount.userId = pid; 
 
-      //this.notify(this.capitalAccount);
-      this.ngxSmartModalService.getModal('popupOne').close();
-
       this.accountService.createAccount(this.capitalAccount)
       .subscribe(
           data => {this.notify(data,"Account created")}, 
           error => {console.log(error), this.showFailure("couldn't post because", error.originalError)}
       );  
 
-      this.ngxSmartModalService.getModal('popupOne').removeData();
-
+      this.ngxSmartModalService.getModal('popupOne').removeData(); //TODO rename popup create
+      this.ngxSmartModalService.getModal('popupOne').close();
     }
   }
 
@@ -118,50 +115,39 @@ export class AccountModalComponent implements OnInit {
       .subscribe(
           data => {
             this.showInfo("success!", "Account "+data+" deleted"), 
-            this.accountComponentService.notify(account),
-            this.ngxSmartModalService.getModal('popupTwo').close();
+            this.accountComponentService.notify(account)
           }, 
           error => {
             this.showFailure("Could not delete this account","Server error."),
-            this.accountComponentService.notify(account),
-            this.ngxSmartModalService.getModal('popupTwo').close()}
+            this.accountComponentService.notify(account)}
       ); 
 
-      this.ngxSmartModalService.getModal('popupTwo').removeData();
+      this.ngxSmartModalService.getModal('popupTwo').removeData(); //TODO rename popup delete
+      this.ngxSmartModalService.getModal('popupTwo').close();
   }
 
   editAccount(){
-    var pid = sessionStorage.getItem('pid');
     
-    if(!pid){
-      this.showFailure("couldn't indentify user", "Please renew your session.")
-    }
-    else{
-         
-      let jsonObj = JSON.stringify(this.accountForm.value);
-      let stringify = JSON.parse(jsonObj);
-
-      this.capitalAccount = stringify;
-      this.capitalAccount.records = [];
-      this.capitalAccount.userId = pid; 
-
-      alert(jsonObj); //TODO GetAccountByName - This will return the ID, with this account, I can call updateAccount
+    var account:CapitalAccount = this.ngxSmartModalService.getModal('popupThree').getData();
     
-      //this.notify(this.capitalAccount);
-      //this.ngxSmartModalService.getModal('popupOne').close();
+    let jsonObj = JSON.stringify(this.accountForm.value);
+    let stringify = JSON.parse(jsonObj);
 
-      this.accountService.updateAccount(this.capitalAccount)
+    account.name = stringify.name;
+    account.accountType = stringify.accountType;
+    account.goal = stringify.goal;
+    account.comments = stringify.comments;
+
+    this.accountService.updateAccount(account)
       .subscribe(
-          data => {this.notify(data,"Account updated")}, 
+          data => { this.notify(data,"Account updated") }, 
           error => {console.log(error), this.showFailure("couldn't post because", error.originalError)}
       );  
 
-      this.ngxSmartModalService.getModal('popupThree').removeData();
-
-    }
+      this.ngxSmartModalService.getModal('popupThree').removeData(); //TODO rename popup update
+      this.ngxSmartModalService.getModal('popupThree').close();
   }
 
-  //TODO Calling twice
   notify(value, text){
     this.showSuccess("success!", text);
     this.accountComponentService.notify(value);  

@@ -71,7 +71,7 @@ namespace CoinFac.Service.Controllers.Accounts
 
 
         /// <summary>
-        /// Get an account by accountName and Users
+        /// Get an account by accountName and Users (Not used for by client)
         /// </summary>
         /// <param name="accountName">The account name</param>
         /// <returns>An ActionResult of type Account</returns>
