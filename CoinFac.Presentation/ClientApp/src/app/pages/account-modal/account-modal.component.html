@@ -233,3 +233,41 @@
         <!-- {{ accountsModal.getData() | json }}   -->  
     </div>
 </ngx-smart-modal>
+
+<!-- 
+
+    Records
+
+-->
+<ngx-smart-modal #accountsModal4
+    identifier="accountsModal4"
+    customClass="medium-modal msg-modal msg-lg modal-lg"
+    closable="true"
+    dismissable="false"
+    escapable="false"
+    [identifier]="'popupFour'">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-">
+                        <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
+                        alt="">
+                    </div>
+                    <div class="col-sm">
+                        Records Manager
+                    </div>
+                </div>
+            </div>
+        </a>
+    </nav>
+            
+    <div *ngIf="accountsModal.hasData()">
+        <!-- Account Name, 
+            Account Type [Income, Expense, Income and Expense], 
+            Goal
+            Comments
+        -->
+
+    </div>
+</ngx-smart-modal>

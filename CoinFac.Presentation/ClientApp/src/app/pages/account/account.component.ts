@@ -146,8 +146,14 @@ export class AccountComponent implements OnInit {
     const obj: Object = {
       data: new CapitalAccount(),
     };
+
     this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
     this.ngxSmartModalService.getModal('popupOne').open();
+  }
+
+  openRecordsModal(){
+
+    this.ngxSmartModalService.getModal('popupFour').open();
   }
 
   openDeleteModal(account:CapitalAccount){
