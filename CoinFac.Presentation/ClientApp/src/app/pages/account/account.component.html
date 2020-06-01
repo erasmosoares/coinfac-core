@@ -215,7 +215,7 @@
                     
                     <div *ngIf="account.series" >
                       
-                      <ng-container *ngFor="let serie of account.series | orderBy: reverse ; index as i">
+                      <ng-container *ngFor="let serie of account.series?.slice().reverse() ; index as i"> <!--| orderBy: reverse-->
                         
                           <tr id="tab-cards-tr" >
                               <td id="tab-cards-td" >         
