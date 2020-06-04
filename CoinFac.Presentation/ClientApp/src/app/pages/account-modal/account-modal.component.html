@@ -3,138 +3,117 @@
     Create
 
 -->
-<ngx-smart-modal #accountsModal
-    identifier="accountsModal"
-    customClass="medium-modal msg-modal msg-lg modal-lg"
-    closable="true"
-    dismissable="false"
-    escapable="false"
-    [identifier]="'popupOne'">
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-">
-                        <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
-                        alt="">
-                    </div>
-                    <div class="col-sm">
-                        Accounts Manager
-                    </div>
-                </div>
-            </div>
-        </a>
-    </nav>
-            
-    <div *ngIf="accountsModal.hasData()">
-        <!-- Account Name, 
+<ngx-smart-modal #accountsModal identifier="accountsModal" customClass="medium-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupOne'">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="">
+          </div>
+          <div class="col-sm">
+            Accounts Manager
+          </div>
+        </div>
+      </div>
+    </a>
+  </nav>
+
+  <div *ngIf="accountsModal.hasData()">
+    <!-- Account Name, 
             Account Type [Income, Expense, Income and Expense], 
             Goal
             Comments
         -->
-        <form [formGroup]="accountForm" 
-              (ngSubmit)="saveAccount()">
+    <form [formGroup]="accountForm" (ngSubmit)="saveAccount()">
 
-            <div class="form-group"> <!-- Name -->
-                <label for="username">Name</label>
-                <input 
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    formControlName="name"/>
+      <div class="form-group">
+        <!-- Name -->
+        <label for="username">Name</label>
+        <input class="form-control" id="name" type="text" formControlName="name" />
 
-                <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>    
-                <div *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid" class="alert alert-danger"> 
-                    <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
-                    <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>  
-                    <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
-                    <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
-                </div>   
-                <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
-            </div>
+        <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>
+        <div
+          *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid"
+          class="alert alert-danger">
+          <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
+          <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum
+            {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>
+          <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>
+          <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>
+        </div>
+        <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>
+      </div>
 
-            <div class="form-group"> <!-- Goal -->
-                <label for="goal">Goal</label>
-                <input 
-                    formControlName="goal" 
-                    id="goal" 
-                    type="number" 
-                    class="form-control"
-                    [ngModel]="goalInput | currency:'BRL'" 
-                    >
-                <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this account.</small>    
-            </div>
+      <div class="form-group">
+        <!-- Goal -->
+        <label for="goal">Goal</label>
+        <input formControlName="goal" id="goal" type="number" class="form-control"
+          [ngModel]="goalInput | currency:'BRL'">
+        <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this
+          account.</small>
+      </div>
 
-            <div class="form-group"> <!-- Type -->
-                <label for="accountType">Type</label>
-                    <select 
-                        class="form-control" 
-                        formControlName="accountType" 
-                        id="accountType">
-                        <option value="Income">Income</option>
-                        <option value="Expense">Expense</option>
-                        <option value="IncomeAndExpense">Income and Expense</option>
-                    </select>
-                    <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
-            </div>
+      <div class="form-group">
+        <!-- Type -->
+        <label for="accountType">Type</label>
+        <select class="form-control" formControlName="accountType" id="accountType">
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
+          <option value="IncomeAndExpense">Income and Expense</option>
+        </select>
+        <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check
+          Income.</small>
+      </div>
 
-            <div class="form-group"> <!-- Comments -->
-                <label for="comments">Comments</label>
-                <textarea 
-                class="form-control" 
-                formControlName="comments" 
-                id="comments" 
-                rows="3"></textarea>
-                <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
-            </div>
+      <div class="form-group">
+        <!-- Comments -->
+        <label for="comments">Comments</label>
+        <textarea class="form-control" formControlName="comments" id="comments" rows="3"></textarea>
+        <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small>
+      </div>
 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
-            
-        </form>
-       <!-- {{ accountsModal.getData() | json }}   -->   
-    </div>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Create</button>
+
+    </form>
+    <!-- {{ accountsModal.getData() | json }}   -->
+  </div>
 </ngx-smart-modal>
-        
+
 <!-- 
 
     Delete
 
 -->
-<ngx-smart-modal #accountsModal2
-                 identifier="accountsModal2"
-                 customClass="nsm-dialog-animation-ttb nsm-centered"
-                 closable="true"
-                 dismissable="false"
-                 escapable="false"
-                 [identifier]="'popupTwo'">
+<ngx-smart-modal #accountsModal2 identifier="accountsModal2" customClass="nsm-dialog-animation-ttb nsm-centered"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupTwo'">
 
-                 <nav class="navbar navbar-light bg-light">
-                    <a class="navbar-brand" href="#">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-">
-                                    <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
-                                    alt="">
-                                </div>
-                                <div class="col-sm">
-                                    Remove Account
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </nav>
-                <img class="img-fluid rounded"
-                    src="https://placeimg.com/1000/400/tech"
-                    alt="Lorem picsum"
-                    position="relative">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="">
+          </div>
+          <div class="col-sm">
+            Remove Account
+          </div>
+        </div>
+      </div>
+    </a>
+  </nav>
+  <img class="img-fluid rounded" src="https://placeimg.com/1000/400/tech" alt="Lorem picsum" position="relative">
 
-                <p></p>
-                <p>Are you sure you want to remove this account? </p> 
-                <p></p>
-                <small id="accountDelete" class="form-text text-muted">Removing an account will remove any associated data.</small> 
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button class="btn btn-outline-success my-2 my-sm-0" (click)="deleteAccount()" >Ok</button>   
-                </div>                      
+  <p></p>
+  <p>Are you sure you want to remove this account? </p>
+  <p></p>
+  <small id="accountDelete" class="form-text text-muted">Removing an account will remove any associated data.</small>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="deleteAccount()">Ok</button>
+  </div>
 </ngx-smart-modal>
 
 <!-- 
@@ -142,96 +121,83 @@
     Update
 
 -->
-<ngx-smart-modal #accountsModal3
-    identifier="accountsModal3"
-    customClass="medium-modal msg-modal msg-lg modal-lg"
-    closable="true"
-    dismissable="false"
-    escapable="false"
-    [identifier]="'popupThree'">
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-">
-                        <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
-                        alt="">
-                    </div>
-                    <div class="col-sm">
-                        Accounts Manager
-                    </div>
-                </div>
-            </div>
-        </a>
-    </nav>
-            
-    <div *ngIf="accountsModal.hasData()">
-        <!-- Account Name, 
+<ngx-smart-modal #accountsModal3 identifier="accountsModal3" customClass="medium-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupThree'">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="">
+          </div>
+          <div class="col-sm">
+            Accounts Manager
+          </div>
+        </div>
+      </div>
+    </a>
+  </nav>
+
+  <div *ngIf="accountsModal.hasData()">
+    <!-- Account Name, 
             Account Type [Income, Expense, Income and Expense], 
             Goal
             Comments
         -->
-        <form [formGroup]="accountForm" 
-              (ngSubmit)="editAccount()">
+    <form [formGroup]="accountForm" (ngSubmit)="editAccount()">
 
-            <div class="form-group"> <!-- Name -->
-                <label for="username">Name</label>
-                <input 
-                    class="form-control"
-                    id="name"
-                    type="text"
-                    formControlName="name"/>
+      <div class="form-group">
+        <!-- Name -->
+        <label for="username">Name</label>
+        <input class="form-control" id="name" type="text" formControlName="name" />
 
-                <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>    
-                <div *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid" class="alert alert-danger"> 
-                    <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
-                    <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>  
-                    <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>   
-                    <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>      
-                </div>   
-                <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>    
-            </div>
+        <div *ngIf="accountForm.get('name').pending">Checking for uniquess...</div>
+        <div
+          *ngIf="(accountForm.get('name').touched || accountForm.get('name').dirty) && accountForm.get('name').invalid"
+          class="alert alert-danger">
+          <div *ngIf="accountForm.get('name').errors.required">Account name is required</div>
+          <div *ngIf="accountForm.get('name').errors.minlength">Account name should be minimum
+            {{accountForm.get('name').errors.minlength.requiredLength}} characters</div>
+          <div *ngIf="accountForm.get('name').errors.cannotContainSpace">Account name cannot contain space.</div>
+          <div *ngIf="accountForm.get('name').errors.shouldBeUnique">Account name already taken.</div>
+        </div>
+        <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>
+      </div>
 
-            <div class="form-group"> <!-- Goal -->
-                <label for="goal">Goal</label>
-                <input 
-                    formControlName="goal" 
-                    id="goal" 
-                    type="number" 
-                    class="form-control"
-                    [ngModel]="goalInput | currency:'BRL'" 
-                    >
-                <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this account.</small>    
-            </div>
+      <div class="form-group">
+        <!-- Goal -->
+        <label for="goal">Goal</label>
+        <input formControlName="goal" id="goal" type="number" class="form-control"
+          [ngModel]="goalInput | currency:'BRL'">
+        <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this
+          account.</small>
+      </div>
 
-            <div class="form-group"> <!-- Type -->
-                <label for="accountType">Type</label>
-                    <select 
-                        class="form-control" 
-                        formControlName="accountType" 
-                        id="accountType">
-                        <option value="Income">Income</option>
-                        <option value="Expense">Expense</option>
-                        <option value="IncomeAndExpense">Income and Expense</option>
-                    </select>
-                    <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check Income.</small> 
-            </div>
+      <div class="form-group">
+        <!-- Type -->
+        <label for="accountType">Type</label>
+        <select class="form-control" formControlName="accountType" id="accountType">
+          <option value="Income">Income</option>
+          <option value="Expense">Expense</option>
+          <option value="IncomeAndExpense">Income and Expense</option>
+        </select>
+        <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check
+          Income.</small>
+      </div>
 
-            <div class="form-group"> <!-- Comments -->
-                <label for="comments">Comments</label>
-                <textarea 
-                class="form-control" 
-                formControlName="comments" 
-                id="comments" 
-                rows="3"></textarea>
-                <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small> 
-            </div>
+      <div class="form-group">
+        <!-- Comments -->
+        <label for="comments">Comments</label>
+        <textarea class="form-control" formControlName="comments" id="comments" rows="3"></textarea>
+        <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small>
+      </div>
 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Save</button>
-            
-        </form>
-        <!-- {{ accountsModal.getData() | json }}   -->  
-    </div>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">Save</button>
+
+    </form>
+    <!-- {{ accountsModal.getData() | json }}   -->
+  </div>
 </ngx-smart-modal>
 
 <!-- 
@@ -239,35 +205,135 @@
     Records
 
 -->
-<ngx-smart-modal #accountsModal4
-    identifier="accountsModal4"
-    customClass="medium-modal msg-modal msg-lg modal-lg"
-    closable="true"
-    dismissable="false"
-    escapable="false"
-    [identifier]="'popupFour'">
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-">
-                        <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30" class="d-inline-block align-top"
-                        alt="">
-                    </div>
-                    <div class="col-sm">
-                        Records Manager
-                    </div>
-                </div>
-            </div>
-        </a>
-    </nav>
-            
-    <div *ngIf="accountsModal.hasData()">
-        <!-- Account Name, 
+<ngx-smart-modal #accountsModal4 identifier="accountsModal4" customClass="medium-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupFour'">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-">
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="">
+          </div>
+          <div class="col-sm">
+            Records Manager
+          </div>
+        </div>
+      </div>
+    </a>
+  </nav>
+
+  <div *ngIf="accountsModal.hasData()">
+    <!-- Account Name, 
             Account Type [Income, Expense, Income and Expense], 
             Goal
             Comments
         -->
+    <h1>
+      03 June 2020
+    </h1>
 
-    </div>
+    <mat-tab-group dynamicHeight="true" animationDuration="0ms">
+
+      <mat-tab label="Records">
+
+        <table class="table table-borderless table-responsive">
+          <thead>
+            <tr>
+              <ng-container *ngFor="let account of accounts; index as i">
+                <th scope="col">
+                  {{account.name}}
+                </th>
+              </ng-container>
+            </tr>
+          </thead>
+          <tbody id="tab-cards-body">
+            <ng-container *ngFor="let account of accounts; index as i">
+              <th id="tab-cards-th">
+
+                <div *ngIf="account.series">
+
+                  <ng-container *ngFor="let serie of account.series?.slice().reverse() ; index as i">
+                    <!--| orderBy: reverse-->
+
+                    <tr id="tab-cards-tr">
+                      <td id="tab-cards-td">
+
+                        <div id="tab-cards-card" class="card" [ngClass]="{'border-light mb-3 bg-light': i > 0}"
+                          [ngClass]="{'bg-light': i > 0}" *ngIf="serie">
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              <div *ngIf="i === account.series.length-1 ; then novalidate else validate"></div>
+                              <ng-template #validate>
+                                {{serie.value | currency:'BRL' }}
+                                <i class="fa" [ngClass]="{
+                                                                              'fa-caret-up fa-lg':  serie.value > account.series[(account.series.length - i) - 2].value,
+                                                                              'fa-caret-down fa-lg':  serie.value < account.series[(account.series.length - i) - 2].value 
+                                                                          }"></i>
+                              </ng-template>
+                              <ng-template #novalidate>
+                                {{serie.value | currency:'BRL'}} <i class="fa fa-smile-o fa-"></i>
+                              </ng-template>
+
+                            </h5>
+                            <p class="card-text ">
+                              Date: {{serie.name}}
+                            </p>
+                            <p class="card-text ">
+                              Notes: This is a sample note
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                          </div>
+                        </div>
+
+                        <div id="tab-cards-card" class="card" [ngClass]="{'border-light mb-3 bg-light': i > 0}"
+                          [ngClass]="{'bg-light': i > 0}" *ngIf="!serie">
+                          not ok
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              You have no records.
+                            </h5>
+                            <p class="card-text ">
+                              Add a new record using the records tab.
+                            </p>
+                          </div>
+                        </div>
+
+                      </td>
+                    </tr>
+                  </ng-container>
+                </div>
+                <div *ngIf="!account.series">
+
+                  <ng-container>
+
+                    <tr id="tab-cards-tr">
+                      <td id="tab-cards-td">
+
+                        <div id="tab-cards-card" class="card" [ngClass]="{'border-light mb-3 bg-light': i > 0}"
+                          [ngClass]="{'bg-light': i > 0}">
+                          <div class="card-body">
+                            <h5 class="card-title">
+                              You have no records.
+                            </h5>
+                            <p class="card-text ">
+                              Add a new record using the Records Manager tab.
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </div>
+
+              </th>
+            </ng-container>
+          </tbody>
+        </table>
+
+      </mat-tab>
+
+    </mat-tab-group>
+
+  </div>
 </ngx-smart-modal>
