@@ -7,7 +7,7 @@ import {
   AfterViewInit,
 } from "@angular/core";
 import { NgxSmartModalService } from "ngx-smart-modal";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
 import { UsernameValidators } from "./username.validators";
 import { AccountService } from "src/app/services/account.service";
 import { ToastrService } from "ngx-toastr";
@@ -22,10 +22,13 @@ import { completeAccountsForTest } from "./../main/main-data";
 })
 export class AccountModalComponent implements OnInit {
   accountForm: FormGroup;
+  dynamicForm: FormGroup;
+
   capitalAccount = new CapitalAccount();
   dataForEdition: CapitalAccount;
   goalInput = "0.00";
   accounts: any[];
+  submitted = false;
 
   @Output() refreshAccounts: EventEmitter<CapitalAccount> = new EventEmitter<
     CapitalAccount
@@ -41,6 +44,11 @@ export class AccountModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.dynamicForm = this.fb.group({
+      numberOfTickets: ["", Validators.required],
+      tickets: new FormArray([]),
+    });
+
     this.accountForm = this.fb.group({
       name: [
         "",
@@ -61,6 +69,59 @@ export class AccountModalComponent implements OnInit {
     });
 
     this.accounts = completeAccountsForTest;
+  }
+
+  // convenience getters for easy access to form fields
+  get f() {
+    return this.dynamicForm.controls;
+  }
+  get t() {
+    return this.f.tickets as FormArray;
+  }
+
+  onChangeTickets(e) {
+    const numberOfTickets = e.target.value || 0;
+    if (this.t.length < numberOfTickets) {
+      for (let i = this.t.length; i < numberOfTickets; i++) {
+        this.t.push(
+          this.fb.group({
+            name: ["", Validators.required],
+            email: ["", [Validators.required, Validators.email]],
+          })
+        );
+      }
+    } else {
+      for (let i = this.t.length; i >= numberOfTickets; i--) {
+        this.t.removeAt(i);
+      }
+    }
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.dynamicForm.invalid) {
+      return;
+    }
+
+    // display form values on success
+    alert(
+      "SUCCESS!! :-)\n\n" + JSON.stringify(this.dynamicForm.value, null, 4)
+    );
+  }
+
+  onReset() {
+    // reset whole form back to initial state
+    this.submitted = false;
+    this.dynamicForm.reset();
+    //this.t.clear();
+  }
+
+  onClear() {
+    // clear errors and reset ticket fields
+    this.submitted = false;
+    this.t.reset();
   }
 
   loadEditForm(account: CapitalAccount) {

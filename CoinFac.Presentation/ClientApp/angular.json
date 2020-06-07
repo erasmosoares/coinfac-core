@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/coinfac",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -30,12 +31,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -124,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "coinfac"
+  "defaultProject": "coinfac",
+  "cli": {
+    "analytics": "1b9e250d-4bdb-422f-86d3-097f5d637f3e"
+  }
 }
