@@ -115,7 +115,7 @@ export class AccountModalComponent implements OnInit {
     // reset whole form back to initial state
     this.submitted = false;
     this.dynamicForm.reset();
-    //this.t.clear();
+    this.t.clear();
   }
 
   onClear() {
