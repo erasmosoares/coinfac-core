@@ -23,6 +23,7 @@ import { completeAccountsForTest } from "./../main/main-data";
 export class AccountModalComponent implements OnInit {
   accountForm: FormGroup;
   dynamicForm: FormGroup;
+  recordForm: FormGroup;
 
   capitalAccount = new CapitalAccount();
   dataForEdition: CapitalAccount;
@@ -47,6 +48,10 @@ export class AccountModalComponent implements OnInit {
     this.dynamicForm = this.fb.group({
       numberOfTickets: ["", Validators.required],
       tickets: new FormArray([]),
+    });
+
+    this.recordForm = this.fb.group({
+      value: ["", Validators.required],
     });
 
     this.accountForm = this.fb.group({
