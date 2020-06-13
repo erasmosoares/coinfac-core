@@ -91,7 +91,7 @@ export class AccountModalComponent implements OnInit {
         this.t.push(
           this.fb.group({
             name: ["", Validators.required],
-            email: ["", [Validators.required, Validators.email]],
+            notes: ["", []],
           })
         );
       }

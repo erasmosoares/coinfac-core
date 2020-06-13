@@ -232,7 +232,7 @@
     Records
 
 -->
-<ngx-smart-modal #accountsModal4 identifier="accountsModal4" customClass="medium-modal msg-modal msg-lg modal-lg"
+<ngx-smart-modal #accountsModal4 identifier="accountsModal4" customClass="large-modal msg-modal msg-lg modal-lg"
   closable="true" dismissable="false" escapable="false" [identifier]="'popupFour'">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
@@ -243,7 +243,7 @@
               class="d-inline-block align-top" alt="" />
           </div>
           <div class="col-sm">
-            Records Manager
+            Records Manager - Continuous monitoring
           </div>
         </div>
       </div>
@@ -256,28 +256,30 @@
             Goal
             Comments
         -->
-    <h1>
-      03 June 2020
-    </h1>
-
     <mat-tab-group dynamicHeight="true" animationDuration="5ms">
       <mat-tab label="Records">
-
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-
           <div class="card m-3">
-            <h5 class="card-header">Angular 8 Dynamic Reactive Forms Example</h5>
+            <h5 class="card-header">
+              03 June 2020
+            </h5>
             <div class="card-body">
               <div class="form-row">
                 <div class="form-group">
                   <label>Number of Tickets</label>
                   <select formControlName="numberOfTickets" class="form-control" (change)="onChangeTickets($event)"
-                    [ngClass]="{ 'is-invalid': submitted && f.numberOfTickets.errors }">
+                    [ngClass]="{
+                      'is-invalid': submitted && f.numberOfTickets.errors
+                    }">
                     <option value=""></option>
-                    <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+                    <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{
+                      i
+                    }}</option>
                   </select>
                   <div *ngIf="submitted && f.numberOfTickets.errors" class="invalid-feedback">
-                    <div *ngIf="f.numberOfTickets.errors.required">Number of tickets is required</div>
+                    <div *ngIf="f.numberOfTickets.errors.required">
+                      Number of tickets is required
+                    </div>
                   </div>
                 </div>
               </div>
@@ -286,53 +288,48 @@
             <table class="table table-borderless table-responsive">
               <tr>
                 <td *ngFor="let ticket of t.controls; let i = index">
-
                   <tbody id="tab-cards-body">
                     <th id="tab-cards-th">
-                      dont think i need it... header
+                      Account {{ i + 1 }}
                     </th>
-
                     <tr id="tab-cards-tr">
                       <!--Collumn-->
                       <td id="tab-cards-td">
                         <!--Row-->
-                        <div id="tab-cards-card" class="card" [ngClass]="{'border-light mb-3 bg-light': 1 > 0}"
-                          [ngClass]="{'bg-light': 1 > 0}">
-                          <div class="card-body">
-                            <h5 class="card-title">
-                              Ticket {{i + 1}}
-                            </h5>
-                            <p class="card-text ">
-                              <div [formGroup]="ticket" class="form-row">
-                                <div class="form-group col-6">
-                                  <label>Name</label>
-                                  <input type="text" formControlName="name" class="form-control"
-                                    [ngClass]="{ 'is-invalid': submitted }" />
-                                </div>
+                        <div id="tab-cards-card" class="card" [ngClass]="{ 'border-light mb-3 bg-light': 1 > 0 }"
+                          [ngClass]="{ 'bg-light': 1 > 0 }">
+                          <div class="card-body" style="min-width: 18rem;">
+                            <div [formGroup]="ticket" class="form-row">
+                              <div class="form-group col-6">
+                                <label for="name">Amount: ($)</label>
+                                <input type="text" formControlName="name" class="form-control"
+                                  [ngClass]="{ 'is-invalid': submitted }" />
                               </div>
-
+                            </div>
                           </div>
                         </div>
                       </td>
                     </tr>
                   </tbody>
-
                 </td>
               </tr>
             </table>
-
           </div>
           <div class="card-footer text-center">
             <button class="btn btn-primary mr-1">Buy Tickets</button>
-            <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">Reset</button>
-            <button class="btn btn-secondary" type="button" (click)="onClear()">Clear</button>
+            <button class="btn btn-secondary mr-1" type="reset" (click)="onReset()">
+              Reset
+            </button>
+            <button class="btn btn-secondary" type="button" (click)="onClear()">
+              Clear
+            </button>
           </div>
         </form>
       </mat-tab>
 
-      <mat-tab label="Macro">
+      <!--  <mat-tab label="Macro">
         Not yet implemented
-      </mat-tab>
+      </mat-tab> -->
     </mat-tab-group>
 
     <div class="marginTop">
@@ -340,12 +337,13 @@
         <div class="row">
           <div class="px-2">
             <div class="col-xs-6">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                Save
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </ngx-smart-modal>
