@@ -46,8 +46,8 @@ export class AccountModalComponent implements OnInit {
 
   ngOnInit() {
     this.dynamicForm = this.fb.group({
-      numberOfTickets: ["", Validators.required],
-      tickets: new FormArray([]),
+      numberOfAccounts: ["", Validators.required],
+      records: new FormArray([]),
     });
 
     this.recordForm = this.fb.group({
@@ -81,13 +81,13 @@ export class AccountModalComponent implements OnInit {
     return this.dynamicForm.controls;
   }
   get t() {
-    return this.f.tickets as FormArray;
+    return this.f.records as FormArray;
   }
 
-  onChangeTickets(e) {
-    const numberOfTickets = e.target.value || 0;
-    if (this.t.length < numberOfTickets) {
-      for (let i = this.t.length; i < numberOfTickets; i++) {
+  onChangeRecords(e) {
+    const numberOfRecords = e.target.value || 0;
+    if (this.t.length < numberOfRecords) {
+      for (let i = this.t.length; i < numberOfRecords; i++) {
         this.t.push(
           this.fb.group({
             name: ["", Validators.required],
@@ -96,7 +96,7 @@ export class AccountModalComponent implements OnInit {
         );
       }
     } else {
-      for (let i = this.t.length; i >= numberOfTickets; i--) {
+      for (let i = this.t.length; i >= numberOfRecords; i--) {
         this.t.removeAt(i);
       }
     }
