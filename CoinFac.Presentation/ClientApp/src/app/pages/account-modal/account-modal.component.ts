@@ -14,6 +14,8 @@ import { ToastrService } from "ngx-toastr";
 import { AccountComponentService } from "../account/account.component.service";
 import { AccountModalService } from "./account.modal.service";
 import { completeAccountsForTest } from "./../main/main-data";
+import { debug } from "console";
+import { threadId } from "worker_threads";
 
 @Component({
   selector: "app-account-modal",
@@ -30,6 +32,7 @@ export class AccountModalComponent implements OnInit {
   goalInput = "0.00";
   accounts: any[];
   submitted = false;
+  accountsNames: string[];
 
   @Output() refreshAccounts: EventEmitter<CapitalAccount> = new EventEmitter<
     CapitalAccount
@@ -45,8 +48,9 @@ export class AccountModalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.accountsNames = [];
+
     this.dynamicForm = this.fb.group({
-      numberOfAccounts: ["", Validators.required],
       records: new FormArray([]),
     });
 
@@ -74,6 +78,8 @@ export class AccountModalComponent implements OnInit {
     });
 
     this.accounts = completeAccountsForTest;
+
+    this.onChangeRecords();
   }
 
   // convenience getters for easy access to form fields
@@ -84,33 +90,55 @@ export class AccountModalComponent implements OnInit {
     return this.f.records as FormArray;
   }
 
-  onChangeRecords(e) {
-    const numberOfRecords = e.target.value || 0;
-    if (this.t.length < numberOfRecords) {
-      for (let i = this.t.length; i < numberOfRecords; i++) {
-        this.t.push(
-          this.fb.group({
-            name: ["", Validators.required],
-            notes: ["", []],
-          })
-        );
-      }
-    } else {
-      for (let i = this.t.length; i >= numberOfRecords; i--) {
-        this.t.removeAt(i);
-      }
-    }
+  updateAccountsNames(accounts: any[]) {
+    accounts.forEach((account) => {
+      this.accountsNames.push(account.name);
+    });
+  }
+
+  onChangeRecords() {
+    var observable = this.accountService.getAccounts();
+    observable.subscribe({
+      next: (accounts: any) => {
+        this.updateAccountsNames(accounts);
+
+        const numberOfRecords = accounts.length || 0;
+
+        if (this.t.length < numberOfRecords) {
+          for (let i = this.t.length; i < numberOfRecords; i++) {
+            this.t.push(
+              this.fb.group({
+                account: [this.accountsNames[i]],
+                name: ["", Validators.required],
+              })
+            );
+          }
+        } else {
+          for (let i = this.t.length; i >= numberOfRecords; i--) {
+            this.t.removeAt(i);
+          }
+        }
+      },
+      error: (err) => {
+        alert("Error: " + err.originalError.status);
+      },
+    });
   }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.dynamicForm.invalid) {
       return;
     }
 
-    // display form values on success
+    this.saveAccountRecords();
+
+    this.ngxSmartModalService.getModal("popupFour").removeData(); //TODO rename popup create
+    this.ngxSmartModalService.getModal("popupFour").close();
+  }
+
+  saveAccountRecords() {
     alert(
       "SUCCESS!! :-)\n\n" + JSON.stringify(this.dynamicForm.value, null, 4)
     );

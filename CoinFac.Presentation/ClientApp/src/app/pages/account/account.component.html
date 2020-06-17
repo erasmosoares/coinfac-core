@@ -15,13 +15,12 @@
               class="d-inline-block align-top" alt="">
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            Accounts
+            <div>Accounts</div>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            <i class="fa fa-angle-right fa-lg"></i>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            <div class="total">Total</div>
+            <div>Total</div>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             {{accountsSum | currency:'BRL'}}
@@ -30,7 +29,7 @@
             <i class="fa fa-angle-right fa-lg"></i>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            <div class="total">{{maxAccountName}}</div>
+            <div>{{maxAccountName}}</div>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             {{maxAccountValue | currency:'BRL'}}
@@ -39,7 +38,7 @@
             <i class="fa fa-caret-up fa-lg"></i>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            <div class="total">{{minAccountName}}</div>
+            <div>{{minAccountName}}</div>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             {{minAccountValue | currency:'BRL'}}

@@ -1,46 +1,49 @@
-import { Record } from './../../models/record';
-import { CapitalAccount } from './../../models/accounts';
-import { AccountComponentService } from './account.component.service';
+import { Record } from "./../../models/record";
+import { CapitalAccount } from "./../../models/accounts";
+import { AccountComponentService } from "./account.component.service";
 // import { accountsForTest } from './account-data';
-import { completeAccountsForTest, single } from './../main/main-data';
+import { completeAccountsForTest, single } from "./../main/main-data";
 //import { accounts, single } from './../main/fac-data';
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
-import { NgxSmartModalService } from 'ngx-smart-modal';
-import { GlobalVariable } from 'src/app/common/globals';
-import { AccountService } from '../../services/account.service';
-import { ToastrService } from 'ngx-toastr';
-import { AccountModalService } from '../account-modal/account.modal.service';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { NgxSmartModalService } from "ngx-smart-modal";
+import { GlobalVariable } from "src/app/common/globals";
+import { AccountService } from "../../services/account.service";
+import { ToastrService } from "ngx-toastr";
+import { AccountModalService } from "../account-modal/account.modal.service";
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],  
-  encapsulation: ViewEncapsulation.None
+  selector: "app-account",
+  templateUrl: "./account.component.html",
+  styleUrls: ["./account.component.css"],
+  encapsulation: ViewEncapsulation.None,
 })
-
 export class AccountComponent implements OnInit {
   /*
-  * Jumbontrom
-  */
+   * Jumbontrom
+   */
   showTitle = false;
 
   /*
-  * Accounts bar info
-  */
+   * Accounts bar info
+   */
   accountsSum = 0;
   maxAccountName;
   maxAccountValue = 0;
   minAccountName;
   minAccountValue = 0;
-   
+
   /*
-  * Used for charts
-  */
+   * Used for charts
+   */
   view: any[] = [500, 400];
   colorScheme = {
-    domain: ['#808782', '#a6d3a0', '#b3ffb3', '#d1ffd7']
+    domain: ["#808782", "#a6d3a0", "#b3ffb3", "#d1ffd7"],
   };
-
 
   //TODO: Dark mode
   public theme = GlobalVariable.COINFAC_THEME_MODE_;
@@ -48,87 +51,84 @@ export class AccountComponent implements OnInit {
   single: any[];
   accounts: any[];
 
-  accountsCollection: CapitalAccount[]; 
-  
-  constructor(public ngxSmartModalService: NgxSmartModalService,
-              private accountService: AccountService,
-              private toastr: ToastrService,
-              private cdref: ChangeDetectorRef,
-              private accountComponentService: AccountComponentService,
-              private accountModalService: AccountModalService) {}
-  
-   ngOnInit() {
-     
-    this.accounts = completeAccountsForTest;
-    
-    this.loadAccounts();   
+  accountsCollection: CapitalAccount[];
 
-     //* event fired when a new account is created
-    this.accountComponentService.change.subscribe(account => {
+  constructor(
+    public ngxSmartModalService: NgxSmartModalService,
+    private accountService: AccountService,
+    private toastr: ToastrService,
+    private cdref: ChangeDetectorRef,
+    private accountComponentService: AccountComponentService,
+    private accountModalService: AccountModalService
+  ) {}
+
+  ngOnInit() {
+    this.accounts = completeAccountsForTest;
+
+    this.loadAccounts();
+
+    //* event fired when a new account is created
+    this.accountComponentService.change.subscribe((account) => {
       this.loadAccounts();
     });
-
   }
 
-  loadAccounts(){
+  loadAccounts() {
     var observable = this.accountService.getAccounts();
     observable.subscribe({
-
-      next:(accounts:any) => this.refreshAccount(accounts),
-      error: err => this.showMessageByCode(err.originalError.status)
-      
-    }) 
+      next: (accounts: any) => this.refreshAccount(accounts),
+      error: (err) => this.showMessageByCode(err.originalError.status),
+    });
   }
 
-  refreshAccount(accounts){
-    
+  refreshAccount(accounts) {
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
 
-      Object.assign(this, {single, accounts: this.accountsCollection});
+      Object.assign(this, { single, accounts: this.accountsCollection });
 
-      this.assemblyAccountsBar(this.accountsCollection); 
+      this.assemblyAccountsBar(this.accountsCollection);
 
-       /*
+      /*
         ? Use it for demo purpose
 
         Object.assign(this, {single, completeAccountsForTest});
         this.assemblyAccountsBar(this.accountsCollection); 
-      */      
+      */
     }
   }
- 
+
   onSelect(event) {
     console.log(event);
-  } 
+  }
 
-  assemblyAccountsBar(accounts){ //TODO Fix when has no account
-    
-    let comparableAccounts: { [id: string] : number; } = {};
-    
+  assemblyAccountsBar(accounts) {
+    //TODO Fix when has no account
+
+    let comparableAccounts: { [id: string]: number } = {};
+
     try {
-      
-      accounts.forEach(function (value) {
-        let newestRegistry = value.series[value.series.length - 1].value;
-        if(value.series.length > 0){
-          this.accountsSum += newestRegistry;
-          comparableAccounts[value.name] = value.series[value.series.length - 1].value;   
-        } 
-      }.bind(this));
-  
-      var maxValue = Math.max.apply(this,Object.values(comparableAccounts))
-      var minValue = Math.min.apply(this,Object.values(comparableAccounts))
-  
-      this.maxAccountName = this.getKeyByValue(comparableAccounts,maxValue);
-      this.maxAccountValue = maxValue;
-      this.minAccountName = this.getKeyByValue(comparableAccounts,minValue);
-      this.minAccountValue = minValue;
+      accounts.forEach(
+        function (value) {
+          let newestRegistry = value.series[value.series.length - 1].value;
+          if (value.series.length > 0) {
+            this.accountsSum += newestRegistry;
+            comparableAccounts[value.name] =
+              value.series[value.series.length - 1].value;
+          }
+        }.bind(this)
+      );
 
+      var maxValue = Math.max.apply(this, Object.values(comparableAccounts));
+      var minValue = Math.min.apply(this, Object.values(comparableAccounts));
+
+      this.maxAccountName = this.getKeyByValue(comparableAccounts, maxValue);
+      this.maxAccountValue = maxValue;
+      this.minAccountName = this.getKeyByValue(comparableAccounts, minValue);
+      this.minAccountValue = minValue;
     } catch (error) {
-      
       //? invalid series or undefined
     }
-    
   }
 
   ngAfterViewInit() {
@@ -136,49 +136,46 @@ export class AccountComponent implements OnInit {
       data: this.accounts,
     };
 
-    this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
+    this.ngxSmartModalService.setModalData(obj, "popupOne");
     this.cdref.detectChanges();
   }
 
-
-  openAccountModal(){ 
-
+  openAccountModal() {
     const obj: Object = {
       data: new CapitalAccount(),
     };
 
-    this.ngxSmartModalService.setModalData(obj, 'popupOne'); 
-    this.ngxSmartModalService.getModal('popupOne').open();
+    this.ngxSmartModalService.setModalData(obj, "popupOne");
+    this.ngxSmartModalService.getModal("popupOne").open();
   }
 
-  openRecordsModal(){
-
-    this.ngxSmartModalService.getModal('popupFour').open();
+  openRecordsModal() {
+    this.ngxSmartModalService.getModal("popupFour").open();
   }
 
-  openDeleteModal(account:CapitalAccount){
-    this.ngxSmartModalService.setModalData(account, 'popupTwo');
-    this.ngxSmartModalService.getModal('popupTwo').open()
+  openDeleteModal(account: CapitalAccount) {
+    this.ngxSmartModalService.setModalData(account, "popupTwo");
+    this.ngxSmartModalService.getModal("popupTwo").open();
   }
 
-  openEditModal(account:CapitalAccount){ //Notify
+  openEditModal(account: CapitalAccount) {
+    //Notify
     this.accountModalService.notifyForEdition(account);
-    this.ngxSmartModalService.setModalData(account, 'popupThree');
-    this.ngxSmartModalService.getModal('popupThree').open();
+    this.ngxSmartModalService.setModalData(account, "popupThree");
+    this.ngxSmartModalService.getModal("popupThree").open();
   }
 
   getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key] === value);
+    return Object.keys(object).find((key) => object[key] === value);
   }
-  
+
   /*
-  * Messages
-  */
-  showMessageByCode(code){
-    if (code == 404){
+   * Messages
+   */
+  showMessageByCode(code) {
+    if (code == 404) {
       this.showFailure("Oh no!", "Something was not found");
-    }
-    else{
+    } else {
       this.showFailure("Oh no!", "Internal Error");
     }
   }
@@ -199,4 +196,3 @@ export class AccountComponent implements OnInit {
     });
   }
 }
-

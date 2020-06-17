@@ -3,27 +3,15 @@
     Create
 
 -->
-<ngx-smart-modal
-  #accountsModal
-  identifier="accountsModal"
-  customClass="medium-modal msg-modal msg-lg modal-lg"
-  closable="true"
-  dismissable="false"
-  escapable="false"
-  [identifier]="'popupOne'"
->
+<ngx-smart-modal #accountsModal identifier="accountsModal" customClass="medium-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupOne'">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
       <div class="container-fluid">
         <div class="row">
           <div class="col-">
-            <img
-              src="https://randomuser.me/api/portraits/women/21.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="" />
           </div>
           <div class="col-sm">
             Accounts Manager
@@ -43,24 +31,16 @@
       <div class="form-group">
         <!-- Name -->
         <label for="username">Name</label>
-        <input
-          class="form-control"
-          id="name"
-          type="text"
-          formControlName="name"
-        />
+        <input class="form-control" id="name" type="text" formControlName="name" />
 
         <div *ngIf="accountForm.get('name').pending">
           Checking for uniquess...
         </div>
-        <div
-          *ngIf="
+        <div *ngIf="
             (accountForm.get('name').touched ||
               accountForm.get('name').dirty) &&
             accountForm.get('name').invalid
-          "
-          class="alert alert-danger"
-        >
+          " class="alert alert-danger">
           <div *ngIf="accountForm.get('name').errors.required">
             Account name is required
           </div>
@@ -76,62 +56,38 @@
             Account name already taken.
           </div>
         </div>
-        <small id="accountnamehelp" class="form-text text-muted"
-          >Informe your account name.</small
-        >
+        <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>
       </div>
 
       <div class="form-group">
         <!-- Goal -->
         <label for="goal">Goal</label>
-        <input
-          formControlName="goal"
-          id="goal"
-          type="number"
-          class="form-control"
-          [ngModel]="goalInput | currency: 'BRL'"
-        />
-        <small id="accountnamehelp" class="form-text text-muted"
-          >Informe how much money you want to keep for this account.</small
-        >
+        <input formControlName="goal" id="goal" type="number" class="form-control"
+          [ngModel]="goalInput | currency: 'BRL'" />
+        <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this
+          account.</small>
       </div>
 
       <div class="form-group">
         <!-- Type -->
         <label for="accountType">Type</label>
-        <select
-          class="form-control"
-          formControlName="accountType"
-          id="accountType"
-        >
+        <select class="form-control" formControlName="accountType" id="accountType">
           <option value="Income">Income</option>
           <option value="Expense">Expense</option>
           <option value="IncomeAndExpense">Income and Expense</option>
         </select>
-        <small id="accounttypehelp" class="form-text text-muted"
-          >If its an account for savings please check Income.</small
-        >
+        <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check
+          Income.</small>
       </div>
 
       <div class="form-group">
         <!-- Comments -->
         <label for="comments">Comments</label>
-        <textarea
-          class="form-control"
-          formControlName="comments"
-          id="comments"
-          rows="3"
-        ></textarea>
-        <small id="accountcommentshelp" class="form-text text-muted"
-          >Inform details of your account.</small
-        >
+        <textarea class="form-control" formControlName="comments" id="comments" rows="3"></textarea>
+        <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small>
       </div>
 
-      <button
-        class="btn btn-outline-success my-2 my-sm-0"
-        type="submit"
-        [disabled]="!accountForm.valid"
-      >
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">
         Create
       </button>
     </form>
@@ -144,27 +100,15 @@
     Delete
 
 -->
-<ngx-smart-modal
-  #accountsModal2
-  identifier="accountsModal2"
-  customClass="nsm-dialog-animation-ttb nsm-centered"
-  closable="true"
-  dismissable="false"
-  escapable="false"
-  [identifier]="'popupTwo'"
->
+<ngx-smart-modal #accountsModal2 identifier="accountsModal2" customClass="nsm-dialog-animation-ttb nsm-centered"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupTwo'">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
       <div class="container-fluid">
         <div class="row">
           <div class="col-">
-            <img
-              src="https://randomuser.me/api/portraits/women/21.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="" />
           </div>
           <div class="col-sm">
             Remove Account
@@ -173,24 +117,14 @@
       </div>
     </a>
   </nav>
-  <img
-    class="img-fluid rounded"
-    src="https://placeimg.com/1000/400/tech"
-    alt="Lorem picsum"
-    position="relative"
-  />
+  <img class="img-fluid rounded" src="https://placeimg.com/1000/400/tech" alt="Lorem picsum" position="relative" />
 
   <p></p>
   <p>Are you sure you want to remove this account?</p>
   <p></p>
-  <small id="accountDelete" class="form-text text-muted"
-    >Removing an account will remove any associated data.</small
-  >
+  <small id="accountDelete" class="form-text text-muted">Removing an account will remove any associated data.</small>
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button
-      class="btn btn-outline-success my-2 my-sm-0"
-      (click)="deleteAccount()"
-    >
+    <button class="btn btn-outline-success my-2 my-sm-0" (click)="deleteAccount()">
       Ok
     </button>
   </div>
@@ -201,27 +135,15 @@
     Update
 
 -->
-<ngx-smart-modal
-  #accountsModal3
-  identifier="accountsModal3"
-  customClass="medium-modal msg-modal msg-lg modal-lg"
-  closable="true"
-  dismissable="false"
-  escapable="false"
-  [identifier]="'popupThree'"
->
+<ngx-smart-modal #accountsModal3 identifier="accountsModal3" customClass="medium-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupThree'">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
       <div class="container-fluid">
         <div class="row">
           <div class="col-">
-            <img
-              src="https://randomuser.me/api/portraits/women/21.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="" />
           </div>
           <div class="col-sm">
             Accounts Manager
@@ -241,24 +163,16 @@
       <div class="form-group">
         <!-- Name -->
         <label for="username">Name</label>
-        <input
-          class="form-control"
-          id="name"
-          type="text"
-          formControlName="name"
-        />
+        <input class="form-control" id="name" type="text" formControlName="name" />
 
         <div *ngIf="accountForm.get('name').pending">
           Checking for uniquess...
         </div>
-        <div
-          *ngIf="
+        <div *ngIf="
             (accountForm.get('name').touched ||
               accountForm.get('name').dirty) &&
             accountForm.get('name').invalid
-          "
-          class="alert alert-danger"
-        >
+          " class="alert alert-danger">
           <div *ngIf="accountForm.get('name').errors.required">
             Account name is required
           </div>
@@ -274,62 +188,38 @@
             Account name already taken.
           </div>
         </div>
-        <small id="accountnamehelp" class="form-text text-muted"
-          >Informe your account name.</small
-        >
+        <small id="accountnamehelp" class="form-text text-muted">Informe your account name.</small>
       </div>
 
       <div class="form-group">
         <!-- Goal -->
         <label for="goal">Goal</label>
-        <input
-          formControlName="goal"
-          id="goal"
-          type="number"
-          class="form-control"
-          [ngModel]="goalInput | currency: 'BRL'"
-        />
-        <small id="accountnamehelp" class="form-text text-muted"
-          >Informe how much money you want to keep for this account.</small
-        >
+        <input formControlName="goal" id="goal" type="number" class="form-control"
+          [ngModel]="goalInput | currency: 'BRL'" />
+        <small id="accountnamehelp" class="form-text text-muted">Informe how much money you want to keep for this
+          account.</small>
       </div>
 
       <div class="form-group">
         <!-- Type -->
         <label for="accountType">Type</label>
-        <select
-          class="form-control"
-          formControlName="accountType"
-          id="accountType"
-        >
+        <select class="form-control" formControlName="accountType" id="accountType">
           <option value="Income">Income</option>
           <option value="Expense">Expense</option>
           <option value="IncomeAndExpense">Income and Expense</option>
         </select>
-        <small id="accounttypehelp" class="form-text text-muted"
-          >If its an account for savings please check Income.</small
-        >
+        <small id="accounttypehelp" class="form-text text-muted">If its an account for savings please check
+          Income.</small>
       </div>
 
       <div class="form-group">
         <!-- Comments -->
         <label for="comments">Comments</label>
-        <textarea
-          class="form-control"
-          formControlName="comments"
-          id="comments"
-          rows="3"
-        ></textarea>
-        <small id="accountcommentshelp" class="form-text text-muted"
-          >Inform details of your account.</small
-        >
+        <textarea class="form-control" formControlName="comments" id="comments" rows="3"></textarea>
+        <small id="accountcommentshelp" class="form-text text-muted">Inform details of your account.</small>
       </div>
 
-      <button
-        class="btn btn-outline-success my-2 my-sm-0"
-        type="submit"
-        [disabled]="!accountForm.valid"
-      >
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="!accountForm.valid">
         Save
       </button>
     </form>
@@ -342,27 +232,15 @@
     Records
 
 -->
-<ngx-smart-modal
-  #accountsModal4
-  identifier="accountsModal4"
-  customClass="large-modal msg-modal msg-lg modal-lg"
-  closable="true"
-  dismissable="false"
-  escapable="false"
-  [identifier]="'popupFour'"
->
+<ngx-smart-modal #accountsModal4 identifier="accountsModal4" customClass="large-modal msg-modal msg-lg modal-lg"
+  closable="true" dismissable="false" escapable="false" [identifier]="'popupFour'">
   <nav class="navbar navbar-light bg-light">
     <a class="navbar-brand" href="#">
       <div class="container-fluid">
         <div class="row">
           <div class="col-">
-            <img
-              src="https://randomuser.me/api/portraits/women/21.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
+            <img src="https://randomuser.me/api/portraits/women/21.jpg" width="30" height="30"
+              class="d-inline-block align-top" alt="" />
           </div>
           <div class="col-sm">
             Records Manager - Continuous monitoring
@@ -383,62 +261,28 @@
         <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
           <div class="card m-3">
             <h5 class="card-header">
-              03 June 2020
+              <i class="fa fa-calendar-check-o"></i> 03 June 2020
             </h5>
-            <div class="card-body">
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Number of Records</label>
-                  <select
-                    formControlName="numberOfAccounts"
-                    class="form-control"
-                    (change)="onChangeRecords($event)"
-                    [ngClass]="{
-                      'is-invalid': submitted && f.numberOfAccounts.errors
-                    }"
-                  >
-                    <option value=""></option>
-                    <option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{
-                      i
-                    }}</option>
-                  </select>
-                  <div
-                    *ngIf="submitted && f.numberOfAccounts.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="f.numberOfAccounts.errors.required">
-                      Number of records is required
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
             <table class="table table-borderless table-responsive">
               <tr>
                 <td *ngFor="let ticket of t.controls; let i = index">
                   <tbody id="tab-cards-body">
-                    <th id="tab-cards-th">Account {{ i + 1 }}</th>
+                    <th id="tab-cards-th"><i class="fa fa-bank"> </i>{{accountsNames[i]}}</th>
                     <tr id="tab-cards-tr">
                       <!--Collumn-->
                       <td id="tab-cards-td">
                         <!--Row-->
-                        <div
-                          id="tab-cards-card"
-                          class="card"
-                          [ngClass]="{ 'border-light mb-3 bg-light': 1 > 0 }"
-                          [ngClass]="{ 'bg-light': 1 > 0 }"
-                        >
+                        <div id="tab-cards-card" class="card" [ngClass]="{ 'border-light mb-3 bg-light': 1 > 0 }"
+                          [ngClass]="{ 'bg-light': 1 > 0 }">
                           <div class="card-body" style="min-width: 18rem;">
                             <div [formGroup]="ticket" class="form-row">
                               <div class="form-group col-6">
-                                <label for="name">Amount: ($)</label>
-                                <input
-                                  type="text"
-                                  formControlName="name"
-                                  class="form-control"
-                                  [ngClass]="{ 'is-invalid': submitted }"
-                                />
+                                <input type="hidden" formControlName="account" class="form-control" />
+                                <label for="name"><i class="fa fa-money"></i> Amount:</label>
+                                <input type="text" formControlName="name" class="form-control"
+                                  [ngClass]="{ 'is-invalid': submitted }" />
                               </div>
                             </div>
                           </div>
@@ -451,41 +295,28 @@
             </table>
           </div>
           <div class="card-footer text-center">
-            <button class="btn btn-primary mr-1">Save records</button>
-            <button
-              class="btn btn-secondary mr-1"
-              type="reset"
-              (click)="onReset()"
-            >
-              Reset
-            </button>
-            <button class="btn btn-secondary" type="button" (click)="onClear()">
-              Clear
-            </button>
+
+            <div class="marginTop">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="px-2">
+                    <div class="col-xs-6">
+                      <button class="btn btn-outline-success my-2 my-sm-0">Save records</button>
+                    </div>
+                  </div>
+                  <div class="px-2">
+                    <div class="col-xs-6">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="button" (click)="onClear()">
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </mat-tab>
-
-      <!--  <mat-tab label="Macro">
-        Not yet implemented
-      </mat-tab> -->
     </mat-tab-group>
-
-    <div class="marginTop">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="px-2">
-            <div class="col-xs-6">
-              <button
-                class="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </ngx-smart-modal>
