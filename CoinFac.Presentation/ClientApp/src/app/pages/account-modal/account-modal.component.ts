@@ -28,15 +28,15 @@ export class AccountModalComponent implements OnInit {
   amountForm: FormGroup;
 
   //? Basic account objects
-  account = new Account();
+  account: Account;
   accounts: any[];
   accountsNames: string[];
 
   //? Initialize a goal for account
-  goalInput = "0.00";
+  goalInput = "0.00"; //TODO Initialize ngOnInit()
 
   //? Flag used fo records submission
-  submitted = false;
+  submitted = false; //TODO Initialize ngOnInit()
 
   @Output() refreshAccounts: EventEmitter<Account> = new EventEmitter<Account>();
 
@@ -44,30 +44,27 @@ export class AccountModalComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private accountService: AccountService,
     private toastr: ToastrService,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private accountComponentService: AccountComponentService,
     private accountModalService: AccountModalService
   ) { }
 
   ngOnInit() {
+
+    //? Prperties Initialization
+    this.account = new Account();
     this.accountsNames = [];
+    this.accounts = completeAccountsForTest;
 
-    this.recordForm = this.fb.group({
-      records: new FormArray([]),
-    });
-
-    this.amountForm = this.fb.group({
-      value: ["", Validators.required],
-    });
-
-    this.accountForm = this.fb.group({
+    //? Create accounts - Forms Initialization
+    this.accountForm = this.formBuilder.group({
       name: [
         "",
         [
           Validators.required,
           Validators.minLength(3),
-          UsernameValidators.cannotContainSpace /* ,
-                  UsernameValidators.shouldBeUnique */,
+        /*UsernameValidators.cannotContainSpace ,
+          UsernameValidators.shouldBeUnique */,
         ],
       ], //TODO There is a bug in this validator
       goal: ["", Validators.required],
@@ -75,21 +72,34 @@ export class AccountModalComponent implements OnInit {
       comments: [""],
     });
 
+    //? Create records - Forms Initialization
+    this.recordForm = this.formBuilder.group({
+      records: new FormArray([]),
+    });
+
+    this.amountForm = this.formBuilder.group({
+      value: ["", Validators.required],
+    });
+
+    //? Subscribers
     this.accountModalService.editForm.subscribe((account) => {
       this.loadEditForm(account);
     });
 
-    this.accounts = completeAccountsForTest;
-
+    //? Triggers on init
     this.onChangeRecords();
+
   }
 
+  /*
+   * Create Records
+   */
   // convenience getters for easy access to form fields
-  get f() {
+  get recordFormsControlFields() {
     return this.recordForm.controls;
   }
-  get t() {
-    return this.f.records as FormArray;
+  get recordFormsAmountFields() {
+    return this.recordFormsControlFields.records as FormArray;
   }
 
   updateAccountsNames(accounts: any[]) {
@@ -106,18 +116,18 @@ export class AccountModalComponent implements OnInit {
 
         const numberOfRecords = accounts.length || 0;
 
-        if (this.t.length < numberOfRecords) {
-          for (let i = this.t.length; i < numberOfRecords; i++) {
-            this.t.push(
-              this.fb.group({
+        if (this.recordFormsAmountFields.length < numberOfRecords) {
+          for (let i = this.recordFormsAmountFields.length; i < numberOfRecords; i++) {
+            this.recordFormsAmountFields.push(
+              this.formBuilder.group({
                 account: [this.accountsNames[i]],
                 amount: ["", Validators.required],
               })
             );
           }
         } else {
-          for (let i = this.t.length; i >= numberOfRecords; i--) {
-            this.t.removeAt(i);
+          for (let i = this.recordFormsAmountFields.length; i >= numberOfRecords; i--) {
+            this.recordFormsAmountFields.removeAt(i);
           }
         }
       },
@@ -135,7 +145,6 @@ export class AccountModalComponent implements OnInit {
     }
 
     this.saveAccountRecords();
-
     this.ngxSmartModalService.getModal("popupFour").removeData(); //TODO rename popup create
     this.ngxSmartModalService.getModal("popupFour").close();
   }
@@ -157,46 +166,14 @@ export class AccountModalComponent implements OnInit {
     */
   }
 
-  onReset() {
-    this.submitted = false;
-    this.recordForm.reset();
-    this.t.clear();
-  }
-
   onClear() {
     this.submitted = false;
-    this.t.reset();
+    this.recordFormsAmountFields.reset();
   }
 
-  loadEditForm(account: Account) {
-    //? popupThree is the editForm, if its open, initialize the form with current data
-    if (account !== undefined) {
-      this.accountForm.patchValue({
-        name: account.name,
-        goal: account.goal,
-        accountType: this.loadAccountType(account.accountType),
-        comments: account.comments,
-      });
-    }
-  }
-
-  loadAccountType(type) {
-    switch (type) {
-      case 0: {
-        return "Income";
-      }
-      case 1: {
-        return "Expense";
-      }
-      case 2: {
-        return "IncomeAndExpense";
-      }
-      default: {
-        return "IncomeAndExpense";
-      }
-    }
-  }
-
+  /*
+   * Save Account
+   */
   saveAccount() {
     var pid = sessionStorage.getItem("pid");
 
@@ -228,6 +205,9 @@ export class AccountModalComponent implements OnInit {
     }
   }
 
+  /*
+ * Delete Account
+ */
   deleteAccount() {
     var account: Account = this.ngxSmartModalService
       .getModal("popupTwo")
@@ -248,6 +228,9 @@ export class AccountModalComponent implements OnInit {
     this.ngxSmartModalService.getModal("popupTwo").close();
   }
 
+  /*
+  * Edit Account
+  */
   editAccount() {
     var account: Account = this.ngxSmartModalService
       .getModal("popupThree")
@@ -275,6 +258,37 @@ export class AccountModalComponent implements OnInit {
     this.ngxSmartModalService.getModal("popupThree").close();
   }
 
+  loadEditForm(account: Account) {
+    //? popupThree is the editForm, if its open, initialize the form with current data
+    if (account !== undefined) {
+      this.accountForm.patchValue({
+        name: account.name,
+        goal: account.goal,
+        accountType: this.loadAccountType(account.accountType),
+        comments: account.comments,
+      });
+    }
+  }
+
+  loadAccountType(type) {
+    switch (type) {
+      case 0: {
+        return "Income";
+      }
+      case 1: {
+        return "Expense";
+      }
+      case 2: {
+        return "IncomeAndExpense";
+      }
+      default: {
+        return "IncomeAndExpense";
+      }
+    }
+  }
+  /*
+   * Publisher
+   */
   notify(value, text) {
     this.showSuccess("success!", text);
     this.accountComponentService.notify(value);
@@ -288,11 +302,13 @@ export class AccountModalComponent implements OnInit {
       timeOut: 3000,
     });
   }
+
   showFailure(title, message) {
     this.toastr.error(title, message, {
       timeOut: 3000,
     });
   }
+
   showInfo(title, message) {
     this.toastr.info(title, message, {
       timeOut: 3000,
