@@ -258,7 +258,7 @@
         -->
     <mat-tab-group dynamicHeight="true" animationDuration="5ms">
       <mat-tab label="Records">
-        <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
           <div class="card m-3">
             <h5 class="card-header">
               <i class="fa fa-calendar-check-o"></i> 03 June 2020
@@ -280,8 +280,8 @@
                             <div [formGroup]="ticket" class="form-row">
                               <div class="form-group col-6">
                                 <input type="hidden" formControlName="account" class="form-control" />
-                                <label for="name"><i class="fa fa-money"></i> Amount:</label>
-                                <input type="text" formControlName="name" class="form-control"
+                                <label for="amount"><i class="fa fa-money"></i> Amount:</label>
+                                <input type="text" formControlName="amount" class="form-control"
                                   [ngClass]="{ 'is-invalid': submitted }" />
                               </div>
                             </div>

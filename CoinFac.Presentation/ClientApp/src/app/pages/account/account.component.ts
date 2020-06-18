@@ -1,5 +1,5 @@
 import { Record } from "./../../models/record";
-import { CapitalAccount } from "./../../models/accounts";
+import { Account } from "./../../models/accounts";
 import { AccountComponentService } from "./account.component.service";
 // import { accountsForTest } from './account-data';
 import { completeAccountsForTest, single } from "./../main/main-data";
@@ -51,7 +51,7 @@ export class AccountComponent implements OnInit {
   single: any[];
   accounts: any[];
 
-  accountsCollection: CapitalAccount[];
+  accountsCollection: Account[];
 
   constructor(
     public ngxSmartModalService: NgxSmartModalService,
@@ -60,7 +60,7 @@ export class AccountComponent implements OnInit {
     private cdref: ChangeDetectorRef,
     private accountComponentService: AccountComponentService,
     private accountModalService: AccountModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.accounts = completeAccountsForTest;
@@ -142,7 +142,7 @@ export class AccountComponent implements OnInit {
 
   openAccountModal() {
     const obj: Object = {
-      data: new CapitalAccount(),
+      data: new Account(),
     };
 
     this.ngxSmartModalService.setModalData(obj, "popupOne");
@@ -153,12 +153,12 @@ export class AccountComponent implements OnInit {
     this.ngxSmartModalService.getModal("popupFour").open();
   }
 
-  openDeleteModal(account: CapitalAccount) {
+  openDeleteModal(account: Account) {
     this.ngxSmartModalService.setModalData(account, "popupTwo");
     this.ngxSmartModalService.getModal("popupTwo").open();
   }
 
-  openEditModal(account: CapitalAccount) {
+  openEditModal(account: Account) {
     //Notify
     this.accountModalService.notifyForEdition(account);
     this.ngxSmartModalService.setModalData(account, "popupThree");

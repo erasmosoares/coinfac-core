@@ -1,6 +1,6 @@
 import { Record } from "./record";
 
-export class CapitalAccount implements IAccount{
+export class Account implements IAccount {
     id: string;
     name: string;
     goal: string;
@@ -10,7 +10,7 @@ export class CapitalAccount implements IAccount{
     records: Record[];
 }
 
-interface IAccount{
+interface IAccount {
 
     id: string;
     name: string;

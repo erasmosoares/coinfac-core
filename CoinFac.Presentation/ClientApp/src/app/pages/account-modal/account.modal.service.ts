@@ -1,13 +1,13 @@
 import { Injectable, Output, EventEmitter } from '@angular/core'
-import { CapitalAccount } from 'src/app/models/accounts';
+import { Account } from 'src/app/models/accounts';
 
 @Injectable()
 export class AccountModalService {
 
-  @Output() editForm: EventEmitter<CapitalAccount> = new EventEmitter();
+  @Output() editForm: EventEmitter<Account> = new EventEmitter();
 
-  notifyForEdition(value:CapitalAccount) {
-    
+  notifyForEdition(value: Account) {
+
     this.editForm.emit(value);
   }
 

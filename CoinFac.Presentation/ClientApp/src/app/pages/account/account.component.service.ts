@@ -1,13 +1,13 @@
 import { Injectable, Output, EventEmitter } from '@angular/core'
-import { CapitalAccount } from 'src/app/models/accounts';
+import { Account } from 'src/app/models/accounts';
 
 @Injectable()
 export class AccountComponentService {
 
-  @Output() change: EventEmitter<CapitalAccount> = new EventEmitter();
+  @Output() change: EventEmitter<Account> = new EventEmitter();
 
-  notify(value:CapitalAccount) {
-    
+  notify(value: Account) {
+
     this.change.emit(value);
   }
 

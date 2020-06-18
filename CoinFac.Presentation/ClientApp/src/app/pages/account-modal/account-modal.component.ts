@@ -1,4 +1,4 @@
-import { CapitalAccount } from "./../../models/accounts";
+import { Account } from "./../../models/accounts";
 import {
   Component,
   OnInit,
@@ -14,8 +14,6 @@ import { ToastrService } from "ngx-toastr";
 import { AccountComponentService } from "../account/account.component.service";
 import { AccountModalService } from "./account.modal.service";
 import { completeAccountsForTest } from "./../main/main-data";
-import { debug } from "console";
-import { threadId } from "worker_threads";
 
 @Component({
   selector: "app-account-modal",
@@ -23,20 +21,24 @@ import { threadId } from "worker_threads";
   styleUrls: ["./account-modal.component.css"],
 })
 export class AccountModalComponent implements OnInit {
-  accountForm: FormGroup;
-  dynamicForm: FormGroup;
-  recordForm: FormGroup;
 
-  capitalAccount = new CapitalAccount();
-  dataForEdition: CapitalAccount;
-  goalInput = "0.00";
+  //? Form Groups
+  accountForm: FormGroup;
+  recordForm: FormGroup;
+  amountForm: FormGroup;
+
+  //? Basic account objects
+  account = new Account();
   accounts: any[];
-  submitted = false;
   accountsNames: string[];
 
-  @Output() refreshAccounts: EventEmitter<CapitalAccount> = new EventEmitter<
-    CapitalAccount
-  >();
+  //? Initialize a goal for account
+  goalInput = "0.00";
+
+  //? Flag used fo records submission
+  submitted = false;
+
+  @Output() refreshAccounts: EventEmitter<Account> = new EventEmitter<Account>();
 
   constructor(
     public ngxSmartModalService: NgxSmartModalService,
@@ -45,16 +47,16 @@ export class AccountModalComponent implements OnInit {
     private fb: FormBuilder,
     private accountComponentService: AccountComponentService,
     private accountModalService: AccountModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.accountsNames = [];
 
-    this.dynamicForm = this.fb.group({
+    this.recordForm = this.fb.group({
       records: new FormArray([]),
     });
 
-    this.recordForm = this.fb.group({
+    this.amountForm = this.fb.group({
       value: ["", Validators.required],
     });
 
@@ -84,7 +86,7 @@ export class AccountModalComponent implements OnInit {
 
   // convenience getters for easy access to form fields
   get f() {
-    return this.dynamicForm.controls;
+    return this.recordForm.controls;
   }
   get t() {
     return this.f.records as FormArray;
@@ -109,7 +111,7 @@ export class AccountModalComponent implements OnInit {
             this.t.push(
               this.fb.group({
                 account: [this.accountsNames[i]],
-                name: ["", Validators.required],
+                amount: ["", Validators.required],
               })
             );
           }
@@ -128,7 +130,7 @@ export class AccountModalComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.dynamicForm.invalid) {
+    if (this.recordForm.invalid) {
       return;
     }
 
@@ -139,27 +141,35 @@ export class AccountModalComponent implements OnInit {
   }
 
   saveAccountRecords() {
-    alert(
-      "SUCCESS!! :-)\n\n" + JSON.stringify(this.dynamicForm.value, null, 4)
-    );
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4));
+
+    /*
+    "records":[
+      {
+        "account":"Neon",
+        "name":"15.000"
+      },
+      {
+        "account":"Desjardins",
+        "name":"15.000"
+      }
+    ]
+    */
   }
 
   onReset() {
-    // reset whole form back to initial state
     this.submitted = false;
-    this.dynamicForm.reset();
+    this.recordForm.reset();
     this.t.clear();
   }
 
   onClear() {
-    // clear errors and reset ticket fields
     this.submitted = false;
     this.t.reset();
   }
 
-  loadEditForm(account: CapitalAccount) {
+  loadEditForm(account: Account) {
     //? popupThree is the editForm, if its open, initialize the form with current data
-
     if (account !== undefined) {
       this.accountForm.patchValue({
         name: account.name,
@@ -194,16 +204,16 @@ export class AccountModalComponent implements OnInit {
       this.showFailure("couldn't indentify user", "Please renew your session.");
     } else {
       let jsonObj = JSON.stringify(this.accountForm.value);
-      let obj: CapitalAccount = JSON.parse(jsonObj);
+      let obj: Account = JSON.parse(jsonObj);
 
-      this.capitalAccount.name = obj.name;
-      this.capitalAccount.goal = obj.goal;
-      this.capitalAccount.accountType = obj.accountType;
-      this.capitalAccount.comments = obj.comments;
-      this.capitalAccount.records = [];
-      this.capitalAccount.userId = pid;
+      this.account.name = obj.name;
+      this.account.goal = obj.goal;
+      this.account.accountType = obj.accountType;
+      this.account.comments = obj.comments;
+      this.account.records = [];
+      this.account.userId = pid;
 
-      this.accountService.createAccount(this.capitalAccount).subscribe(
+      this.accountService.createAccount(this.account).subscribe(
         (data) => {
           this.notify(data, "Account created");
         },
@@ -219,7 +229,7 @@ export class AccountModalComponent implements OnInit {
   }
 
   deleteAccount() {
-    var account: CapitalAccount = this.ngxSmartModalService
+    var account: Account = this.ngxSmartModalService
       .getModal("popupTwo")
       .getData();
 
@@ -239,7 +249,7 @@ export class AccountModalComponent implements OnInit {
   }
 
   editAccount() {
-    var account: CapitalAccount = this.ngxSmartModalService
+    var account: Account = this.ngxSmartModalService
       .getModal("popupThree")
       .getData();
 
