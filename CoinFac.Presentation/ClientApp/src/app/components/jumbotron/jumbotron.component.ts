@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-jumbotron',
@@ -9,10 +11,17 @@ export class JumbotronComponent implements OnInit {
 
   @Input('title') title: string;
   @Input('subtitle') subtitle: string;
-  
-  constructor() { }
+
+  public picUrl: string;
+
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.userProfile$.subscribe(user => {
+      if (user != null || user != undefined) {
+        this.picUrl = user.pictureUrl;
+      }
+    });
   }
 
 }

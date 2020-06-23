@@ -12,24 +12,40 @@
     <div class="navbar-nav  mr-auto">
       <a class="nav-item nav-link" routerLinkActive="active" routerLink="/home" hidden="true">Home <span
           class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/accounts">Accounts</a>
-      <a class="nav-item nav-link disabled" routerLinkActive="active">Incomes</a>
+      <a class="nav-item nav-link" routerLinkActive="active" routerLink="/accounts" *ngIf="auth.loggedIn">Accounts</a>
+      <a class="nav-item nav-link disabled" routerLinkActive="active" *ngIf="auth.loggedIn">Incomes</a>
       <!--routerLink="/income"-->
-      <a class="nav-item nav-link disabled" routerLinkActive="active">Expenses</a>
+      <a class="nav-item nav-link disabled" routerLinkActive="active" *ngIf="auth.loggedIn">Expenses</a>
       <!--routerLink="/expense"-->
-      <a class="nav-item nav-link disabled" routerLinkActive="active">Foreign Currency</a>
+      <a class="nav-item nav-link disabled" routerLinkActive="active" *ngIf="auth.loggedIn">Foreign Currency</a>
       <!--routerLink="/foreigncurrency"-->
-      <a class="nav-item nav-link disabled" routerLinkActive="active">Predictions</a>
+      <a class="nav-item nav-link disabled" routerLinkActive="active" *ngIf="auth.loggedIn">Predictions</a>
       <!--routerLink="/predictions"-->
-      <a class="nav-item nav-link disabled" routerLinkActive="active">Blockchain</a>
+      <a class="nav-item nav-link disabled" routerLinkActive="active" *ngIf="auth.loggedIn">Blockchain</a>
       <!--routerLink="/blockchain"-->
       <a class="nav-item nav-link" routerLinkActive="active" routerLink="profile" *ngIf="auth.loggedIn">Profile</a>
     </div>
     <form class="form-inline my-2 my-lg-0">
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0 disabled">Logout</button> -->
-      <button class="btn btn-outline-success my-2 my-sm-0" (click)="auth.login()" *ngIf="!auth.loggedIn">Log In</button>
-      <button class="btn btn-outline-success my-2 my-sm-0" (click)="auth.logout()" *ngIf="auth.loggedIn">Log
-        Out</button>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="px-2">
+            <div class="col-xs-6">
+              <button class="btn btn-outline-success my-2 my-sm-0">View Plans</button>
+            </div>
+          </div>
+          <div class="px-2">
+            <div class="col-xs-6">
+              <!-- <button class="btn btn-outline-success my-2 my-sm-0 disabled">Logout</button> -->
+              <button class="btn btn-outline-success my-2 my-sm-0" (click)="auth.login()" *ngIf="!auth.loggedIn">Log
+                In</button>
+              <button class="btn btn-outline-success my-2 my-sm-0" (click)="auth.logout()"
+                *ngIf="auth.loggedIn">LogOut</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </form>
   </div>
 </nav>

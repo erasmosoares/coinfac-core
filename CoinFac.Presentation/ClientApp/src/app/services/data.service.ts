@@ -30,8 +30,11 @@ export class DataService {
   public configureHeader() {
     var pid = sessionStorage.getItem("pid");
     if (!pid) {
-      console.log("couldn't indentify user: Please renew your session.");
+
+      console.log("User not yet identified: waiting session.");
+
     } else {
+
       console.log("user id " + pid); //TODO Remove it...
       return new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', `Basic  ${btoa(pid)}`);
     }

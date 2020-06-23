@@ -1,13 +1,16 @@
 <div class="jumbotron jumbotron-fluid ">
   <div class="container-fluid">
     <div class="row">
-        <div class="col-1">
-          <img class="avatar box rotate" src="https://randomuser.me/api/portraits/women/21.jpg">
-        </div>
-        <div class="col-sm">
-          <h1 class="display-4">{{ title }}</h1>
-          <p class="lead">{{ subtitle }}</p>
-        </div>
+      <div class="col-1">
+        <img *ngIf="!auth.loggedIn" class="avatar box rotate" src="https://randomuser.me/api/portraits/women/21.jpg">
+        <img *ngIf="auth.loggedIn" class="avatar box rotate" src="https://randomuser.me/api/portraits/women/21.jpg">
+        <!--TO REMOVE-->
+        <!-- <img *ngIf="auth.loggedIn" class="avatar box rotate" [src]="picUrl"> -->
+      </div>
+      <div class="col-sm">
+        <h1 class="display-4">{{ title }}</h1>
+        <p class="lead">{{ subtitle }}</p>
+      </div>
     </div>
   </div>
 </div>
