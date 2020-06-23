@@ -32,6 +32,7 @@ import { ProfileComponent } from "./components/profile/profile.component";
 import { ToastrModule } from "ngx-toastr";
 import { DatePipe } from "@angular/common";
 import { AccountModalService } from "./pages/account-modal/account.modal.service";
+import { NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { AccountModalService } from "./pages/account-modal/account.modal.service
     ToastrModule.forRoot(),
     NgxSmartModalModule.forChild(),
     NgxSmartModalModule.forRoot(),
+    NgxLoadingModule.forRoot({}), //animationType: ngxLoadingAnimationTypes.wanderingCubes / pulse / rotatingPlane / cubeGrid -> https://stackblitz.com/github/Zak-C/ngx-loading
     RouterModule.forRoot([
       { path: "home", component: MainComponent },
       {
@@ -109,4 +111,4 @@ import { AccountModalService } from "./pages/account-modal/account.modal.service
   exports: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

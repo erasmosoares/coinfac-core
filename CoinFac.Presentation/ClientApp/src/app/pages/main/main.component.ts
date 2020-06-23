@@ -26,12 +26,11 @@ export class MainComponent {
     domain: ['#808782', '#a6d3a0', '#b3ffb3', '#d1ffd7']
   };
 
+  public loading = false;
 
   constructor(public auth: AuthService,
     private userService: UserService,
     private toastr: ToastrService) {
-
-    //LOAD DATA HERE...
 
     /*
      * Auth0 subscriber
@@ -48,6 +47,9 @@ export class MainComponent {
   configureUser(loggedUser) {
 
     if (loggedUser) {
+
+      //LOAD DATA HERE...
+      this.loading = true;
 
       var profile = JSON.parse(JSON.stringify(loggedUser));
 
@@ -66,6 +68,7 @@ export class MainComponent {
   greetings(user: User) {
 
     sessionStorage.setItem('pid', user.id);
+    this.loading = false;
     this.showInfo("Hey, how are you doing?", user.name);
 
   }
@@ -74,8 +77,14 @@ export class MainComponent {
 
     var observable = this.userService.createUser(user);
     observable.subscribe({
-      next: (user: User) => this.showSuccess("Wellcome " + user.name, "New user!"),
-      error: err => this.showMessageByCode(err.originalError.status)
+      next: (user: User) => {
+        this.loading = false;
+        this.showSuccess("Wellcome " + user.name, "New user!")
+      },
+      error: err => {
+        this.loading = false;
+        this.showMessageByCode(err.originalError.status);
+      }
     })
   }
 

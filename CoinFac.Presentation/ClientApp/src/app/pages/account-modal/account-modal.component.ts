@@ -42,6 +42,8 @@ export class AccountModalComponent implements OnInit {
   //? Flag used fo records submission
   submitted = false; //TODO Initialize ngOnInit()
 
+  public loading = false;
+
   @Output() refreshAccounts: EventEmitter<Account> = new EventEmitter<Account>();
 
   constructor(
@@ -116,6 +118,7 @@ export class AccountModalComponent implements OnInit {
   }
 
   onChangeRecords() {
+    this.loading = true;
     var observable = this.accountService.getAccounts();
     observable.subscribe({
       next: (accounts: any) => {
@@ -137,8 +140,10 @@ export class AccountModalComponent implements OnInit {
             this.recordFormsAmountFields.removeAt(i);
           }
         }
+        this.loading = false;
       },
       error: (err) => {
+        this.loading = false;
         alert("Error: " + err.originalError.status);
       },
     });
@@ -157,8 +162,9 @@ export class AccountModalComponent implements OnInit {
   }
 
   saveAccountRecords() {
+    this.loading = true;
     alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
-
+    this.loading = false;
     //this.recordService.createRecords()
 
     /*
@@ -189,6 +195,8 @@ export class AccountModalComponent implements OnInit {
     if (!pid) {
       this.showFailure("couldn't indentify user", "Please renew your session.");
     } else {
+      this.loading = true;
+
       let jsonObj = JSON.stringify(this.accountForm.value);
       let obj: Account = JSON.parse(jsonObj);
 
@@ -201,9 +209,11 @@ export class AccountModalComponent implements OnInit {
 
       this.accountService.createAccount(this.account).subscribe(
         (data) => {
+          this.loading = false;
           this.notify(data, "Account created");
         },
         (error) => {
+          this.loading = false;
           console.log(error),
             this.showFailure("couldn't post because", error.originalError);
         }
@@ -221,13 +231,15 @@ export class AccountModalComponent implements OnInit {
     var account: Account = this.ngxSmartModalService
       .getModal("popupTwo")
       .getData();
-
+    this.loading = true;
     this.accountService.deleteAccount(+account.id).subscribe(
       (data) => {
+        this.loading = false;
         this.showInfo("success!", "Account " + data + " deleted"),
           this.accountComponentService.notify(account);
       },
       (error) => {
+        this.loading = false;
         this.showFailure("Could not delete this account", "Server error."),
           this.accountComponentService.notify(account);
       }
@@ -252,12 +264,14 @@ export class AccountModalComponent implements OnInit {
     account.accountType = stringify.accountType;
     account.goal = stringify.goal;
     account.comments = stringify.comments;
-
+    this.loading = true;
     this.accountService.updateAccount(account).subscribe(
       (data) => {
+        this.loading = false;
         this.notify(data, "Account updated");
       },
       (error) => {
+        this.loading = false;
         console.log(error),
           this.showFailure("couldn't post because", error.originalError);
       }

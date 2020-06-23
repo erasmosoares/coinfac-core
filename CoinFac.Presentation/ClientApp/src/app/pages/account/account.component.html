@@ -3,6 +3,7 @@
   <app-jumbotron title="Accounts" subtitle="Create and track accounts.">
   </app-jumbotron>
 </ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 <ng-template #jumbotronsimple>
   <nav class="navbar" [ngClass]="{
     'navbar-dark bg-dark': theme === 'dark-mode',

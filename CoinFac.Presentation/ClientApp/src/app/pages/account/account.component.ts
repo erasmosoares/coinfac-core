@@ -51,6 +51,8 @@ export class AccountComponent implements OnInit {
   single: any[];
   accounts: any[];
 
+  public loading = false;
+
   accountsCollection: Account[];
 
   constructor(
@@ -63,6 +65,9 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.loading = true;
+
     this.accounts = completeAccountsForTest;
 
     this.loadAccounts();
@@ -77,7 +82,10 @@ export class AccountComponent implements OnInit {
     var observable = this.accountService.getAccounts();
     observable.subscribe({
       next: (accounts: any) => this.refreshAccount(accounts),
-      error: (err) => this.showMessageByCode(err.originalError.status),
+      error: (err) => {
+        this.showMessageByCode(err.originalError.status),
+          this.loading = false;
+      }
     });
   }
 
@@ -88,6 +96,8 @@ export class AccountComponent implements OnInit {
       Object.assign(this, { single, accounts: this.accountsCollection });
 
       this.assemblyAccountsBar(this.accountsCollection);
+
+      this.loading = false;
 
       /*
         ? Use it for demo purpose

@@ -1,7 +1,6 @@
-<app-jumbotron title="Welcome to CoinFac"
-               subtitle="A minimalist tool to help your savings.">
+<app-jumbotron title="Welcome to CoinFac" subtitle="A minimalist tool to help your savings.">
 </app-jumbotron>
-
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
 <h1>CoinFac - Savings with Confidence</h1>
 
 <div class="card-deck">
@@ -9,16 +8,10 @@
     <div class="card-body">
       <h5 class="card-title">Accounts</h5>
       <p class="card-text">
-        The most important thing in saving money is knowing exactly how much you have in your pocket. Your accounts need to be transparent to you.
-        <ngx-charts-line-chart [view]="view"
-                               [scheme]="colorScheme"
-                               [results]="accounts"
-                               gradient="gradient"
-                               xAxis="true"
-                               yAxis="true"
-                               showXAxisLabel="true"
-                               showYAxisLabel="true"
-                               autoScale="autoScale">
+        The most important thing in saving money is knowing exactly how much you have in your pocket. Your accounts need
+        to be transparent to you.
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="accounts" gradient="gradient"
+          xAxis="true" yAxis="true" showXAxisLabel="true" showYAxisLabel="true" autoScale="autoScale">
         </ngx-charts-line-chart>
       </p>
     </div>
@@ -27,17 +20,12 @@
     <div class="card-body">
       <h5 class="card-title">Incomes</h5>
       <p class="card-text">
-        You cannot contest those less cents in your salary if you have not simply grouped how much salary you have earned in the past few months.
+        You cannot contest those less cents in your salary if you have not simply grouped how much salary you have
+        earned in the past few months.
       </p>
       <div>
-        <ngx-charts-bar-vertical [view]="view"
-                                 [results]="single"
-                                 [scheme]="colorScheme"
-                                 xAxis="true"
-                                 yAxis="true"
-                                 legendTitle="Countries"
-                                 showXAxisLabel="true"
-                                 showYAxisLabel="true">
+        <ngx-charts-bar-vertical [view]="view" [results]="single" [scheme]="colorScheme" xAxis="true" yAxis="true"
+          legendTitle="Countries" showXAxisLabel="true" showYAxisLabel="true">
         </ngx-charts-bar-vertical>
       </div>
     </div>
@@ -46,12 +34,11 @@
     <div class="card-body">
       <h5 class="card-title">Expenses</h5>
       <p class="card-text">
-        Our goal is to be simple "kiss" keep-it-simple-stupid. We know that you do not have the patience to manage all expenses, so we focus on the most important expenses.
+        Our goal is to be simple "kiss" keep-it-simple-stupid. We know that you do not have the patience to manage all
+        expenses, so we focus on the most important expenses.
       </p>
       <div>
-        <ngx-charts-number-card [view]="view"
-                                [scheme]="colorScheme"
-                                [results]="single">
+        <ngx-charts-number-card [view]="view" [scheme]="colorScheme" [results]="single">
         </ngx-charts-number-card>
       </div>
     </div>
@@ -62,16 +49,11 @@
     <h3 class="display-4">Keep tracking your money</h3>
     <div class="row">
       <div class="col-8 col-sm-6">
-        <ngx-charts-advanced-pie-chart [view]="view"
-                                       [scheme]="colorScheme"
-                                       [results]="single"
-                                       gradient="gradient">
+        <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" gradient="gradient">
         </ngx-charts-advanced-pie-chart>
       </div>
       <div class="col-4 col-sm-6">
-        <ngx-charts-pie-grid [view]="view"
-                             [scheme]="colorScheme"
-                             [results]="single">
+        <ngx-charts-pie-grid [view]="view" [scheme]="colorScheme" [results]="single">
         </ngx-charts-pie-grid>
       </div>
     </div>
@@ -82,15 +64,10 @@
     <div class="card-body">
       <h5 class="card-title">Foreign Currency</h5>
       <p class="card-text">
-        Sometimes the dream of international travel is close, we know how important it is to be attentive to the foreign market. Manage your income in foreign currencies.
-        <ngx-charts-pie-chart [view]="view"
-                              [scheme]="colorScheme"
-                              [results]="single"
-                              [legend]="false"
-                              [explodeSlices]="false"
-                              [labels]="true"
-                              [doughnut]="true"
-                              gradient="gradient">
+        Sometimes the dream of international travel is close, we know how important it is to be attentive to the foreign
+        market. Manage your income in foreign currencies.
+        <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" [legend]="false"
+          [explodeSlices]="false" [labels]="true" [doughnut]="true" gradient="gradient">
         </ngx-charts-pie-chart>
       </p>
     </div>
@@ -99,13 +76,11 @@
     <div class="card-body">
       <h5 class="card-title">Predictions</h5>
       <p class="card-text">
-        Manage your stock portfolio here, observe the market in a simple way, without complications. We are also looking at cryptocurrencies.
+        Manage your stock portfolio here, observe the market in a simple way, without complications. We are also looking
+        at cryptocurrencies.
       </p>
       <div>
-        <ngx-charts-advanced-pie-chart [view]="view"
-                                       [scheme]="colorScheme"
-                                       [results]="single"
-                                       cleargradient="gradient">
+        <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="single" cleargradient="gradient">
         </ngx-charts-advanced-pie-chart>
       </div>
     </div>
@@ -114,12 +89,11 @@
     <div class="card-body">
       <h5 class="card-title">Blockchain</h5>
       <p class="card-text">
-        They are everywhere, cryptocurrencies keep coming, and we think they deserve a place at CoinFac. We will help manage them for you.
+        They are everywhere, cryptocurrencies keep coming, and we think they deserve a place at CoinFac. We will help
+        manage them for you.
       </p>
       <div>
-        <ngx-charts-pie-grid [view]="view"
-                             [scheme]="colorScheme"
-                             [results]="single">
+        <ngx-charts-pie-grid [view]="view" [scheme]="colorScheme" [results]="single">
         </ngx-charts-pie-grid>
       </div>
     </div>
