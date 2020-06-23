@@ -13,10 +13,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
-  
-   /*
-   * Used for charts
-   */
+
+  /*
+  * Used for charts
+  */
   single: any[];
   multi: any[];
   accounts: any[];
@@ -26,16 +26,17 @@ export class MainComponent {
     domain: ['#808782', '#a6d3a0', '#b3ffb3', '#d1ffd7']
   };
 
-  
-  constructor(public auth: AuthService,
-              private userService: UserService,
-              private toastr: ToastrService) {
 
-     
+  constructor(public auth: AuthService,
+    private userService: UserService,
+    private toastr: ToastrService) {
+
+    //LOAD DATA HERE...
+
     /*
      * Auth0 subscriber
      */
-    this.auth.userProfile$.subscribe(loggedUser =>  this.configureUser(loggedUser));
+    this.auth.userProfile$.subscribe(loggedUser => this.configureUser(loggedUser));
 
     /*
     TODO Will be removed
@@ -44,17 +45,17 @@ export class MainComponent {
 
   }
 
-  configureUser(loggedUser){
-  
+  configureUser(loggedUser) {
+
     if (loggedUser) {
 
       var profile = JSON.parse(JSON.stringify(loggedUser));
 
       var observable = this.userService.getUserByEmail(profile.email);
       observable.subscribe({
-        next:(user:User) => this.greetings(user),
+        next: (user: User) => this.greetings(user),
         error: err => {
-          if(err.originalError.status == 404){
+          if (err.originalError.status == 404) {
             this.createNewUser(profile);
           }
         }
@@ -62,18 +63,18 @@ export class MainComponent {
     }
   }
 
-  greetings(user:User){
-    
+  greetings(user: User) {
+
     sessionStorage.setItem('pid', user.id);
     this.showInfo("Hey, how are you doing?", user.name);
-    
+
   }
 
-  createNewUser(user){
+  createNewUser(user) {
 
     var observable = this.userService.createUser(user);
     observable.subscribe({
-      next:(user:User) => this.showSuccess("Wellcome "+ user.name, "New user!"),
+      next: (user: User) => this.showSuccess("Wellcome " + user.name, "New user!"),
       error: err => this.showMessageByCode(err.originalError.status)
     })
   }
@@ -82,15 +83,15 @@ export class MainComponent {
   * Messages
   */
 
-  showMessageByCode(code){
-    if (code == 404){
+  showMessageByCode(code) {
+    if (code == 404) {
       this.showFailure("Oh no!", "Something was not found");
     }
-    else{
+    else {
       this.showFailure("Oh no!", "Internal Error");
     }
   }
-  
+
   showSuccess(title, message) {
     this.toastr.success(message, title, {
       timeOut: 3000,

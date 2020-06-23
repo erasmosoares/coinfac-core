@@ -1,3 +1,4 @@
+import { RecordsService } from './../../services/records.service';
 import { Account } from "./../../models/accounts";
 import {
   Component,
@@ -14,6 +15,9 @@ import { ToastrService } from "ngx-toastr";
 import { AccountComponentService } from "../account/account.component.service";
 import { AccountModalService } from "./account.modal.service";
 import { completeAccountsForTest } from "./../main/main-data";
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: "app-account-modal",
@@ -43,6 +47,7 @@ export class AccountModalComponent implements OnInit {
   constructor(
     public ngxSmartModalService: NgxSmartModalService,
     private accountService: AccountService,
+    private recordService: RecordsService,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private accountComponentService: AccountComponentService,
@@ -50,6 +55,8 @@ export class AccountModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    //this.profileStorage = JSON.parse(sessionStorage.getItem('profile'));
 
     //? Prperties Initialization
     this.account = new Account();
@@ -86,7 +93,7 @@ export class AccountModalComponent implements OnInit {
       this.loadEditForm(account);
     });
 
-    //? Triggers on init
+    //? Triggers on init (onLoadUser)
     this.onChangeRecords();
 
   }
@@ -150,7 +157,9 @@ export class AccountModalComponent implements OnInit {
   }
 
   saveAccountRecords() {
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4));
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
+
+    //this.recordService.createRecords()
 
     /*
     "records":[

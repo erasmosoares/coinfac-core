@@ -18,4 +18,5 @@ interface IAccount {
     accountType: string;
     comments: string;
     userId: string;
+    records: Record[];
 }

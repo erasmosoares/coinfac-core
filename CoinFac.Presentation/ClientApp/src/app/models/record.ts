@@ -1,5 +1,4 @@
 export class Record {
-    id: string;
-    date: string;
-    value: string;
+    accountName: string;
+    amount: string;
 }

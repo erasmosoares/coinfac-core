@@ -19,7 +19,7 @@ export class AccountService extends DataService {
 
     const url = `${this.serviceUrl}`
 
-    return this.http.get<Account[]>(url)
+    return this.http.get<Account[]>(url, { headers: this.configureHeader() })
       .pipe(catchError(this.handleError))
 
   }
@@ -32,13 +32,14 @@ export class AccountService extends DataService {
 
     const url = `${this.serviceUrl}/${id}`
 
-    return this.http.get<Account>(url)
+    return this.http.get<Account>(url, { headers: this.configureHeader() })
       .pipe(catchError(this.handleError))
 
   }
 
   createAccount(account: Account): Observable<Account> {
-    return this.http.post<Account>(this.serviceUrl, account, { headers: this.headers })
+
+    return this.http.post<Account>(this.serviceUrl, account, { headers: this.configureHeader() })
       .pipe(catchError(this.handleError));
   }
 
@@ -46,7 +47,7 @@ export class AccountService extends DataService {
 
     const url = `${this.serviceUrl}/${account.id}`
 
-    return this.http.put<Account>(url, account, { headers: this.headers })
+    return this.http.put<Account>(url, account, { headers: this.configureHeader() })
       .pipe(catchError(this.handleError));
   }
 
@@ -54,7 +55,7 @@ export class AccountService extends DataService {
 
     const url = `${this.serviceUrl}/${id}`
 
-    return this.http.delete<Account>(url, { headers: this.headers })
+    return this.http.delete<Account>(url, { headers: this.configureHeader() })
       .pipe(catchError(this.handleError));
   }
 }
