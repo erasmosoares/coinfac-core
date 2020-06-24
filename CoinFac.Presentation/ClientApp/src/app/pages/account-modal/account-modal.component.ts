@@ -43,6 +43,7 @@ export class AccountModalComponent implements OnInit {
   submitted = false; //TODO Initialize ngOnInit()
 
   public loading = false;
+  public picUrl: string;
 
   @Output() refreshAccounts: EventEmitter<Account> = new EventEmitter<Account>();
 
@@ -53,7 +54,8 @@ export class AccountModalComponent implements OnInit {
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private accountComponentService: AccountComponentService,
-    private accountModalService: AccountModalService
+    private accountModalService: AccountModalService,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -97,6 +99,15 @@ export class AccountModalComponent implements OnInit {
 
     //? Triggers on init (onLoadUser)
     this.onChangeRecords();
+
+    //? Subscriber to update the user picture for navbar
+    this.auth.userProfile$.subscribe(user => {
+      if (user != null || user != undefined) {
+        this.picUrl = user.picture;
+      } else {
+        this.picUrl = "https://randomuser.me/api/portraits/women/21.jpg"
+      }
+    });
 
   }
 

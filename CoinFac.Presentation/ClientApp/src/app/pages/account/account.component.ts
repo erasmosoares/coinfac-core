@@ -15,6 +15,7 @@ import { GlobalVariable } from "src/app/common/globals";
 import { AccountService } from "../../services/account.service";
 import { ToastrService } from "ngx-toastr";
 import { AccountModalService } from "../account-modal/account.modal.service";
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: "app-account",
@@ -53,6 +54,8 @@ export class AccountComponent implements OnInit {
 
   public loading = false;
 
+  public picUrl: string;
+
   accountsCollection: Account[];
 
   constructor(
@@ -61,7 +64,8 @@ export class AccountComponent implements OnInit {
     private toastr: ToastrService,
     private cdref: ChangeDetectorRef,
     private accountComponentService: AccountComponentService,
-    private accountModalService: AccountModalService
+    private accountModalService: AccountModalService,
+    public auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -75,6 +79,14 @@ export class AccountComponent implements OnInit {
     //* event fired when a new account is created
     this.accountComponentService.change.subscribe((account) => {
       this.loadAccounts();
+    });
+
+    this.auth.userProfile$.subscribe(user => {
+      if (user != null || user != undefined) {
+        this.picUrl = user.picture;
+      } else {
+        this.picUrl = "https://randomuser.me/api/portraits/women/21.jpg"
+      }
     });
   }
 

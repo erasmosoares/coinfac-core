@@ -19,7 +19,9 @@ export class JumbotronComponent implements OnInit {
   ngOnInit() {
     this.auth.userProfile$.subscribe(user => {
       if (user != null || user != undefined) {
-        this.picUrl = user.pictureUrl;
+        this.picUrl = user.picture;
+      } else {
+        this.picUrl = "https://randomuser.me/api/portraits/women/21.jpg"
       }
     });
   }
