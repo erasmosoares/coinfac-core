@@ -12,6 +12,8 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+
+//TODO This component needs a refactorying
 export class MainComponent {
 
   /*

@@ -1,13 +1,7 @@
 import { Record } from './../../models/record';
 import { RecordsService } from './../../services/records.service';
 import { Account } from "./../../models/accounts";
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  AfterViewInit,
-} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from "@angular/core";
 import { NgxSmartModalService } from "ngx-smart-modal";
 import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
 import { UsernameValidators } from "./username.validators";
@@ -41,34 +35,48 @@ export class AccountModalComponent implements OnInit {
   goalInput = "0.00"; //TODO Initialize ngOnInit()
 
   //? Flag used fo records submission
-  submitted = false; //TODO Initialize ngOnInit()
-
-  public loading = false;
-  public picUrl: string;
+  submitted: boolean = false; //TODO Initialize ngOnInit()
+  loading: boolean = false;
+  picUrl: string;
 
   @Output() refreshAccounts: EventEmitter<Account> = new EventEmitter<Account>();
 
   constructor(
-    public ngxSmartModalService: NgxSmartModalService,
+    private ngxSmartModalService: NgxSmartModalService,
     private accountService: AccountService,
     private recordService: RecordsService,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private accountComponentService: AccountComponentService,
     private accountModalService: AccountModalService,
-    public auth: AuthService
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
 
-    //this.profileStorage = JSON.parse(sessionStorage.getItem('profile'));
+    this.initializeProperties();
 
-    //? Prperties Initialization
+    this.createAccountForms();
+    this.createRecordsForm();
+    this.createAmmountForms();
+
+    this.initializeSubscribers();
+
+    //? Triggers on init (onLoadUser)
+    this.onChangeRecords();
+
+  }
+
+  /*
+  * Initializations
+  */
+  initializeProperties() {
     this.account = new Account();
     this.accountsNames = [];
     this.accounts = completeAccountsForTest;
+  }
 
-    //? Create accounts - Forms Initialization
+  createAccountForms() {
     this.accountForm = this.formBuilder.group({
       name: [
         "",
@@ -83,23 +91,25 @@ export class AccountModalComponent implements OnInit {
       accountType: ["", Validators.required],
       comments: [""],
     });
+  }
 
-    //? Create records - Forms Initialization
+  createRecordsForm() {
     this.recordForm = this.formBuilder.group({
       records: new FormArray([]),
     });
+  }
 
+  createAmmountForms() {
     this.amountForm = this.formBuilder.group({
       value: ["", Validators.required],
     });
+  }
 
+  initializeSubscribers() {
     //? Subscribers
     this.accountModalService.editForm.subscribe((account) => {
       this.loadEditForm(account);
     });
-
-    //? Triggers on init (onLoadUser)
-    this.onChangeRecords();
 
     //? Subscriber to update the user picture for navbar
     this.auth.userProfile$.subscribe(user => {
@@ -109,7 +119,6 @@ export class AccountModalComponent implements OnInit {
         this.picUrl = "https://randomuser.me/api/portraits/women/21.jpg"
       }
     });
-
   }
 
   /*

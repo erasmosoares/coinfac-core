@@ -23,6 +23,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ["./account.component.css"],
   encapsulation: ViewEncapsulation.None,
 })
+
+//TODO This component needs a refactorying
 export class AccountComponent implements OnInit {
   /*
    * Jumbontrom
