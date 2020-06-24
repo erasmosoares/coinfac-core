@@ -38,13 +38,13 @@ namespace CoinFac.Service.Controllers.Accounts
                     return BadRequest();
 
                 //Get account Id by name
-                Account account = await UnitOfWork.AccountRepository.GetAccountByNameAndUserId(recordDto.AccountName, accountUserId);
+                Account account = await UnitOfWork.AccountRepository.GetAccountByNameAndUserId(recordDto.Account, accountUserId);
 
                 //Create a new record
                 Record record = new Record();
                 record.AccountId = account.Id;
                 record.Notes = string.Empty;
-                record.Value = recordDto.Value;
+                record.Value = recordDto.Amount;
                 record.Date = DateTime.Now;
                 
                 //Push

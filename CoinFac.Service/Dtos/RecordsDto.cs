@@ -7,8 +7,8 @@ namespace CoinFac.Service.Dtos
 {
     public class RecordDto
     {
-        public string AccountName { get; set; }
+        public string Account { get; set; }
 
-        public int Value { get; set; }
+        public int Amount { get; set; }
     }
 }

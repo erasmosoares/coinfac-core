@@ -1,3 +1,4 @@
+import { Record } from './../../models/record';
 import { RecordsService } from './../../services/records.service';
 import { Account } from "./../../models/accounts";
 import {
@@ -173,23 +174,33 @@ export class AccountModalComponent implements OnInit {
   }
 
   saveAccountRecords() {
-    this.loading = true;
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
-    this.loading = false;
-    //this.recordService.createRecords()
 
-    /*
-    "records":[
-      {
-        "account":"Neon",
-        "name":"15.000"
-      },
-      {
-        "account":"Desjardins",
-        "name":"15.000"
+    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
+    var list = JSON.parse(JSON.stringify(this.recordForm.value, null, 4));
+
+    list.records.forEach(function (obj) {
+
+      console.log("creating record " + obj.account);
+
+      if (obj.account != undefined && obj.account != "") {
+
+        this.loading = true;
+        this.recordService.createRecords(obj).subscribe(
+          (data) => {
+            this.loading = false;
+            console.log("record " + obj + " created");
+            //this.notify(data, "Account created");
+          },
+          (error) => {
+            this.loading = false;
+            console.log(error),
+              this.showFailure("couldn't post because", error.originalError);
+          });
+
+      } else {
+        this.showFailure("could not process name of the account, please try again!");
       }
-    ]
-    */
+    }, this);
   }
 
   onClear() {
