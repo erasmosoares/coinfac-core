@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
+using CoinFac.Service.Common;
 
 namespace CoinFac.Service
 {
@@ -28,6 +29,7 @@ namespace CoinFac.Service
 
             services.AddDbContext<DatabaseService>(options => options.UseSqlServer(Configuration.GetConnectionString("CoinFacDb")));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthorizationExtractor, AuthorizationExtractor>();
             services.AddCors(); 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

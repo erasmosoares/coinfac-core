@@ -1,18 +1,15 @@
-import { Record } from './../../models/record';
-import { RecordsService } from './../../services/records.service';
+
 import { Account } from "./../../models/accounts";
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { NgxSmartModalService } from "ngx-smart-modal";
 import { FormBuilder, Validators, FormArray, FormGroup } from "@angular/forms";
-import { UsernameValidators } from "./username.validators";
 import { AccountService } from "src/app/services/account.service";
 import { ToastrService } from "ngx-toastr";
 import { AccountComponentService } from "../account/account.component.service";
 import { AccountModalService } from "./account.modal.service";
 import { completeAccountsForTest } from "./../main/main-data";
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/models/user';
+import { RecordsService } from 'src/app/services/records.service';
 
 @Component({
   selector: "app-account-modal",
@@ -62,7 +59,6 @@ export class AccountModalComponent implements OnInit {
 
     this.initializeSubscribers();
 
-    //? Triggers on init (onLoadUser)
     this.onChangeRecords();
 
   }
@@ -83,7 +79,7 @@ export class AccountModalComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(3),
-        /*UsernameValidators.cannotContainSpace ,
+          /*UsernameValidators.cannotContainSpace ,
           UsernameValidators.shouldBeUnique */,
         ],
       ], //TODO There is a bug in this validator

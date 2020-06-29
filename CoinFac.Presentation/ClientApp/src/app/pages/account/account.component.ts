@@ -49,25 +49,23 @@ export class AccountComponent implements OnInit {
   };
 
   //TODO: Dark mode
-  public theme = GlobalVariable.COINFAC_THEME_MODE_;
+  theme = GlobalVariable.COINFAC_THEME_MODE_;
 
   single: any[];
   accounts: any[];
-
-  public loading = false;
-
-  public picUrl: string;
+  loading = false;
+  picUrl: string;
 
   accountsCollection: Account[];
 
   constructor(
-    public ngxSmartModalService: NgxSmartModalService,
+    private ngxSmartModalService: NgxSmartModalService,
     private accountService: AccountService,
     private toastr: ToastrService,
     private cdref: ChangeDetectorRef,
     private accountComponentService: AccountComponentService,
     private accountModalService: AccountModalService,
-    public auth: AuthService
+    private auth: AuthService
   ) { }
 
   ngOnInit() {

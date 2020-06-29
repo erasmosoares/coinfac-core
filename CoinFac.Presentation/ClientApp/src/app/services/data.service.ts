@@ -35,8 +35,7 @@ export class DataService {
 
     } else {
 
-      console.log("user id " + pid); //TODO Remove it...
-      return new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', `Basic  ${btoa(pid)}`);
+      return new HttpHeaders({ 'Content-Type': 'application/json' }).set('Authorization', `Basic  ${btoa(pid + ":" + pid)}`);
     }
   }
 

@@ -6,6 +6,9 @@ using CoinFac.Service.Dtos;
 using System;
 using Microsoft.AspNetCore.Http;
 using CoinFac.Domain.Accounts;
+using System.Net.Http.Headers;
+using System.Text;
+using CoinFac.Service.Common;
 
 namespace CoinFac.Service.Controllers.Accounts
 {
@@ -14,12 +17,15 @@ namespace CoinFac.Service.Controllers.Accounts
     [ApiController]
     public class RecordsController : ControllerBase
     {
+        private readonly IAuthorizationExtractor AuthExtractor;
         private readonly IUnitOfWork UnitOfWork;
         private readonly IMapper Mapper;
 
         public RecordsController(IUnitOfWork unitOfWork,
+            IAuthorizationExtractor authorizationExtractor,
             IMapper mapper)
         {
+            AuthExtractor = authorizationExtractor;
             UnitOfWork = unitOfWork;
             Mapper = mapper;
         }
@@ -30,15 +36,17 @@ namespace CoinFac.Service.Controllers.Accounts
         /// <param name="RecordsDto">The account to create</param>
         /// <returns>An ActionResult of type Account</returns>
         [HttpPost()] 
-        public async Task<ActionResult<Record>> Post([FromBody] RecordDto recordDto, int accountUserId)
+        public async Task<ActionResult<Record>> Post([FromBody] RecordDto recordDto)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest();
 
+                int userId = AuthExtractor.getUser(Request);
+
                 //Get account Id by name
-                Account account = await UnitOfWork.AccountRepository.GetAccountByNameAndUserId(recordDto.Account, accountUserId);
+                Account account = await UnitOfWork.AccountRepository.GetAccountByNameAndUserId(recordDto.Account, userId);
 
                 //Create a new record
                 Record record = new Record();
@@ -46,12 +54,15 @@ namespace CoinFac.Service.Controllers.Accounts
                 record.Notes = string.Empty;
                 record.Value = recordDto.Amount;
                 record.Date = DateTime.Now;
-                
+
+                //account.Records.Add(record);
+
                 //Push
                 await UnitOfWork.RecordRepository.AddAsync(record);
+                await UnitOfWork.CompleteAsync();
                 //var record = Mapper.Map<Account>(recordDto);
 
-                return Created($"/api/records/{record.Id}", recordDto);
+                return Ok("Record Created");
             }
             catch (Exception) 
             {
