@@ -1,4 +1,5 @@
 ﻿using CoinFac.Domain.Accounts;
+using CoinFac.Service.Dtos;
 using System.Collections.Generic;
 
 namespace CoinFac.Service.Models
@@ -11,6 +12,6 @@ namespace CoinFac.Service.Models
         public AccountType AccountType { get; set; }
         public string Comments { get; set; }
         public int UserId { get; set; }
-        public List<Record> Records { get; set; }
+        public List<RecordDto> Records { get; set; }
     }
 }

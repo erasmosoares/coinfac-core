@@ -9,6 +9,9 @@ using CoinFac.Domain.Accounts;
 using System.Net.Http.Headers;
 using System.Text;
 using CoinFac.Service.Common;
+using System.Collections.Generic;
+using CoinFac.Service.Models;
+using System.Linq;
 
 namespace CoinFac.Service.Controllers.Accounts
 {
@@ -36,7 +39,7 @@ namespace CoinFac.Service.Controllers.Accounts
         /// <param name="RecordsDto">The account to create</param>
         /// <returns>An ActionResult of type Account</returns>
         [HttpPost()] 
-        public async Task<ActionResult<Record>> Post([FromBody] RecordDto recordDto)
+        public async Task<ActionResult> Post([FromBody] RecordDto recordDto)
         {
             try
             {
@@ -60,11 +63,15 @@ namespace CoinFac.Service.Controllers.Accounts
                 //Push
                 await UnitOfWork.RecordRepository.AddAsync(record);
                 await UnitOfWork.CompleteAsync();
-                //var record = Mapper.Map<Account>(recordDto);
 
-                return Ok("Record Created");
+                IEnumerable<Record> records = await UnitOfWork.RecordRepository.GetRecordsByAccountIdAsync(account.Id);
+                account.Records = records.ToList();
+
+                var accountReturned = Mapper.Map<AccountDto>(account);
+
+                return Ok(accountReturned);
             }
-            catch (Exception) 
+            catch (Exception e) 
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
             }

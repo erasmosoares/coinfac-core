@@ -193,8 +193,9 @@ export class AccountModalComponent implements OnInit {
         this.recordService.createRecords(obj).subscribe(
           (data) => {
             this.loading = false;
-            console.log("record " + obj + " created");
-            //this.notify(data, "Account created");
+            debugger; //TODO data should be a account DTO, it would be used to refresh the page
+            this.showSuccess("success!", "New record for" + obj.account + " created");
+            //this.notify(data, "New record for" + obj.account + " created");
           },
           (error) => {
             this.loading = false;
@@ -262,8 +263,9 @@ export class AccountModalComponent implements OnInit {
     this.accountService.deleteAccount(+account.id).subscribe(
       (data) => {
         this.loading = false;
-        this.showInfo("success!", "Account " + data + " deleted"),
-          this.accountComponentService.notify(account);
+        this.notify(data, "Account " + data + " deleted");
+        //this.showInfo("success!", "Account " + data + " deleted"),
+        //this.accountComponentService.notify(account);
       },
       (error) => {
         this.loading = false;

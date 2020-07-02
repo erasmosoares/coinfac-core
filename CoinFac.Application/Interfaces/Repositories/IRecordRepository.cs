@@ -7,5 +7,7 @@ namespace CoinFac.Application.Interfaces.Repositories
     public interface IRecordRepository : IRepository<Record>
     {
         Task<IEnumerable<Record>> GetRecordByValueAsync(string name);
+
+        Task<IEnumerable<Record>> GetRecordsByAccountIdAsync(int accountId);
     }
 }

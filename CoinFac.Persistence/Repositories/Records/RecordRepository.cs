@@ -4,6 +4,7 @@ using CoinFac.Persistence.Common;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces.Repositories;
+using System.Linq;
 
 namespace CoinFac.Persistence.Repositories.Records
 {
@@ -15,6 +16,13 @@ namespace CoinFac.Persistence.Repositories.Records
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<IEnumerable<Record>> GetRecordsByAccountIdAsync(int accountId)
+        {
+            List<Record> recordsInDb = await DatabaseService.Records.Where(r => r.AccountId == accountId).ToListAsync();
+            return recordsInDb;
+        }
+
         public DatabaseService DatabaseService
         {
             get { return Context as DatabaseService; }
