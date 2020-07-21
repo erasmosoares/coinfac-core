@@ -4,6 +4,8 @@ using CoinFac.Persistence.Common;
 using Microsoft.EntityFrameworkCore;
 using CoinFac.Application.Interfaces.Repositories;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CoinFac.Persistence.Repositories.Accounts
 {
@@ -34,6 +36,18 @@ namespace CoinFac.Persistence.Repositories.Accounts
             }
 
             return string.Empty;
+        }
+
+        public async Task<IEnumerable<Account>> GetAccountsByUserIdAsync(int userId)
+        {
+            List<Account> accountsInDb = await DatabaseService.Accounts.Where(a => a.UserId == userId).ToListAsync();
+
+            if (accountsInDb.Count > 0)
+            {
+                return accountsInDb;
+            }
+
+            return accountsInDb;
         }
 
         public DatabaseService DatabaseService

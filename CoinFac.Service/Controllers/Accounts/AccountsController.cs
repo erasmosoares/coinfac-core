@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using CoinFac.Application.Interfaces;
 using CoinFac.Service.Models;
+using CoinFac.Service.Common;
 
 namespace CoinFac.Service.Controllers.Accounts
 {
@@ -15,12 +16,15 @@ namespace CoinFac.Service.Controllers.Accounts
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        private readonly IAuthorizationExtractor AuthExtractor;
         private readonly IUnitOfWork UnitOfWork;
         private readonly IMapper Mapper;
 
         public AccountsController(IUnitOfWork unitOfWork,
+            IAuthorizationExtractor authorizationExtractor,
             IMapper mapper)
         {
+            AuthExtractor = authorizationExtractor;
             UnitOfWork = unitOfWork;
             Mapper = mapper;
         }
@@ -36,6 +40,32 @@ namespace CoinFac.Service.Controllers.Accounts
             try
             {
                 var accountsInDb = await UnitOfWork.AccountRepository.GetAllAsync();
+                return Ok(Mapper.Map<IEnumerable<AccountDto>>(accountsInDb));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+        }
+
+        /// <summary>
+        /// Get account list by user Id
+        /// </summary>
+        /// <returns>An ActionResult of type IEnumerable of Accounts</returns>
+        /// http://localhost:44372/api/accounts/u/1
+        [HttpGet("u/{userId}")]
+        public async Task<ActionResult<IEnumerable<Account>>> GetAccountsByUser(int userId)
+        {
+            try
+            {
+                var accountsInDb = await UnitOfWork.AccountRepository.GetAccountsByUserIdAsync(userId);
+
+                foreach (var account in accountsInDb)
+                {
+                    var recordsInDb = await UnitOfWork.RecordRepository.GetRecordsByAccountIdAsync(account.Id);
+                    account.Records = (List<Record>)recordsInDb;
+                }
+                
                 return Ok(Mapper.Map<IEnumerable<AccountDto>>(accountsInDb));
             }
             catch (Exception)
