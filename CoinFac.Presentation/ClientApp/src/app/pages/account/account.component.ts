@@ -91,7 +91,7 @@ export class AccountComponent implements OnInit {
   }
 
   loadAccounts() {
-    var observable = this.accountService.getAccounts();
+    var observable = this.accountService.getFullAccounts(); // getAccounts();
     observable.subscribe({
       next: (accounts: any) => this.refreshAccount(accounts),
       error: (err) => {
@@ -102,13 +102,12 @@ export class AccountComponent implements OnInit {
   }
 
   refreshAccount(accounts) {
-    debugger;
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
 
       Object.assign(this, { single, accounts: this.accountsCollection });
 
-      this.assemblyAccountsBar(this.accountsCollection);
+      //this.assemblyAccountsBar(this.accountsCollection);
 
       this.loading = false;
 

@@ -24,6 +24,15 @@ export class AccountService extends DataService {
 
   }
 
+  getFullAccounts(): Observable<Account[]> {
+
+    const url = `${this.serviceUrl}/full`
+
+    return this.http.get<Account[]>(url, { headers: this.configureHeader() })
+      .pipe(catchError(this.handleError))
+
+  }
+
   getAccount(id: number): Observable<Account> {
 
     if (id === 0) {

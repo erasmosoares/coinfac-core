@@ -52,12 +52,14 @@ namespace CoinFac.Service.Controllers.Accounts
         /// Get account list by user Id
         /// </summary>
         /// <returns>An ActionResult of type IEnumerable of Accounts</returns>
-        /// http://localhost:44372/api/accounts/u/1
-        [HttpGet("u/{userId}")]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccountsByUser(int userId)
+        /// http://localhost:44372/api/accounts/full
+        [HttpGet("full")]
+        public async Task<ActionResult<IEnumerable<Account>>> GetFullAccounts()
         {
             try
             {
+                int userId = AuthExtractor.getUser(Request);
+
                 var accountsInDb = await UnitOfWork.AccountRepository.GetAccountsByUserIdAsync(userId);
 
                 foreach (var account in accountsInDb)
