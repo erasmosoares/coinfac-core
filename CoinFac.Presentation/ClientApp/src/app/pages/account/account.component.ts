@@ -102,6 +102,7 @@ export class AccountComponent implements OnInit {
   }
 
   refreshAccount(accounts) {
+    debugger;
     if (accounts) {
       this.accountsCollection = JSON.parse(JSON.stringify(accounts));
 
