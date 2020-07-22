@@ -180,7 +180,7 @@ export class AccountModalComponent implements OnInit {
 
   saveAccountRecords() {
 
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
+    //alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.recordForm.value, null, 4)); //Data to post
     var list = JSON.parse(JSON.stringify(this.recordForm.value, null, 4));
 
     list.records.forEach(function (obj) {
@@ -193,9 +193,8 @@ export class AccountModalComponent implements OnInit {
         this.recordService.createRecords(obj).subscribe(
           (data) => {
             this.loading = false;
-            debugger; //TODO data should be a account DTO, it would be used to refresh the page
-            this.showSuccess("success!", "New record for" + obj.account + " created");
-            //this.notify(data, "New record for" + obj.account + " created");
+            //this.showSuccess("success!", "New record for" + obj.account + " created");
+            this.notify(data, "New record for" + obj.account + " created");
           },
           (error) => {
             this.loading = false;

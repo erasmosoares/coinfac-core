@@ -230,19 +230,19 @@
                           <h5 class="card-title">
                             <div *ngIf="i === account.records.length-1 ; then novalidate else validate"></div>
                             <ng-template #validate>
-                              {{record.amount | currency:'BRL' }}
+                              {{record.amount | currency:'CAD' }}
                               <i class="fa" [ngClass]="{
-                                                                          'fa-caret-up fa-lg':  record.amount > account.records[(account.records.length - i) - 2].amount,
-                                                                          'fa-caret-down fa-lg':  record.amount < account.records[(account.records.length - i) - 2].amount 
-                                                                      }"></i>
+                                  'fa-caret-up fa-lg':  record.amount > account.records[(account.records.length - i) - 2].amount,
+                                  'fa-caret-down fa-lg':  record.amount < account.records[(account.records.length - i) - 2].amount 
+                              }"></i>
                             </ng-template>
                             <ng-template #novalidate>
-                              {{record.amount | currency:'BRL'}} <i class="fa fa-smile-o fa-"></i>
+                              {{record.amount | currency:'CAD'}} <i class="fa fa-smile-o fa-"></i>
                             </ng-template>
 
                           </h5>
                           <p class="card-text ">
-                            Date: {{record.date}}
+                            Date: {{record.date | date}}
                           </p>
                           <p class="card-text ">
                             Notes: This is a sample note
