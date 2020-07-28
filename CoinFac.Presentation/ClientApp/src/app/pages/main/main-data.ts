@@ -1,4 +1,13 @@
-/*export var completeAccountsForTest = [
+/*
+
+RBC Royal Bank
+Bank of Montreal
+National Bank of Canada
+Desjardins
+HSBC
+
+
+export var completeAccountsForTest = [
   {
     "id": 37,
     "name": "Neon",
@@ -160,9 +169,9 @@
 export var completeAccountsForTest = [
   {
     id: 1,
-    name: 'Renda Fixa',
+    name: 'RBC Royal Bank',
     type: 'Income',
-    comments: 'Conta criada usando o aplicativo easynvest',
+    comments: 'RBC Royal Bank',
     goal: 9000,
     series: [
       {
@@ -184,9 +193,9 @@ export var completeAccountsForTest = [
   },
   {
     id: 2,
-    name: 'Poupança',
+    name: 'Bank of Montreal',
     type: 'Income',
-    comments: 'Poupança Bradesco',
+    comments: 'Bank of Montreal',
     goal: 5000,
     series: [
       {
@@ -208,9 +217,9 @@ export var completeAccountsForTest = [
   },
   {
     id: 3,
-    name: 'Corrente Bradesco',
+    name: 'National Bank of Canada',
     type: 'Income/Expense',
-    comments: 'Conta Salário',
+    comments: 'National Bank of Canada',
     goal: 7000,
     series: [
       {
@@ -232,9 +241,9 @@ export var completeAccountsForTest = [
   },
   {
     id: 4,
-    name: 'Corrente Brasil',
+    name: 'Desjardins',
     type: 'Income/Expense',
-    comments: 'Conta antiga',
+    comments: 'Desjardins',
     goal: 8000,
     series: [
       {
@@ -256,9 +265,9 @@ export var completeAccountsForTest = [
   },
   {
     id: 5,
-    name: 'Nu Conta',
+    name: 'HSBC',
     type: 'Income/Expense',
-    comments: 'Conta com rendimento 100% CDI',
+    comments: 'HSBC ',
     goal: 2000,
     series: [
       {
@@ -280,33 +289,9 @@ export var completeAccountsForTest = [
   },
   {
     id: 6,
-    name: 'Bitcoin (Real)',
+    name: 'Canadian Western Bank',
     type: 'Income/Expense',
-    comments: 'Bitcoins estão em baixa',
-    goal: 300,
-    series: [
-      {
-        id: 1,
-        name: '04/12/2017',
-        value: 2500
-      },
-      {
-        id: 2,
-        name: '02/01/2018',
-        value: 3100
-      },
-      {
-        id: 3,
-        name: '04/01/2018',
-        value: 350
-      }
-    ]
-  },
-  {
-    id: 7,
-    name: 'Neon',
-    type: 'Income/Expense',
-    comments: 'Conta digital usada pelo Samsung Pay',
+    comments: 'Canadian Western Bank',
     goal: 300,
     series: [
       {
@@ -330,38 +315,30 @@ export var completeAccountsForTest = [
 
 export var single = [
   {
-    "name": "Renda Fixa",
+    "name": "RBC Royal Bank",
     "value": 8940000
   },
   {
-    "name": "Pouupança",
+    "name": "Bank of Montreal",
     "value": 5000000
   },
   {
-    "name": "Corrente Bradesco",
+    "name": "National Bank of Canada",
     "value": 7200000
   },
   {
-    "name": "Corrente Brasil",
+    "name": "Desjardins",
     "value": 5210000
   },
   {
-    "name": "Nu Conta",
+    "name": "HSBC",
     "value": 9315000
-  },
-  {
-    "name": "Bitcoin (Real)",
-    "value": 300000
-  },
-  {
-    "name": "Neon ",
-    "value": 800000
   }
 ];
 
 export var multi = [
   {
-    "name": "Germany",
+    "name": "RBC Royal Bank",
     "series": [
       {
         "name": "2010",
@@ -375,7 +352,7 @@ export var multi = [
   },
 
   {
-    "name": "USA",
+    "name": "Bank of Montreal",
     "series": [
       {
         "name": "2010",
@@ -389,7 +366,7 @@ export var multi = [
   },
 
   {
-    "name": "France",
+    "name": "NBC",
     "series": [
       {
         "name": "2010",

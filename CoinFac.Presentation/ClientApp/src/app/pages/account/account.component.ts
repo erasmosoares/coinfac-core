@@ -107,7 +107,7 @@ export class AccountComponent implements OnInit {
 
       Object.assign(this, { single, accounts: this.accountsCollection });
 
-      //this.assemblyAccountsBar(this.accountsCollection);
+      this.assemblyAccountsBar(this.accountsCollection);
 
       this.loading = false;
 
@@ -126,17 +126,16 @@ export class AccountComponent implements OnInit {
 
   assemblyAccountsBar(accounts) {
     //TODO Fix when has no account
-
     let comparableAccounts: { [id: string]: number } = {};
 
     try {
       accounts.forEach(
         function (value) {
-          let newestRegistry = value.series[value.series.length - 1].value;
-          if (value.series.length > 0) {
+          let newestRegistry = value.records[value.records.length - 1].amount;
+          if (value.records.length > 0) {
             this.accountsSum += newestRegistry;
-            comparableAccounts[value.name] =
-              value.series[value.series.length - 1].value;
+            comparableAccounts[value.amount] =
+              value.records[value.records.length - 1].amount;
           }
         }.bind(this)
       );

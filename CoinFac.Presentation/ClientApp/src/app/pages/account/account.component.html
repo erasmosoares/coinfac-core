@@ -17,15 +17,15 @@
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             <div>Accounts</div>
           </div>
-          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-          </div>
+          <!-- <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+          </div> -->
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             <div>Total</div>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
-            {{accountsSum | currency:'BRL'}}
+            {{accountsSum | currency:'CAD'}}
           </div>
-          <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
+          <!--  <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
             <i class="fa fa-angle-right fa-lg"></i>
           </div>
           <div class="col-sm" [ngClass]="{'col-sm-dark': theme === 'dark-mode'}">
@@ -45,7 +45,7 @@
           </div>
           <div class="col-sm">
             <i class="fa fa-caret-down fa-lg"></i>
-          </div>
+          </div> -->
         </div>
       </div>
     </a>
@@ -244,10 +244,6 @@
                           <p class="card-text ">
                             Date: {{record.date | date}}
                           </p>
-                          <p class="card-text ">
-                            Notes: This is a sample note
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                         </div>
                       </div>
 
