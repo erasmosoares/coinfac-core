@@ -23,8 +23,6 @@ Having a good financial balance must always be objective for everyone, often the
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%205.png)
 
-![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%205.png)
-
 Sprint board
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%206.png)
