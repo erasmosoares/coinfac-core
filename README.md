@@ -52,6 +52,6 @@ More info:
 
 https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598.html
 
-
-
+Feel free to improve it! 
+😃
 
