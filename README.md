@@ -9,8 +9,13 @@ Avoir un bon équilibre financier doit toujours être un objectif pour tout le m
 
 > Every minute you save money is another minute inflation, investing your money simply means putting your money to work for you.
 
+![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/login.gif)
+
+
 More info:
 
 https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598.html
+
+
 
 
