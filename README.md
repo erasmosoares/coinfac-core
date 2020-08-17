@@ -3,7 +3,7 @@
 ## CoinFac (.NET Core/ Angular )
 
 
-Having a good financial balance must always be objective for all people, often the ability to accumulate wealth and be financially successful is not just about capital gain, but the ability to save money and how much you invest. The following article talks about a project that I started a few years ago, it is called CoinFac, and is nothing more than an application used to make capital accumulation transparent and easy.
+Having a good financial balance must always be objective for everyone, often the ability to accumulate wealth and be financially successful is not just about capital gain, but the ability to save money and how much you invest. The following article talks about a project that I started a few years ago, it is called CoinFac, and is nothing more than an application used to make capital accumulation transparent and easy.
 
 
 > Every minute you save money is another minute inflation, investing your money simply means putting your money to work for you.
@@ -18,13 +18,10 @@ Having a good financial balance must always be objective for all people, often t
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%204.png)
 
-Github actions
 
 **Azure DevOps** is a Microsoft product that provides version control, reporting, requirements management, project management, automated builds, testing and release management capabilities. It covers the entire application lifecycle, and enables DevOps capabilitie
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%205.png)
-
-Azure Devops
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/Untitled%205.png)
 
