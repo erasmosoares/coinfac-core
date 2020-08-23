@@ -1,9 +1,8 @@
 # Study with Angular and .NET Core
 
+Study with Angular and .NET Core
+
 ## CoinFac (.NET Core/ Angular )
-
-
-Having a good financial balance must always be objective for everyone, often the ability to accumulate wealth and be financially successful is not just about capital gain, but the ability to save money and how much you invest. The following article talks about a project that I started a few years ago, it is called CoinFac, and is nothing more than an app used to make capital accumulation transparent and easy.
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/login.gif)
 
