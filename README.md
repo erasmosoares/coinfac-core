@@ -1,6 +1,6 @@
 # Study with Angular and .NET Core
 
-Study with Angular and .NET Core
+I created this project as an object of study in Angular and .NET Core, it is not finished, and there is still a lot of work to be done.
 
 ## CoinFac (.NET Core/ Angular )
 
