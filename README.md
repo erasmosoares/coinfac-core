@@ -1,5 +1,7 @@
 # Study with Angular and .NET Core
 
+***This project is no longer maintained***
+
 ## CoinFac (.NET Core/ Angular )
 
 ![alt text](https://erasmosoares.github.io/CoinFac-Pages-Demo-Project/CoinFac%20b44b613b2f0143daa009b0fd940f2598/login.gif)
